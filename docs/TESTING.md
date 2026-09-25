@@ -1,5 +1,9 @@
 # FycoPvE in-game testing sheet
 
+> **Status (0.6.0): every section, A to N, was tested in game on 2026-09-25
+> (Whitemane, Frostmourne Rebuffed) and passed.** For later versions, add
+> new sections and re-run the ones a change touches.
+
 Work through the sections in order. For each test, do exactly what the **How**
 column says, compare with **Expected**, and report back by ID, for example:
 
@@ -217,7 +221,7 @@ behaves like the mock. That is what the sections above are for.
 
 ## Milestone log
 
-| Version | What it adds | Automated tests | In-game sections |
+| Version | What it adds | Automated tests | In-game sections (all passed 2026-09-25) |
 |---|---|---|---|
 | 0.1 | Core, window, Gear, tooltips, Search, settings; Warlock Affliction and Destruction pre-raid | — | A–I |
 | 0.2 | Pre-raid lists for every class and spec | | J |
@@ -226,7 +230,7 @@ behaves like the mock. That is what the sections above are for.
 | **0.4.0 build** | everything above | **25 / 25 pass** (2026-09-25) | A–L |
 | 0.5 | Damage and healing meter | | M |
 | 0.6 | Boss alerts: cast alerts, "on YOU" debuffs, learned timers | | N |
-| **0.6.0 build** | everything above | **31 / 31 pass** (2026-09-25) | A–N |
+| **0.6.0 build** | everything above | **31 / 31 pass** (2026-09-25) | **A–N passed** |
 
 Added for 0.5 and 0.6: the meter counts damage, effective healing, overhealing and damage taken correctly, with pets merged or kept apart; ignores players outside the group; splits fights, keeps Overall and history, and resets; reports to chat with no `|` characters (the server rejects them). Boss alerts: an encounter starts only on a real boss; cast and "on YOU" alerts fire and clear; buffs and trash never alert; timers are learned on the first pull (first cast about 10s, interval about 20s in the test) and count down on the second; the commands work.
 

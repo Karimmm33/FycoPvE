@@ -89,6 +89,16 @@ In short: `python scripts/build_data.py` regenerates `Data/`,
 `scripts/luacheck.py` checks the Lua, and `scripts/deploy.ps1` copies the
 addon into a client for testing.
 
+## Credits
+
+- Best-in-slot rankings: the [Wowhead](https://www.wowhead.com) Wrath of the
+  Lich King Classic guides and their authors.
+- Drop, vendor, reputation and quest data: the
+  [AzerothCore](https://github.com/azerothcore/azerothcore-wotlk) world
+  database.
+
 ## License
 
-MIT, see [LICENSE](LICENSE).
+MIT for the addon's code, see [LICENSE](LICENSE). The generated data in
+`Data/` is derived from the sources credited above. This project is not
+affiliated with or endorsed by Blizzard Entertainment, Wowhead or AzerothCore.
