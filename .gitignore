@@ -1,0 +1,21 @@
+# SavedVariables live in WTF\, but a copy pulled in for debugging carries
+# character names -- never commit one.
+FycoPvEDB.lua
+FycoPvECharDB.lua
+*.lua.bak
+
+# downloads made by scripts/build_data.py (AzerothCore dumps, archived guides)
+/.cache/
+
+# release artefacts, built by scripts/package.ps1
+FycoPvE-*.zip
+/dist/
+
+# editors and OS
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+desktop.ini
+.DS_Store
+__pycache__/

@@ -1,0 +1,20 @@
+# This repo ships binary game media next to Lua source, and Windows clones run
+# with core.autocrlf=true. Left to its heuristics git could decide a .blp or an
+# .mp3 is text and rewrite its line endings on checkout, which corrupts the file
+# silently -- the addon then loads but shows no proc art and plays no voice.
+# So say explicitly what is text and what is not.
+
+*           text=auto
+
+*.lua       text
+*.toc       text
+*.md        text
+*.txt       text
+LICENSE     text
+.gitignore  text
+
+*.blp       binary
+*.mp3       binary
+*.ogg       binary
+*.tga       binary
+*.png       binary

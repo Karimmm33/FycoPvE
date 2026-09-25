@@ -1,0 +1,19 @@
+{
+  "_comment": "Every BiS list the build imports. 'snapshot' pins an archive.org capture, because wowhead.com/wotlk guides now redirect to the Cataclysm versions. Add a class/spec/phase by adding an entry here and re-running scripts/build_data.py.",
+  "guides": [
+    {
+      "class": "WARLOCK",
+      "spec": "Affliction",
+      "phase": "PreRaid",
+      "url": "https://www.wowhead.com/wotlk/guide/classes/warlock/affliction/dps-bis-gear-pre-raid-pve",
+      "snapshot": "20260829122715"
+    },
+    {
+      "class": "WARLOCK",
+      "spec": "Destruction",
+      "phase": "PreRaid",
+      "url": "https://www.wowhead.com/wotlk/guide/classes/warlock/destruction/dps-bis-gear-pre-raid-pve",
+      "snapshot": "20260827171546"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+## Interface: 30300
+## Title: FycoPvE
+## Notes: PvE companion - best-in-slot check, item sources and search
+## Author: Karim
+## Version: 0.1.0
+## SavedVariables: FycoPvEDB
+## SavedVariablesPerCharacter: FycoPvECharDB
+## X-Modules: Core, Window, Gear, Tooltip, Search, Options
+
+Core.lua
+Widgets.lua
+Sources.lua
+Data\Constants.lua
+Data\Items.lua
+Data\BiS\Warlock.lua
+Modules\Window.lua
+Modules\Gear.lua
+Modules\Tooltip.lua
+Modules\Search.lua
+Modules\Options.lua
