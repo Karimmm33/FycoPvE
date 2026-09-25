@@ -180,11 +180,34 @@ ns.Defaults = {
 		warnSound = true,
 		warnSolo = false,
 	},
+	meter = {
+		groupOnly = false,
+		hideOutOfCombat = false,
+		showEmpty = true,     -- show the frame before the first fight
+		mergePets = true,
+		resetOnInstance = false,
+		keepFights = 10,
+		bars = 8,
+		width = 220,
+		scale = 1.0,
+		reportChannel = "PARTY",
+		reportLines = 5,
+	},
+	bosses = {
+		casts = true,
+		onYou = true,
+		sound = true,
+		elites = false,
+		alertSeconds = 2.5,
+		timers = true,
+		bars = 6,
+		scale = 1.0,
+	},
 }
 
 -- module switches, written one key at a time so a module added later turns
 -- itself on without resetting what has been saved
-local moduleDefaults = { gear = true, tooltip = true, search = true, threat = true }
+local moduleDefaults = { gear = true, tooltip = true, search = true, threat = true, meter = true, bosses = true }
 
 function ns:Get(section, key)
 	local s = FycoPvEDB and FycoPvEDB[section]
@@ -421,6 +444,47 @@ SlashCmdList.FYCOPVE = function(input)
 			ns:Print("usage: |cffffff00/fpve threat unlock|r, |cffffff00test|r or |cffffff00reset|r")
 		end
 
+	elseif cmd == "meter" then
+		local sub, arg = rest:match("^(%S*)%s*(.-)$")
+		sub = (sub or ""):lower()
+		if not ns.MeterReport then
+			ns:Print("meter module is off")
+		elseif sub == "report" then
+			local ch = arg ~= "" and arg:upper() or nil
+			ns:MeterReport(ch)
+		elseif sub == "reset" then
+			ns:MeterReset()
+			ns:Print("meter data cleared")
+		elseif sub == "test" then
+			ns:MeterTest()
+		elseif sub == "lock" or sub == "unlock" then
+			ns:MeterUnlock()
+		elseif sub == "damage" or sub == "heal" or sub == "overheal" or sub == "taken" then
+			ns:MeterMode(sub)
+		else
+			ns:Print("usage: |cffffff00/fpve meter report [party, raid, say, guild]|r, "
+			      .. "|cffffff00reset|r, |cffffff00test|r, |cffffff00unlock|r, or a mode: "
+			      .. "|cffffff00damage|r, |cffffff00heal|r, |cffffff00overheal|r, |cffffff00taken|r")
+		end
+
+	elseif cmd == "boss" or cmd == "bosses" then
+		local sub, arg = rest:match("^(%S*)%s*(.-)$")
+		sub = (sub or ""):lower()
+		if not ns.BossList then
+			ns:Print("boss module is off")
+		elseif sub == "list" then
+			ns:BossList()
+		elseif sub == "forget" then
+			ns:BossForget(arg)
+		elseif sub == "test" then
+			ns:BossTest()
+		elseif sub == "lock" or sub == "unlock" then
+			ns:BossUnlock()
+		else
+			ns:Print("usage: |cffffff00/fpve boss list|r, |cffffff00forget [name]|r, "
+			      .. "|cffffff00test|r or |cffffff00unlock|r")
+		end
+
 	elseif cmd == "minimap" then
 		ns:Set("general", "minimap", not ns:Get("general", "minimap"))
 		ns:Print("minimap button " .. (ns:Get("general", "minimap") and "shown" or "hidden"))
@@ -438,6 +502,8 @@ SlashCmdList.FYCOPVE = function(input)
 		ns:Print("  |cffffff00/fpve phase [key]|r - show or set the content phase")
 		ns:Print("  |cffffff00/fpve spec [name or auto]|r - show or override your spec")
 		ns:Print("  |cffffff00/fpve threat unlock, test, reset|r - move, preview or re-centre the threat meter")
+		ns:Print("  |cffffff00/fpve meter report, reset, test, unlock|r - the damage and healing meter")
+		ns:Print("  |cffffff00/fpve boss list, forget, test, unlock|r - boss alerts and learned timers")
 		ns:Print("  |cffffff00/fpve minimap|r    - show or hide the minimap button")
 		ns:Print("  |cffffff00/fpve debug|r      - toggle debug output")
 	end

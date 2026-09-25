@@ -528,6 +528,180 @@ def threat_test_mode_and_commands():
     no_errors(c)
 
 
+# combat log flags: mine/party affiliation + player or pet type; hostile NPC
+ME, PARTY_PLAYER, MY_PET, BOSS = "0x511", "0x512", "0x1111", "0xa48"
+METER_GROUP = r'''
+MOCK.party = 1
+MOCK.units.party1 = { name = "Healy", class = "PRIEST", guid = "0xA1" }
+MOCK.units.pet = { name = "Imp", class = "WARLOCK", guid = "0xP1" }
+MOCK.fire("PARTY_MEMBERS_CHANGED")
+MOCK.combat = true
+'''
+
+
+def cleu(c, sub, src, src_name, src_flags, dst, dst_name, dst_flags, *args):
+    parts = [repr(a) if isinstance(a, str) else str(a) for a in args]
+    c.run('MOCK.fire("COMBAT_LOG_EVENT_UNFILTERED", 0, "%s", "%s", "%s", %s, "%s", "%s", %s%s)'
+          % (sub, src, src_name, src_flags, dst, dst_name, dst_flags, "".join(", " + p for p in parts)))
+
+
+@test
+def meter_counts_damage_healing_and_pets():
+    c = Client()
+    c.run(METER_GROUP)
+    guid_me = "0x0000000000000001"
+    cleu(c, "SPELL_DAMAGE", guid_me, "Tester", ME, "0xF1", "Boss", BOSS, 172, "Corruption", 32, 1000, 0)
+    cleu(c, "SWING_DAMAGE", "0xP1", "Imp", MY_PET, "0xF1", "Boss", BOSS, 250)
+    cleu(c, "SPELL_DAMAGE", "0xA1", "Healy", PARTY_PLAYER, "0xF1", "Boss", BOSS, 589, "Shadow Word: Pain", 32, 400, 0)
+    cleu(c, "SPELL_HEAL", "0xA1", "Healy", PARTY_PLAYER, guid_me, "Tester", ME, 2061, "Flash Heal", 2, 3000, 1200)
+    cleu(c, "SWING_DAMAGE", "0xF1", "Boss", BOSS, guid_me, "Tester", ME, 5000)
+    # something outside the group hitting the boss is ignored
+    cleu(c, "SPELL_DAMAGE", "0xZZ", "Stranger", "0x548", "0xF1", "Boss", BOSS, 1, "Bolt", 1, 99999, 0)
+    c.run('MOCK.advance(0.6)')
+    text = strip_colors(c.eval("FycoPvEMeter._shown and 'shown' or 'hidden'"))
+    assert text == "shown"
+
+    def rank(mode):
+        c.run('_r = ns:MeterRanking(ns.MeterShownSegment(), "%s")' % mode)
+        n = c.eval("#_r")
+        return [(c.eval("_r[%d].name" % i), c.eval("_r[%d].value" % i)) for i in range(1, n + 1)]
+
+    assert rank("damage") == [("Tester", 1250), ("Healy", 400)], rank("damage")   # imp merged into me
+    assert rank("heal") == [("Healy", 1800)], rank("heal")                         # overheal removed
+    assert rank("overheal") == [("Healy", 1200)]
+    assert rank("taken") == [("Tester", 5000)]
+    # pets kept apart when the setting is off
+    c.run('ns:Set("meter", "mergePets", false)')
+    cleu(c, "SWING_DAMAGE", "0xP1", "Imp", MY_PET, "0xF1", "Boss", BOSS, 100)
+    names = [n for n, _ in rank("damage")]
+    assert "Imp" in names, names
+    no_errors(c)
+
+
+@test
+def meter_segments_overall_and_reset():
+    c = Client()
+    c.run(METER_GROUP)
+    me = "0x0000000000000001"
+    cleu(c, "SPELL_DAMAGE", me, "Tester", ME, "0xF1", "Onyxia", BOSS, 1, "Bolt", 1, 1000, 0)
+    c.run("MOCK.combat = false; MOCK.advance(3)")          # group leaves combat -> fight ends
+    c.run("MOCK.combat = true")
+    cleu(c, "SPELL_DAMAGE", me, "Tester", ME, "0xF2", "Trash", BOSS, 1, "Bolt", 1, 300, 0)
+    c.run("MOCK.combat = false; MOCK.advance(3)")
+    assert c.eval("ns.MeterHistory()[1].name") == "Trash"
+    assert c.eval("ns.MeterHistory()[2].name") == "Onyxia"
+    c.run('_r = ns:MeterRanking(ns.MeterOverall(), "damage")')
+    assert c.eval("_r[1].value") == 1300
+    # heals outside a fight are not counted
+    cleu(c, "SPELL_HEAL", me, "Tester", ME, me, "Tester", ME, 1, "Heal", 2, 500, 0)
+    c.run('_r = ns:MeterRanking(ns.MeterOverall(), "heal")')
+    assert c.eval("#_r") == 0
+    c.slash("meter reset")
+    assert c.eval("#ns.MeterHistory()") == 0
+    no_errors(c)
+
+
+@test
+def meter_report_and_commands():
+    c = Client()
+    c.slash("meter test")
+    c.run("MOCK.advance(0.6)")
+    assert c.eval("FycoPvEMeter:IsShown()")
+    c.slash("meter report")                     # no party -> falls back to say
+    sent = [c.eval("MOCK.sent[%d]" % i) for i in range(1, c.eval("#MOCK.sent") + 1)]
+    assert sent and sent[0].startswith("SAY: FycoPvE Damage"), sent
+    assert len(sent) == 1 + 5, sent             # header + 5 lines
+    assert "|" not in "".join(sent), "chat escapes would be rejected by the server"
+    # header clicks: mode and segment cycle without errors; shift reports
+    c.run('MOCK.run(FycoPvEMeterHeader, "OnClick", "LeftButton")')
+    c.run('MOCK.run(FycoPvEMeterHeader, "OnClick", "RightButton")')
+    c.run('MOCK.run(FycoPvEMeterHeader, "OnClick", "RightButton")')
+    c.run("MOCK.advance(0.6)")
+    for sub in ("heal", "taken", "overheal", "damage", "unlock", "unlock", "bogus"):
+        c.slash("meter " + sub)
+    c.slash("meter test")
+    no_errors(c)
+
+
+BOSS_PULL = r'''
+MOCK.units.target = { name = "Sapphiron", class = "WARRIOR", guid = "0xB1", hostile = true, classification = "worldboss" }
+MOCK.combat = true
+'''
+
+
+def boss_cast(c, spell, event="SPELL_CAST_START"):
+    cleu(c, event, "0xB1", "Sapphiron", BOSS, "", "", 0, 28524, spell, 16)
+
+
+@test
+def boss_learns_timers_across_pulls():
+    c = Client()
+    c.run(BOSS_PULL)
+    c.run("MOCK.advance(0.5)")                                   # encounter starts
+    c.run("MOCK.advance(10)")
+    boss_cast(c, "Frost Breath")
+    c.run("MOCK.advance(20)")
+    boss_cast(c, "Frost Breath")
+    c.run("MOCK.advance(20)")
+    boss_cast(c, "Frost Breath")
+    c.run("MOCK.advance(0.5)")
+    # first pull: nothing learned yet, so no bars
+    assert not c.eval("FycoPvEBossBars:IsShown()")
+    c.run("MOCK.combat = false; MOCK.fire('PLAYER_REGEN_ENABLED'); MOCK.advance(0.5)")
+    t = c.eval('FycoPvEDB.bossTimers["Sapphiron"]["Frost Breath"]')
+    assert t, "nothing learned"
+    assert abs(t.first - 10.5) < 1.2 and abs(t.interval - 20) < 1.2 and t.n == 1, (t.first, t.interval, t.n)
+    # second pull: a countdown bar from the learned first cast
+    c.run("MOCK.combat = true; MOCK.advance(1)")
+    assert c.eval("FycoPvEBossBars:IsShown()")
+    bar = c.eval(r'''(function() for _, f in ipairs(MOCK.frames) do
+        if f._kind == "FontString" and f._text and f._text:find("Frost Breath") then return f._text end end end)()''')
+    assert bar and bar.startswith("~ "), bar
+    no_errors(c)
+
+
+@test
+def boss_alerts():
+    c = Client()
+    c.run(BOSS_PULL)
+    c.run("MOCK.advance(0.5)")
+    boss_cast(c, "Blizzard")
+    assert c.eval("FycoPvEBossAlert._shown")
+    assert "Blizzard" in c.eval("FycoPvEBossAlert._text")
+    c.run("MOCK.advance(3)")
+    assert not c.eval("FycoPvEBossAlert._shown")
+    # a debuff from the boss on me
+    cleu(c, "SPELL_AURA_APPLIED", "0xB1", "Sapphiron", BOSS, "0x0000000000000001", "Tester", ME,
+         28522, "Icebolt", 16, "DEBUFF")
+    assert c.eval("FycoPvEBossAlert._text") == "Icebolt on YOU"
+    # a buff on me is not an alert; casts can be switched off
+    c.run("FycoPvEBossAlert:Hide()")
+    cleu(c, "SPELL_AURA_APPLIED", "0xB1", "Sapphiron", BOSS, "0x0000000000000001", "Tester", ME,
+         1, "Something", 1, "BUFF")
+    assert not c.eval("FycoPvEBossAlert._shown")
+    c.run('ns:Set("bosses", "casts", false)')
+    boss_cast(c, "Blizzard")
+    assert not c.eval("FycoPvEBossAlert._shown")
+    # trash is not a boss: nothing starts without one
+    c2 = Client()
+    c2.run('MOCK.units.target = { name = "Skeleton", guid = "0xT1", hostile = true, classification = "normal" }')
+    c2.run("MOCK.combat = true; MOCK.advance(0.5)")
+    cleu(c2, "SPELL_CAST_START", "0xT1", "Skeleton", BOSS, "", "", 0, 1, "Bonk", 1)
+    assert not c2.eval("FycoPvEBossAlert._shown")
+    no_errors(c)
+
+
+@test
+def boss_commands():
+    c = Client()
+    for cmd in ("boss", "boss list", "boss test", "boss unlock", "boss unlock", "boss test",
+                "boss forget Nobody", "boss forget"):
+        c.slash(cmd)
+    c.run("MOCK.advance(0.5)")
+    assert c.eval("next(FycoPvEDB.bossTimers) == nil")
+    no_errors(c)
+
+
 @test
 def every_source_formats():
     c = Client()

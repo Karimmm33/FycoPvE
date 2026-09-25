@@ -220,6 +220,9 @@ function UnitExists(unit) return unit == "player" or U(unit) ~= nil end
 function UnitIsUnit(a, b) return UnitGUID(a) == UnitGUID(b) end
 function UnitCanAttack(_, unit) local u = U(unit); return u and u.hostile or false end
 function UnitAffectingCombat() return MOCK.combat end
+function UnitIsDead(unit) local u = U(unit); return u and u.dead or false end
+function UnitIsDeadOrGhost(unit) if unit == "player" then return MOCK.dead or false end return UnitIsDead(unit) end
+function UnitClassification(unit) local u = U(unit); return u and u.classification or "normal" end
 function GetNumPartyMembers() return MOCK.party end
 function GetNumRaidMembers() return MOCK.raid end
 function UnitDetailedThreatSituation(unit, mob)
@@ -228,6 +231,25 @@ function UnitDetailedThreatSituation(unit, mob)
 	if not t then return nil end
 	return t[1], t[2], t[3], t[4], t[5]
 end
+-- the client's bit library (plain Lua 5.1 has none)
+bit = {
+	band = function(a, b)
+		local r, p = 0, 1
+		a, b = a % 4294967296, b % 4294967296
+		while a > 0 and b > 0 do
+			if a % 2 == 1 and b % 2 == 1 then r = r + p end
+			a, b, p = math.floor(a / 2), math.floor(b / 2), p * 2
+		end
+		return r
+	end,
+}
+
+MOCK.sent = {}
+function SendChatMessage(msg, channel) table.insert(MOCK.sent, channel .. ": " .. msg) end
+MOCK.instance = false
+function IsInInstance() return MOCK.instance, MOCK.instance and "party" or "none" end
+function GetRealZoneText() return MOCK.zone or "Dalaran" end
+
 RAID_CLASS_COLORS = setmetatable({}, { __index = function() return { r = 1, g = 1, b = 1 } end })
 function UnitFactionGroup() return MOCK.faction end
 function GetActiveTalentGroup() return 1 end

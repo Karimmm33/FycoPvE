@@ -1,11 +1,11 @@
 ## Interface: 30300
 ## Title: FycoPvE
-## Notes: PvE companion - best-in-slot check for every class and phase, item sources, search, threat meter
+## Notes: PvE companion - BiS check for every class and phase, item sources, threat, damage/healing meter, boss alerts
 ## Author: Karim
-## Version: 0.4.0
+## Version: 0.6.0
 ## SavedVariables: FycoPvEDB
 ## SavedVariablesPerCharacter: FycoPvECharDB
-## X-Modules: Core, Window, Gear, Tooltip, Search, Threat, Options
+## X-Modules: Core, Window, Gear, Tooltip, Search, Threat, Meter, Bosses, Options
 
 Core.lua
 Widgets.lua
@@ -27,4 +27,6 @@ Modules\Gear.lua
 Modules\Tooltip.lua
 Modules\Search.lua
 Modules\Threat.lua
+Modules\Meter.lua
+Modules\Bosses.lua
 Modules\Options.lua

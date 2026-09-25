@@ -16,6 +16,8 @@ will grow the same way, one module at a time.
 
 | | |
 |---|---|
+| **Damage & healing meter** | Damage (with DPS), effective healing (with HPS), overhealing and damage taken for your group. Pets count for their owner. Each fight is saved and named after the main enemy, with an Overall total and history. Click the title to switch mode or fight, Shift-click to report to chat. |
+| **Boss alerts** | A boss's cast flashes mid-screen, and a boss debuff on you gives a red **… on YOU** with an alarm. Timers are **learned**: FycoPvE times every boss ability itself and, from the next pull, counts down to each one. There are no hand-typed timers to be wrong. |
 | **Threat meter** | Everyone's threat on your target, highest first, with the tank marked. A big **THREAT 92%** warning (and sound) before *you* pull aggro. It can be moved, resized, and limited to groups or combat. |
 | **Gear tab** | One row per slot showing what you wear, where it ranks (`BiS Best #2/12`, `Good #5/12`, `not on the list`), and the next upgrade. Click the upgrade to see where it comes from. |
 | **Character sheet** | A badge on every slot: `BiS`, `#rank`, or `x`. A **BiS** button opens the Gear tab. |
@@ -51,6 +53,11 @@ Everything below is also in the settings UI.
 | `/fpve threat unlock` | unlock the threat meter to drag it (again to lock) |
 | `/fpve threat test` | show test bars, to set it up out of combat |
 | `/fpve threat reset` | move the threat meter back to its default place |
+| `/fpve meter report [channel]` | report the meter to party, raid, say or guild |
+| `/fpve meter reset`, `test`, `unlock` | clear the meter, show test data, or move it |
+| `/fpve boss list` | bosses with learned timers |
+| `/fpve boss forget [name]` | forget one boss's timers, or all of them |
+| `/fpve boss test`, `unlock` | preview or move the boss alerts and bars |
 | `/fpve minimap` | show or hide the minimap button |
 
 ## Install

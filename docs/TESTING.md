@@ -112,7 +112,7 @@ once and `/reload`. Errors then pop up in a window you can screenshot.
 
 | ID | How | Expected |
 |---|---|---|
-| H1 | Esc → Interface → AddOns → **FycoPvE**. | A main page plus sub-pages: *BiS and Gear*, *Tooltips*, *Search* (and *Threat* from 0.4). |
+| H1 | Esc → Interface → AddOns → **FycoPvE**. | A main page plus sub-pages: *BiS and Gear*, *Tooltips*, *Search*, *Threat*, *Meter*, *Boss alerts*. |
 | H2 | Open every page and scroll each one to the bottom. | **Nothing is drawn outside the settings frame**, and no text overlaps. |
 | H3 | Main page: change Spec and Content phase. Open `/fpve`. | The window shows the same spec and phase. |
 | H4 | Main page: untick *Minimap button*. | The button disappears. Tick it and it's back. |
@@ -172,6 +172,39 @@ Best tested in a dungeon group. Solo, use test mode.
 | L8 | Settings → Threat → untick *Only in a group*, and tick *Warn when solo too*. Fight solo. | The meter shows while solo. The warning never fires while **you** are the one tanking. |
 | L9 | Settings → main page → untick *Threat*. | The meter never shows. |
 
+## M. Damage and healing meter (0.5)
+
+| ID | How | Expected |
+|---|---|---|
+| M1 | `/fpve meter test`. | A meter bottom-right with 6 test players, class-coloured, each showing damage, DPS in grey and a share %. The title reads `Damage: Test Dummy (1:30)`. `/fpve meter test` again clears it. |
+| M2 | Left-click the meter's title a few times. | It cycles Damage → Healing → Overhealing → Damage taken. |
+| M3 | Hover a bar. | A tooltip with the total, per-second (for damage and healing), and top spells with their share. |
+| M4 | `/fpve meter unlock`, drag, `/fpve meter unlock` again, `/reload`. | The meter stays where you put it. |
+| M5 | Fight a mob solo. | The title shows `* <mob name>` during the fight. Your damage matches what you'd expect. About 2 seconds after combat ends, the `*` disappears. |
+| M6 | With a pet class (warlock): fight with your pet. | The pet's damage is added to yours. Settings → Meter → untick *Count pets as their owner* and the pet gets its own bar. |
+| M7 | Do two fights, then right-click the title repeatedly. | It cycles last fight → **Overall** → older fights, each named after the main enemy. |
+| M8 | In a group, after a fight: Shift-click the title. | A report in party chat: a header and 5 lines. `/fpve meter report say` sends it to /say. |
+| M9 | A healer in the group heals. | Healing shows *effective* healing, and Overhealing shows the rest. Shields (Power Word: Shield) are **not** counted; that's a limit of the 3.3.5 combat log. |
+| M10 | Settings → Meter: try every slider and checkbox, plus *Reset data*. | Each takes effect immediately. |
+| M11 | Scroll the mouse wheel over the meter with more players than bars. | It scrolls. |
+
+## N. Boss alerts (0.6)
+
+Alerts come from the combat log and timers are **learned**, so the first pull
+on each boss has alerts but no timer bars.
+
+| ID | How | Expected |
+|---|---|---|
+| N1 | `/fpve boss test`. | An orange **Sapphiron: Frost Breath** mid-screen with a sound, and three test timer bars near the top of the screen. `/fpve boss test` again turns the bars off. |
+| N2 | `/fpve boss unlock`, drag the bars, unlock again. | They stay where you put them. |
+| N3 | Fight a dungeon boss. | Each cast the boss *starts* (one with a cast bar) flashes its name mid-screen. |
+| N4 | Get hit by a boss debuff. | A red **<debuff> on YOU** with an alarm sound. |
+| N5 | After the boss dies or you wipe: `/fpve boss list`. | That boss is listed with the number of abilities and pulls. |
+| N6 | Fight the same boss again. | Timer bars `~ Ability  12` count down to when each ability came last time. They get more accurate with each pull. |
+| N7 | Trash packs. | No alerts, unless *Treat dungeon elites as bosses* is ticked in settings. |
+| N8 | `/fpve boss forget <boss name>`, then `/fpve boss list`. | That boss is gone. `/fpve boss forget` alone clears all of them. |
+| N9 | Settings → Boss alerts: switch off casts, "on YOU", sounds. | Each stops. |
+
 ---
 
 ## Automated tests
@@ -191,6 +224,11 @@ behaves like the mock. That is what the sections above are for.
 | 0.3 | Phase 1–4 lists for every spec; tier tokens resolved to the pieces you wear | | K |
 | 0.4 | Threat meter and pull warning | | L |
 | **0.4.0 build** | everything above | **25 / 25 pass** (2026-09-25) | A–L |
+| 0.5 | Damage and healing meter | | M |
+| 0.6 | Boss alerts: cast alerts, "on YOU" debuffs, learned timers | | N |
+| **0.6.0 build** | everything above | **31 / 31 pass** (2026-09-25) | A–N |
+
+Added for 0.5 and 0.6: the meter counts damage, effective healing, overhealing and damage taken correctly, with pets merged or kept apart; ignores players outside the group; splits fights, keeps Overall and history, and resets; reports to chat with no `|` characters (the server rejects them). Boss alerts: an encounter starts only on a real boss; cast and "on YOU" alerts fire and clear; buffs and trash never alert; timers are learned on the first pull (first cast about 10s, interval about 20s in the test) and count down on the second; the commands work.
 
 What the automated suite checked for 0.4.0, so you don't have to:
 
