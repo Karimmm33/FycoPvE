@@ -29,11 +29,13 @@ disposable.**
 
 ```powershell
 # 1. edit here, in D:\Projects\FycoPvE
-# 2. if BiS lists or sources changed, rebuild the data
+# 2. if BiS lists or sources changed, rebuild the data (read its UNMAPPED/dropped lines)
+python scripts\discover_guides.py     # only to pick up newer archived guides
 python scripts\build_data.py
-# 3. check every Lua file
-python scripts\luacheck.py Core.lua Widgets.lua Sources.lua Data\Constants.lua Data\Items.lua Data\BiS\Warlock.lua Modules\Gear.lua Modules\Options.lua Modules\Search.lua Modules\Tooltip.lua Modules\Window.lua
-# 4. push it into the client and test in game
+# 3. check every Lua file, then run the automated suite (pip install lupa, once)
+python scripts\luacheck.py Core.lua Widgets.lua Sources.lua Data\Constants.lua Data\Items.lua Modules\Gear.lua Modules\Options.lua Modules\Search.lua Modules\Threat.lua Modules\Tooltip.lua Modules\Window.lua
+python tests\run_tests.py
+# 4. push it into the client and test in game, following docs\TESTING.md
 .\scripts\deploy.ps1          # -WhatIf to preview
 #    then /reload in game
 ```

@@ -167,11 +167,24 @@ ns.Defaults = {
 		myClassOnly = false,
 		chatResults = 8,
 	},
+	threat = {
+		groupOnly = true,
+		combatOnly = true,
+		pets = true,
+		targetOfTarget = true,
+		bars = 6,
+		width = 200,
+		scale = 1.0,
+		warn = true,
+		warnAt = 90,          -- scaled threat % at which to warn
+		warnSound = true,
+		warnSolo = false,
+	},
 }
 
 -- module switches, written one key at a time so a module added later turns
 -- itself on without resetting what has been saved
-local moduleDefaults = { gear = true, tooltip = true, search = true }
+local moduleDefaults = { gear = true, tooltip = true, search = true, threat = true }
 
 function ns:Get(section, key)
 	local s = FycoPvEDB and FycoPvEDB[section]
@@ -391,7 +404,21 @@ SlashCmdList.FYCOPVE = function(input)
 			ns:Print("spec: |cffffff00" .. (spec == "auto" and ("auto (" .. (ns:Spec() or "?") .. ")") or spec) .. "|r")
 		else
 			ns:Print("spec: |cffffff00" .. (ns:Spec() or "?") .. "|r" .. (ns:SpecIsAuto() and " (detected)" or " (chosen)"))
-			ns:Print("usage: |cffffff00/fpve spec <name|auto>|r")
+			ns:Print("usage: |cffffff00/fpve spec <name or auto>|r")
+		end
+
+	elseif cmd == "threat" then
+		local sub = rest:lower()
+		if not ns.ThreatUnlock then
+			ns:Print("threat module is off")
+		elseif sub == "lock" or sub == "unlock" then
+			ns:ThreatUnlock()
+		elseif sub == "test" then
+			ns:ThreatTest()
+		elseif sub == "reset" then
+			ns:ThreatReset()
+		else
+			ns:Print("usage: |cffffff00/fpve threat unlock|r, |cffffff00test|r or |cffffff00reset|r")
 		end
 
 	elseif cmd == "minimap" then
@@ -409,7 +436,8 @@ SlashCmdList.FYCOPVE = function(input)
 		ns:Print("  |cffffff00/fpve gear|r       - BiS check of what you are wearing, in chat")
 		ns:Print("  |cffffff00/fpve find <text>|r - where an item comes from (name, slot, boss or zone)")
 		ns:Print("  |cffffff00/fpve phase [key]|r - show or set the content phase")
-		ns:Print("  |cffffff00/fpve spec [name|auto]|r - show or override your spec")
+		ns:Print("  |cffffff00/fpve spec [name or auto]|r - show or override your spec")
+		ns:Print("  |cffffff00/fpve threat unlock, test, reset|r - move, preview or re-centre the threat meter")
 		ns:Print("  |cffffff00/fpve minimap|r    - show or hide the minimap button")
 		ns:Print("  |cffffff00/fpve debug|r      - toggle debug output")
 	end

@@ -209,6 +209,1851 @@ ns:RegisterBiS("WARLOCK", "Affliction", "PreRaid", {
 	},
 })
 
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/affliction/dps-bis-gear-pve-phase-1
+ns:RegisterBiS("WARLOCK", "Affliction", "P1", {
+	Head = {
+		{ 40562, 2 }, -- Hood of Rationality
+		{ 40421, 1 }, -- Valorous Plagueheart Circlet
+		{ 40287, 2 }, -- Cowl of Vanity
+		{ 43995, 2 }, -- Enamored Cowl
+		{ 39496, 4 }, -- Heroes' Plagueheart Circlet
+		{ 40339, 4 }, -- Gothik's Cowl
+		{ 39295, 4 }, -- Cowl of Sheet Lightning
+		{ 39409, 4 }, -- Cowl of Winged Fear
+		{ 42553, 4 }, -- Visage Liquification Goggles
+	},
+	Neck = {
+		{ 44661, 1 }, -- Wyrmrest Necklace of Power
+		{ 44658, 3 }, -- Chain of the Ancient Wyrm
+		{ 40374, 4 }, -- Cosmic Lights
+		{ 39472, 4 }, -- Chain of Latent Energies
+		{ 40486, 4 }, -- Necklace of the Glittering Chamber
+		{ 44662, 4 }, -- Life-Binder's Locket
+	},
+	Shoulder = {
+		{ 40424, 1 }, -- Valorous Plagueheart Shoulderpads
+		{ 39719, 2 }, -- Mantle of the Locusts
+		{ 40286, 2 }, -- Mantle of the Corrupted
+		{ 40555, 2 }, -- Mantle of Dissemination
+		{ 40351, 3 }, -- Mantle of the Fatigued Sage
+		{ 39499, 4 }, -- Heroes' Plagueheart Shoulderpads
+	},
+	Back = {
+		{ 44005, 1 }, -- Pennant Cloak
+		{ 40405, 3 }, -- Cape of the Unworthy Wizard
+		{ 41610, 3 }, -- Deathchill Cloak
+		{ 40723, 4 }, -- Disguise of the Kumiho
+		{ 40251, 4 }, -- Shroud of Luminosity
+		{ 40253, 4 }, -- Shawl of the Old Maid
+	},
+	Chest = {
+		{ 44002, 2 }, -- The Sanctum's Flowing Vestments
+		{ 40234, 2 }, -- Heigan's Putrid Vestments
+		{ 42102, 2 }, -- Spellweave Robe
+		{ 40423, 1 }, -- Valorous Plagueheart Robe
+		{ 40526, 2 }, -- Gown of the Spell-Weaver
+		{ 40602, 3 }, -- Robes of Mutation
+		{ 40062, 3 }, -- Digested Silken Robes
+		{ 40194, 4 }, -- Blanketing Robes of Snow
+		{ 39396, 4 }, -- Gown of Blaumeux
+		{ 39497, 4 }, -- Heroes' Plagueheart Robe
+	},
+	Wrist = {
+		{ 44008, 1 }, -- Unsullied Cuffs
+		{ 39731, 3 }, -- Punctilious Bindings
+		{ 40198, 3 }, -- Bands of Impurity
+		{ 40325, 4 }, -- Bindings of the Expansive Mind
+		{ 40740, 4 }, -- Wraps of the Astral Traveler
+		{ 39390, 4 }, -- Resurgent Phantom Bindings
+		{ 37361, 4 }, -- Cuffs of Winged Levitation
+		{ 40741, 4 }, -- Cuffs of the Shadow Ascendant
+	},
+	Hands = {
+		{ 40420, 1 }, -- Valorous Plagueheart Gloves
+		{ 39733, 2 }, -- Gloves of Token Respect
+		{ 42113, 2 }, -- Spellweave Gloves
+		{ 40197, 3 }, -- Gloves of the Fallen Wizard
+		{ 39500, 3 }, -- Heroes' Plagueheart Gloves
+		{ 40380, 4 }, -- Gloves of Grandeur
+		{ 37172, 4 }, -- Gloves of Glistening Runes
+		{ 39192, 4 }, -- Gloves of Dark Gestures
+		{ 39285, 4 }, -- Handgrips of Turmoil
+		{ 40303, 4 }, -- Wraps of the Persecuted
+	},
+	Waist = {
+		{ 40561, 1 }, -- Leash of Heedless Magic
+		{ 40301, 3 }, -- Cincture of Polarity
+		{ 39735, 4 }, -- Belt of False Dignity
+		{ 40696, 4 }, -- Plush Sash of Guzbah
+	},
+	Legs = {
+		{ 40560, 1 }, -- Leggings of the Wanton Spellcaster
+		{ 40422, 3 }, -- Valorous Plagueheart Leggings
+		{ 40398, 3 }, -- Leggings of Mortal Arrogance
+	},
+	Feet = {
+		{ 40558, 1 }, -- Arcanic Tramplers
+		{ 40246, 3 }, -- Boots of Impetuous Ideals
+		{ 40326, 3 }, -- Boots of Forlorn Wishes
+		{ 40751, 4 }, -- Slippers of the Holy Light
+		{ 40750, 4 }, -- Xintor's Expeditionary Boots
+		{ 40269, 4 }, -- Boots of Persuasion
+		{ 44202, 4 }, -- Sandals of Crimson Fury
+	},
+	Ring = {
+		{ 40399, 1 }, -- Signet of Manifested Pain
+		{ 40719, 1 }, -- Band of Channeled Magic
+		{ 40080, 2 }, -- Lost Jewel
+		{ 39389, 3 }, -- Signet of the Malevolent
+		{ 39250, 3 }, -- Ring of Holy Cleansing
+		{ 40585, 4 }, -- Signet of the Kirin Tor
+		{ 37694, 4 }, -- Band of Guile
+		{ 37192, 4 }, -- Annhylde's Ring
+		{ 40375, 4 }, -- Ring of Decaying Beauty
+		{ 40433, 4 }, -- Wyrmrest Band
+		{ 42644, 4 }, -- Titanium Spellshock Ring
+		{ 39244, 4 }, -- Ring of the Fated
+		{ 39231, 4 }, -- Timeworn Silken Band
+	},
+	Trinket = {
+		{ 40432, 1 }, -- Illustration of the Dragon Soul
+		{ 40255, 1 }, -- Dying Curse
+		{ 39229, 3 }, -- Embrace of the Spider
+		{ 40682, 4 }, -- Sundial of the Exiled
+		{ 49076, 4 }, -- Mithril Pocketwatch
+	},
+	TwoHand = {
+		{ 40489, 2 }, -- Greatstaff of the Nexus
+		{ 40348, 3 }, -- Damnation
+		{ 40300, 4 }, -- Spire of Sunset
+		{ 40455, 4 }, -- Staff of Restraint
+	},
+	MainHand = {
+		{ 40396, 1 }, -- The Turning Tide
+		{ 40336, 4 }, -- Life and Death
+		{ 39424, 4 }, -- The Soulblade
+		{ 40408, 4 }, -- Haunting Call
+		{ 42346, 4 }, -- Deadly Gladiator's Spellblade
+	},
+	OffHand = {
+		{ 40273, 2 }, -- Surplus Limb
+		{ 39766, 1 }, -- Matriarch's Spawn
+		{ 40192, 3 }, -- Accursed Spine
+		{ 40699, 3 }, -- Handbook of Obscure Remedies
+		{ 40698, 4 }, -- Ward of the Violet Citadel
+		{ 39199, 4 }, -- Watchful Eye
+		{ 44210, 4 }, -- Faces of Doom
+		{ 40350, 4 }, -- Urn of Lost Memories
+	},
+	Ranged = {
+		{ 39712, 1 }, -- Gemmed Wand of the Nerubians
+		{ 39426, 2 }, -- Wand of the Archlich
+		{ 40284, 2 }, -- Plague Igniter
+		{ 37177, 3 }, -- Wand of the San'layn
+		{ 40245, 3 }, -- Fading Glow
+		{ 40335, 4 }, -- Touch of Horror
+		{ 42502, 4 }, -- Deadly Gladiator's Touch of Defeat
+		{ 37238, 4 }, -- Rod of the Fallen Monarch
+		{ 42513, 4 }, -- Deadly Gladiator's Baton of Light
+		{ 37619, 4 }, -- Wand of Ahn'kahet
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/affliction/dps-bis-gear-pve-phase-2
+ns:RegisterBiS("WARLOCK", "Affliction", "P2", {
+	Head = {
+		{ 45497, 1 }, -- Crown of Luminescence
+		{ 45150, 2 }, -- Collar of the Wyrmhunter
+		{ 45532, 3 }, -- Cowl of Dark Whispers
+		{ 45289, 3 }, -- Lifespark Visage
+		{ 46140, 3 }, -- Conqueror's Deathbringer Hood
+		{ 40562, 4 }, -- Hood of Rationality
+	},
+	Neck = {
+		{ 45133, 1 }, -- Pendant of Fiery Havoc
+		{ 45243, 1 }, -- Sapphire Amulet of Renewal
+		{ 45447, 2 }, -- Watchful Eye of Fate
+		{ 45933, 2 }, -- Pendant of the Shallow Grave
+		{ 45443, 3 }, -- Charm of Meticulous Timing
+		{ 45822, 4 }, -- Evoker's Charm
+		{ 44661, 4 }, -- Wyrmrest Necklace of Power
+	},
+	Shoulder = {
+		{ 46068, 1 }, -- Amice of Inconceivable Horror
+		{ 46136, 3 }, -- Conqueror's Deathbringer Shoulderpads
+		{ 45253, 3 }, -- Mantle of Wavering Calm
+		{ 46013, 3 }, -- Underworld Mantle
+		{ 45422, 4 }, -- Valorous Deathbringer Shoulderpads
+		{ 45514, 4 }, -- Mantle of the Unknowing
+		{ 45186, 4 }, -- Soot-Covered Mantle
+	},
+	Back = {
+		{ 45618, 1 }, -- Sunglimmer Cloak
+		{ 45242, 2 }, -- Drape of Mortal Downfall
+		{ 46321, 2 }, -- Sunglimmer Drape
+		{ 46042, 2 }, -- Drape of the Messenger
+		{ 44005, 3 }, -- Pennant Cloak
+	},
+	Chest = {
+		{ 45272, 2 }, -- Robes of the Umbral Brute
+		{ 45240, 2 }, -- Raiments of the Iron Council
+		{ 46137, 1 }, -- Conqueror's Deathbringer Robe
+		{ 45421, 3 }, -- Valorous Deathbringer Robe
+		{ 44002, 3 }, -- The Sanctum's Flowing Vestments
+		{ 45865, 4 }, -- Raiments of the Corrupted
+		{ 46012, 4 }, -- Vestments of the Piercing Light
+	},
+	Wrist = {
+		{ 45446, 1 }, -- Grasps of Reason
+		{ 44008, 3 }, -- Unsullied Cuffs
+		{ 45275, 3 }, -- Bracers of Unleashed Magic
+		{ 45146, 4 }, -- Shackles of the Odalisque
+		{ 45549, 4 }, -- Grips of Chaos
+		{ 39731, 4 }, -- Punctilious Bindings
+		{ 45423, 4 }, -- Runetouch Wristwraps
+		{ 40198, 4 }, -- Bands of Impurity
+		{ 45291, 4 }, -- Combustion Bracers
+	},
+	Hands = {
+		{ 45665, 1 }, -- Pharos Gloves
+		{ 46045, 3 }, -- Pulsar Gloves
+		{ 45520, 3 }, -- Handwraps of the Vigilant
+		{ 45273, 4 }, -- Handwraps of Plentiful Recovery
+		{ 45840, 4 }, -- Touch of the Occult
+		{ 46135, 4 }, -- Conqueror's Deathbringer Gloves
+	},
+	Waist = {
+		{ 45619, 1 }, -- Starwatcher's Binding
+		{ 45557, 2 }, -- Sash of Ancient Power
+		{ 45119, 2 }, -- Embrace of the Leviathan
+		{ 45558, 3 }, -- Cord of the White Dawn
+		{ 40561, 3 }, -- Leash of Heedless Magic
+		{ 45508, 4 }, -- Belt of the Darkspeaker
+		{ 45831, 4 }, -- Sash of Potent Incantations
+	},
+	Legs = {
+		{ 45488, 2 }, -- Leggings of the Enslaved Idol
+		{ 46034, 2 }, -- Leggings of Profound Darkness
+		{ 46139, 1 }, -- Conqueror's Deathbringer Leggings
+		{ 45468, 3 }, -- Leggings of Lost Love
+		{ 45238, 3 }, -- Overload Legwraps
+		{ 45420, 4 }, -- Valorous Deathbringer Leggings
+		{ 45848, 4 }, -- Legwraps of the Master Conjurer
+		{ 40560, 4 }, -- Leggings of the Wanton Spellcaster
+	},
+	Feet = {
+		{ 45135, 1 }, -- Boots of Fiery Resolution
+		{ 45537, 2 }, -- Treads of the False Oracle
+		{ 46050, 3 }, -- Starlight Treads
+		{ 45483, 4 }, -- Boots of the Servant
+		{ 45566, 4 }, -- Spellslinger's Slippers
+		{ 45567, 4 }, -- Savior's Slippers
+		{ 45441, 4 }, -- Sandals of the Ancient Keeper
+		{ 40558, 4 }, -- Arcanic Tramplers
+	},
+	Ring = {
+		{ 45495, 1 }, -- Conductive Seal
+		{ 46046, 1 }, -- Nebula Band
+		{ 46096, 3 }, -- Signet of Soft Lament
+		{ 45297, 3 }, -- Shimmering Seal
+		{ 45168, 4 }, -- Pyrelight Circle
+		{ 45451, 4 }, -- Frozen Loop
+		{ 45691, 4 }, -- Inscribed Signet of the Kirin Tor
+		{ 45946, 4 }, -- Fire Orchid Signet
+		{ 40399, 4 }, -- Signet of Manifested Pain
+	},
+	Trinket = {
+		{ 45466, 1 }, -- Scale of Fates
+		{ 45518, 1 }, -- Flare of the Heavens
+		{ 40432, 2 }, -- Illustration of the Dragon Soul
+		{ 45490, 4 }, -- Pandora's Plea
+		{ 45308, 4 }, -- Eye of the Broodmother
+		{ 39229, 4 }, -- Embrace of the Spider
+		{ 45866, 4 }, -- Elemental Focus Stone
+		{ 40255, 4 }, -- Dying Curse
+		{ 45148, 4 }, -- Living Flame
+	},
+	TwoHand = {
+		{ 45457, 1 }, -- Staff of Endless Winter
+		{ 45886, 2 }, -- Icecore Staff
+		{ 45479, 3 }, -- The Lifebinder
+		{ 45234, 4 }, -- Rapture
+		{ 45171, 4 }, -- Intensity
+		{ 46025, 4 }, -- Devotion
+	},
+	MainHand = {
+		{ 45620, 1 }, -- Starshard Edge
+		{ 45990, 3 }, -- Fusion Blade
+		{ 45527, 4 }, -- Soulscribe
+		{ 45437, 4 }, -- Runescribed Blade
+		{ 40396, 4 }, -- The Turning Tide
+	},
+	OffHand = {
+		{ 45617, 1 }, -- Cosmos
+		{ 45271, 2 }, -- Ironmender
+		{ 45115, 3 }, -- Leviathan Fueling Manual
+		{ 45314, 3 }, -- Igniter Rod
+		{ 39766, 4 }, -- Matriarch's Spawn
+		{ 40273, 4 }, -- Surplus Limb
+		{ 40192, 4 }, -- Accursed Spine
+	},
+	Ranged = {
+		{ 45294, 1 }, -- Petrified Ivy Sprig
+		{ 45511, 2 }, -- Scepter of Lost Souls
+		{ 45170, 3 }, -- Scepter of Creation
+		{ 45257, 3 }, -- Quartz Crystal Wand
+		{ 39426, 4 }, -- Wand of the Archlich
+		{ 45713, 4 }, -- Nurturing Touch
+		{ 39712, 4 }, -- Gemmed Wand of the Nerubians
+		{ 40284, 4 }, -- Plague Igniter
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/affliction/dps-bis-gear-pve-phase-3
+ns:RegisterBiS("WARLOCK", "Affliction", "P3", {
+	Head = {
+		{ 47796, 1 }, -- Gul'dan's Hood of Triumph
+		{ 47789, 1 }, -- Kel'Thuzad's Hood of Triumph
+		{ 47804, 3 }, -- Gul'dan's Hood of Triumph
+		{ 47778, 3 }, -- Kel'Thuzad's Hood of Triumph
+		{ 45497, 4 }, -- Crown of Luminescence
+		{ 47693, 4 }, -- Hood of Fiery Aftermath
+		{ 47692, 4 }, -- Hood of Smoldering Aftermath
+		{ 47801, 4 }, -- Gul'dan's Hood of Conquest
+		{ 47784, 4 }, -- Kel'Thuzad's Hood of Conquest
+		{ 49484, 4 }, -- Nemesis Skullcap
+		{ 47695, 4 }, -- Hood of Clouded Sight
+		{ 47694, 4 }, -- Helm of Clouded Sight
+		{ 45150, 4 }, -- Collar of the Wyrmhunter
+		{ 49315, 4 }, -- Nemesis Skullcover
+		{ 45532, 4 }, -- Cowl of Dark Whispers
+	},
+	Neck = {
+		{ 47468, 1 }, -- Cry of the Val'kyr
+		{ 47144, 1 }, -- Wail of the Val'kyr
+		{ 45133, 2 }, -- Pendant of Fiery Havoc
+		{ 45243, 3 }, -- Sapphire Amulet of Renewal
+		{ 45447, 3 }, -- Watchful Eye of Fate
+		{ 45933, 3 }, -- Pendant of the Shallow Grave
+		{ 47307, 3 }, -- Cry of the Val'kyr
+		{ 47139, 3 }, -- Wail of the Val'kyr
+		{ 48030, 4 }, -- Darkbane Amulet
+		{ 47957, 4 }, -- Darkbane Pendant
+		{ 45443, 4 }, -- Charm of Meticulous Timing
+		{ 47890, 4 }, -- Darkbane Amulet
+		{ 47747, 4 }, -- Darkbane Pendant
+		{ 45699, 4 }, -- Pendant of the Piercing Glare
+	},
+	Shoulder = {
+		{ 47793, 1 }, -- Gul'dan's Shoulderpads of Triumph
+		{ 47792, 1 }, -- Kel'Thuzad's Shoulderpads of Triumph
+		{ 47807, 3 }, -- Gul'dan's Shoulderpads of Triumph
+		{ 47781, 3 }, -- Kel'Thuzad's Shoulderpads of Triumph
+		{ 46068, 3 }, -- Amice of Inconceivable Horror
+		{ 47798, 4 }, -- Gul'dan's Shoulderpads of Conquest
+		{ 47787, 4 }, -- Kel'Thuzad's Shoulderpads of Conquest
+		{ 47716, 4 }, -- Mantle of Revered Mortality
+		{ 47715, 4 }, -- Pauldrons of Revered Mortality
+		{ 47714, 4 }, -- Pauldrons of Catastrophic Emanation
+		{ 47713, 4 }, -- Mantle of Catastrophic Emanation
+		{ 46136, 4 }, -- Conqueror's Deathbringer Shoulderpads
+		{ 45253, 4 }, -- Mantle of Wavering Calm
+		{ 46013, 4 }, -- Underworld Mantle
+	},
+	Back = {
+		{ 47552, 1 }, -- Jaina's Radiance
+		{ 47551, 1 }, -- Aethas' Intensity
+		{ 47554, 1 }, -- Lady Liadrin's Conviction
+		{ 47553, 1 }, -- Bolvar's Devotion
+		{ 48671, 3 }, -- Drape of Bitter Incantation
+		{ 48666, 3 }, -- Drape of the Sunreavers
+		{ 47452, 3 }, -- Shroud of Displacement
+		{ 47095, 3 }, -- Cloak of Displacement
+		{ 48672, 3 }, -- Shawl of Fervent Crusader
+		{ 48667, 3 }, -- Shawl of the Devout Crusader
+		{ 47417, 4 }, -- Drape of the Refreshing Winds
+		{ 46977, 4 }, -- Shawl of the Refreshing Winds
+		{ 45618, 4 }, -- Sunglimmer Cloak
+		{ 45242, 4 }, -- Drape of Mortal Downfall
+		{ 46042, 4 }, -- Drape of the Messenger
+	},
+	Chest = {
+		{ 47462, 1 }, -- Skyweaver Vestments
+		{ 47129, 1 }, -- Skyweaver Robes
+		{ 47794, 3 }, -- Gul'dan's Robe of Triumph
+		{ 47791, 3 }, -- Kel'Thuzad's Robe of Triumph
+		{ 47425, 3 }, -- Flowing Robes of Ascent
+		{ 46993, 3 }, -- Flowing Vestments of Ascent
+		{ 47301, 4 }, -- Skyweaver Vestments
+		{ 47126, 4 }, -- Skyweaver Robes
+		{ 47806, 4 }, -- Gul'dan's Robe of Triumph
+		{ 47779, 4 }, -- Kel'Thuzad's Robe of Triumph
+		{ 47604, 4 }, -- Merlin's Robe
+		{ 47603, 4 }, -- Merlin's Robe
+		{ 47264, 4 }, -- Flowing Robes of Ascent
+		{ 46992, 4 }, -- Flowing Vestments of Ascent
+		{ 47799, 4 }, -- Gul'dan's Robe of Conquest
+		{ 47786, 4 }, -- Kel'Thuzad's Robe of Conquest
+		{ 47606, 4 }, -- Royal Moonshroud Robe
+		{ 47605, 4 }, -- Royal Moonshroud Robe
+	},
+	Wrist = {
+		{ 47485, 1 }, -- Bindings of the Ashen Saint
+		{ 47208, 1 }, -- Armbands of the Ashen Saint
+		{ 45446, 2 }, -- Grasps of Reason
+		{ 47586, 2 }, -- Bejeweled Wizard's Bracers
+		{ 47585, 2 }, -- Bejeweled Wizard's Bracers
+		{ 47467, 2 }, -- Dark Essence Bindings
+		{ 47143, 2 }, -- Bindings of Dark Essence
+		{ 48000, 3 }, -- Felspark Bracers
+		{ 47927, 3 }, -- Felspark Bindings
+		{ 47324, 3 }, -- Bindings of the Ashen Saint
+		{ 47203, 3 }, -- Armbands of the Ashen Saint
+		{ 47588, 3 }, -- Royal Moonshroud Bracers
+		{ 47587, 3 }, -- Royal Moonshroud Bracers
+		{ 44008, 4 }, -- Unsullied Cuffs
+		{ 47861, 4 }, -- Felspark Bracers
+		{ 47663, 4 }, -- Felspark Bindings
+		{ 47306, 4 }, -- Dark Essence Bindings
+		{ 47141, 4 }, -- Bindings of Dark Essence
+	},
+	Hands = {
+		{ 47797, 1 }, -- Gul'dan's Gloves of Triumph
+		{ 47788, 1 }, -- Kel'Thuzad's Gloves of Triumph
+		{ 45665, 3 }, -- Pharos Gloves
+		{ 47487, 3 }, -- Handwraps of the Lifeless Touch
+		{ 47236, 3 }, -- Gloves of the Lifeless Touch
+		{ 47803, 4 }, -- Gul'dan's Gloves of Triumph
+		{ 47782, 4 }, -- Kel'Thuzad's Gloves of Triumph
+		{ 48028, 4 }, -- Looming Shadow Wraps
+		{ 47956, 4 }, -- Gloves of Looming Shadow
+		{ 46045, 4 }, -- Pulsar Gloves
+		{ 47802, 4 }, -- Gul'dan's Gloves of Conquest
+		{ 47783, 4 }, -- Kel'Thuzad's Gloves of Conquest
+		{ 47326, 4 }, -- Handwraps of the Lifeless Touch
+		{ 47235, 4 }, -- Gloves of the Lifeless Touch
+		{ 47889, 4 }, -- Looming Shadow Wraps
+		{ 47745, 4 }, -- Gloves of Looming Shadow
+		{ 45520, 4 }, -- Handwraps of the Vigilant
+	},
+	Waist = {
+		{ 47419, 1 }, -- Belt of the Tenebrous Mist
+		{ 46973, 1 }, -- Cord of the Tenebrous Mist
+		{ 47994, 2 }, -- Icehowl Binding
+		{ 47921, 2 }, -- Icehowl Cinch
+		{ 47447, 3 }, -- Belt of Biting Cold
+		{ 47084, 3 }, -- Cord of Biting Cold
+		{ 45619, 4 }, -- Starwatcher's Binding
+		{ 47855, 4 }, -- Icehowl Binding
+		{ 47617, 4 }, -- Icehowl Cinch
+		{ 48054, 4 }, -- Belt of the Eternal
+		{ 47977, 4 }, -- Cinch of the Undying
+		{ 45557, 4 }, -- Sash of Ancient Power
+		{ 47286, 4 }, -- Belt of Biting Cold
+		{ 47081, 4 }, -- Cord of Biting Cold
+		{ 47258, 4 }, -- Belt of the Tenebrous Mist
+		{ 46972, 4 }, -- Cord of the Tenebrous Mist
+		{ 45558, 4 }, -- Cord of the White Dawn
+	},
+	Legs = {
+		{ 47795, 1 }, -- Gul'dan's Leggings of Triumph
+		{ 47790, 1 }, -- Kel'Thuzad's Leggings of Triumph
+		{ 47805, 3 }, -- Gul'dan's Leggings of Triumph
+		{ 47780, 3 }, -- Kel'Thuzad's Leggings of Triumph
+		{ 47435, 4 }, -- Pants of the Soothing Touch
+		{ 47062, 4 }, -- Leggings of the Soothing Touch
+		{ 47800, 4 }, -- Gul'dan's Leggings of Conquest
+		{ 47785, 4 }, -- Kel'Thuzad's Leggings of Conquest
+		{ 47478, 4 }, -- Breeches of the Deepening Void
+		{ 47189, 4 }, -- Leggings of the Deepening Void
+		{ 47274, 4 }, -- Pants of the Soothing Touch
+		{ 47051, 4 }, -- Leggings of the Soothing Touch
+		{ 45488, 4 }, -- Leggings of the Enslaved Idol
+		{ 48004, 4 }, -- Legwraps of the Demonic Messenger
+		{ 47931, 4 }, -- Leggings of the Demonic Messenger
+		{ 46034, 4 }, -- Leggings of Profound Darkness
+		{ 47317, 4 }, -- Breeches of the Deepening Void
+		{ 47187, 4 }, -- Leggings of the Deepening Void
+	},
+	Feet = {
+		{ 47454, 1 }, -- Sandals of the Mourning Widow
+		{ 47097, 1 }, -- Boots of the Mourning Widow
+		{ 47482, 2 }, -- Boots of the Icy Floe
+		{ 47205, 2 }, -- Footpads of the Icy Floe
+		{ 45135, 2 }, -- Boots of Fiery Resolution
+		{ 45537, 3 }, -- Treads of the False Oracle
+		{ 47321, 4 }, -- Boots of the Icy Floe
+		{ 47194, 4 }, -- Footpads of the Icy Floe
+		{ 47293, 4 }, -- Sandals of the Mourning Widow
+		{ 47092, 4 }, -- Boots of the Mourning Widow
+		{ 46050, 4 }, -- Starlight Treads
+		{ 48012, 4 }, -- Sunreaver Magus' Sandals
+		{ 47940, 4 }, -- Sandals of the Silver Magus
+		{ 49234, 4 }, -- Boots of the Grieving Soul
+		{ 49233, 4 }, -- Sandals of the Grieving Soul
+		{ 45483, 4 }, -- Boots of the Servant
+	},
+	Ring = {
+		{ 47489, 1 }, -- Lurid Manifestation
+		{ 47237, 1 }, -- Band of Deplorable Violence
+		{ 45495, 1 }, -- Conductive Seal
+		{ 46046, 1 }, -- Nebula Band
+		{ 47439, 2 }, -- Circle of the Darkmender
+		{ 47224, 2 }, -- Ring of the Darkmender
+		{ 45297, 3 }, -- Shimmering Seal
+		{ 47732, 3 }, -- Band of the Invoker
+		{ 46096, 3 }, -- Signet of Soft Lament
+		{ 48957, 4 }, -- Etched Signet of the Kirin Tor
+		{ 47327, 3 }, -- Lurid Manifestation
+		{ 47054, 3 }, -- Band of Deplorable Violence
+		{ 48001, 3 }, -- Firestorm Band
+		{ 47928, 3 }, -- Firestorm Ring
+	},
+	Trinket = {
+		{ 45518, 1 }, -- Flare of the Heavens
+		{ 45466, 1 }, -- Scale of Fates
+		{ 47477, 3 }, -- Reign of the Dead
+		{ 47188, 3 }, -- Reign of the Unliving
+		{ 47316, 4 }, -- Reign of the Dead
+		{ 47182, 4 }, -- Reign of the Unliving
+		{ 40432, 4 }, -- Illustration of the Dragon Soul
+		{ 47213, 4 }, -- Abyssal Rune
+		{ 39229, 4 }, -- Embrace of the Spider
+		{ 45308, 4 }, -- Eye of the Broodmother
+		{ 45148, 4 }, -- Living Flame
+		{ 47432, 4 }, -- Solace of the Fallen
+		{ 47059, 4 }, -- Solace of the Defeated
+		{ 48722, 4 }, -- Shard of the Crystal Heart
+	},
+	TwoHand = {
+		{ 47525, 4 }, -- Sufferance
+		{ 47524, 4 }, -- Clemency
+		{ 48036, 4 }, -- Illumination
+		{ 47960, 4 }, -- Enlightenment
+		{ 48414, 4 }, -- Relentless Gladiator's Combat Staff
+		{ 48045, 4 }, -- Perdition
+		{ 47968, 4 }, -- Cold Convergence
+		{ 45457, 4 }, -- Staff of Endless Winter
+	},
+	MainHand = {
+		{ 47422, 1 }, -- Barb of Tarasque
+		{ 46980, 1 }, -- Blade of Tarasque
+		{ 47518, 1 }, -- Mortalis
+		{ 47517, 1 }, -- Blade of the Unbroken Covenant
+		{ 49191, 3 }, -- Relentless Gladiator's Blade of Celerity
+		{ 48408, 4 }, -- Relentless Gladiator's Mageblade
+		{ 45620, 4 }, -- Starshard Edge
+		{ 48708, 4 }, -- Spellstorm Blade
+		{ 48701, 4 }, -- Spellharvest
+		{ 48013, 4 }, -- Sunreaver Disciple's Blade
+		{ 47941, 4 }, -- Blade of the Silver Disciple
+		{ 47261, 4 }, -- Barb of Tarasque
+		{ 46979, 4 }, -- Blade of Tarasque
+		{ 45990, 4 }, -- Fusion Blade
+		{ 49499, 4 }, -- Polished Azuresong Mageblade
+	},
+	OffHand = {
+		{ 48032, 1 }, -- Lightbane Focus
+		{ 47958, 1 }, -- Chalice of Benedictus
+		{ 47437, 2 }, -- Talisman of Heedless Sins
+		{ 47064, 2 }, -- Symbol of Transgression
+		{ 47913, 3 }, -- Lightbane Focus
+		{ 47742, 3 }, -- Chalice of Benedictus
+		{ 47470, 3 }, -- Mystifying Charm
+		{ 47146, 3 }, -- Chalice of Searing Light
+		{ 45617, 3 }, -- Cosmos
+		{ 47276, 3 }, -- Talisman of Heedless Sins
+		{ 47053, 3 }, -- Symbol of Transgression
+		{ 47309, 4 }, -- Mystifying Charm
+		{ 47138, 4 }, -- Chalice of Searing Light
+	},
+	Ranged = {
+		{ 45294, 1 }, -- Petrified Ivy Sprig
+		{ 47995, 3 }, -- Scepter of Imprisoned Souls
+		{ 47922, 3 }, -- Rod of Imprisoned Souls
+		{ 45511, 3 }, -- Scepter of Lost Souls
+		{ 47658, 3 }, -- Brimstone Igniter
+		{ 47856, 4 }, -- Scepter of Imprisoned Souls
+		{ 47612, 4 }, -- Rod of Imprisoned Souls
+		{ 45257, 4 }, -- Quartz Crystal Wand
+		{ 45170, 4 }, -- Scepter of Creation
+		{ 39712, 4 }, -- Gemmed Wand of the Nerubians
+		{ 45713, 4 }, -- Nurturing Touch
+		{ 39426, 4 }, -- Wand of the Archlich
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/affliction/dps-bis-gear-pve-phase-4
+ns:RegisterBiS("WARLOCK", "Affliction", "P4", {
+	Head = {
+		{ 51231, 1 }, -- Sanctified Dark Coven Hood
+		{ 51208, 3 }, -- Sanctified Dark Coven Hood
+		{ 50241, 4 }, -- Dark Coven Hood
+		{ 50661, 4 }, -- Corp'rethar Ceremonial Crown
+		{ 51896, 4 }, -- Thaumaturge's Crackling Cowl
+		{ 51837, 4 }, -- Cowl of Malefic Repose
+		{ 47796, 4 }, -- Gul'dan's Hood of Triumph
+		{ 47789, 4 }, -- Kel'Thuzad's Hood of Triumph
+	},
+	Neck = {
+		{ 50724, 1 }, -- Blood Queen's Crimson Choker
+		{ 50609, 2 }, -- Bone Sentinel's Amulet
+		{ 50658, 2 }, -- Amulet of the Silent Eulogy
+		{ 51894, 3 }, -- Soulcleave Pendant
+		{ 50182, 3 }, -- Blood Queen's Crimson Choker
+		{ 50005, 3 }, -- Amulet of the Silent Eulogy
+		{ 49975, 3 }, -- Bone Sentinel's Amulet
+		{ 47468, 4 }, -- Cry of the Val'kyr
+		{ 47144, 4 }, -- Wail of the Val'kyr
+	},
+	Shoulder = {
+		{ 51234, 1 }, -- Sanctified Dark Coven Shoulderpads
+		{ 51205, 3 }, -- Sanctified Dark Coven Shoulderpads
+		{ 50244, 4 }, -- Dark Coven Shoulderpads
+		{ 50643, 4 }, -- Shoulders of Mercy Killing
+		{ 51859, 4 }, -- Shoulders of Ruinous Senility
+		{ 49991, 4 }, -- Shoulders of Mercy Killing
+		{ 46068, 4 }, -- Amice of Inconceivable Horror
+		{ 47793, 4 }, -- Gul'dan's Shoulderpads of Triumph
+		{ 47792, 4 }, -- Kel'Thuzad's Shoulderpads of Triumph
+	},
+	Back = {
+		{ 54583, 1 }, -- Cloak of Burning Dusk
+		{ 50628, 2 }, -- Frostbinder's Shredded Cape
+		{ 50668, 2 }, -- Greatcloak of the Turned Champion
+		{ 53489, 2 }, -- Cloak of Burning Dusk
+		{ 47552, 2 }, -- Jaina's Radiance
+		{ 47551, 2 }, -- Aethas' Intensity
+		{ 47553, 2 }, -- Bolvar's Devotion
+		{ 47554, 2 }, -- Lady Liadrin's Conviction
+		{ 54556, 3 }, -- Abduction's Cover
+		{ 50205, 3 }, -- Frostbinder's Shredded Cape
+		{ 51826, 3 }, -- Lich Wrappings
+		{ 50014, 3 }, -- Greatcloak of the Turned Champion
+		{ 48671, 3 }, -- Drape of Bitter Incantation
+		{ 48666, 3 }, -- Drape of the Sunreavers
+		{ 46977, 3 }, -- Shawl of the Refreshing Winds
+		{ 47417, 3 }, -- Drape of the Refreshing Winds
+		{ 47095, 3 }, -- Cloak of Displacement
+		{ 47452, 3 }, -- Shroud of Displacement
+		{ 53115, 3 }, -- Abduction's Cover
+	},
+	Chest = {
+		{ 51233, 1 }, -- Sanctified Dark Coven Robe
+		{ 51206, 3 }, -- Sanctified Dark Coven Robe
+		{ 50717, 4 }, -- Sanguine Silk Robes
+		{ 51813, 4 }, -- Robes of Azure Downfall
+		{ 50243, 4 }, -- Dark Coven Robe
+		{ 50974, 4 }, -- Meteor Chaser's Raiment
+		{ 51851, 4 }, -- Bloodsoul Raiment
+		{ 50172, 4 }, -- Sanguine Silk Robes
+		{ 50629, 4 }, -- Robe of the Waking Nightmare
+		{ 47425, 4 }, -- Flowing Robes of Ascent
+		{ 46993, 4 }, -- Flowing Vestments of Ascent
+	},
+	Wrist = {
+		{ 54582, 1 }, -- Bracers of Fiery Night
+		{ 50651, 2 }, -- The Lady's Brittle Bracers
+		{ 50686, 2 }, -- Death Surgeon's Sleeves
+		{ 53486, 2 }, -- Bracers of Fiery Night
+		{ 51872, 2 }, -- Ether-Soaked Bracers
+		{ 47485, 3 }, -- Bindings of the Ashen Saint
+		{ 47208, 3 }, -- Armbands of the Ashen Saint
+		{ 50032, 3 }, -- Death Surgeon's Sleeves
+		{ 51918, 3 }, -- Bracers of Dark Blessings
+		{ 49994, 3 }, -- The Lady's Brittle Bracers
+		{ 45446, 4 }, -- Grasps of Reason
+	},
+	Hands = {
+		{ 51230, 1 }, -- Sanctified Dark Coven Gloves
+		{ 50663, 2 }, -- Gunship Captain's Mittens
+		{ 50722, 2 }, -- San'layn Ritualist Gloves
+		{ 51209, 3 }, -- Sanctified Dark Coven Gloves
+		{ 50983, 4 }, -- Gloves of False Gestures
+		{ 51921, 4 }, -- Sister's Handshrouds
+		{ 50176, 4 }, -- San'layn Ritualist Gloves
+		{ 50011, 4 }, -- Gunship Captain's Mittens
+		{ 51874, 4 }, -- Gloves of Broken Fingers
+		{ 45665, 4 }, -- Pharos Gloves
+	},
+	Waist = {
+		{ 50613, 1 }, -- Crushing Coldwraith Belt
+		{ 50702, 3 }, -- Lingering Illness
+		{ 54562, 3 }, -- Misbegotten Belt
+		{ 49978, 3 }, -- Crushing Coldwraith Belt
+		{ 50997, 4 }, -- Circle of Ossus
+		{ 51862, 4 }, -- Cauterized Cord
+		{ 51930, 4 }, -- Cord of the Patronizing Practitioner
+		{ 47419, 4 }, -- Belt of the Tenebrous Mist
+		{ 46973, 4 }, -- Cord of the Tenebrous Mist
+		{ 53118, 4 }, -- Misbegotten Belt
+	},
+	Legs = {
+		{ 50694, 1 }, -- Plaguebringer's Stained Pants
+		{ 51232, 2 }, -- Sanctified Dark Coven Leggings
+		{ 49891, 3 }, -- Leggings of Woven Death
+		{ 51882, 3 }, -- Kilt of Untreated Wounds
+		{ 50056, 4 }, -- Plaguebringer's Stained Pants
+		{ 51207, 4 }, -- Sanctified Dark Coven Leggings
+		{ 51823, 4 }, -- Leggings of the Refracted Mind
+		{ 47795, 4 }, -- Gul'dan's Leggings of Triumph
+		{ 47790, 4 }, -- Kel'Thuzad's Leggings of Triumph
+	},
+	Feet = {
+		{ 50699, 1 }, -- Plague Scientist's Boots
+		{ 50062, 3 }, -- Plague Scientist's Boots
+		{ 47454, 4 }, -- Sandals of the Mourning Widow
+		{ 47097, 4 }, -- Boots of the Mourning Widow
+		{ 45135, 4 }, -- Boots of Fiery Resolution
+		{ 47482, 4 }, -- Boots of the Icy Floe
+		{ 47205, 4 }, -- Footpads of the Icy Floe
+	},
+	Ring = {
+		{ 50664, 1 }, -- Ring of Rapid Ascent
+		{ 50398, 1 }, -- Ashen Band of Endless Destruction
+		{ 50636, 2 }, -- Memory of Malygos
+		{ 50714, 2 }, -- Valanar's Other Signet Ring
+		{ 54585, 3 }, -- Ring of Phased Regeneration
+		{ 50644, 3 }, -- Ring of Maddening Whispers
+		{ 54563, 3 }, -- Saviana's Tribute
+		{ 51849, 3 }, -- Cerise Coiled Ring
+		{ 50008, 3 }, -- Ring of Rapid Ascent
+		{ 50424, 3 }, -- Memory of Malygos
+		{ 50397, 3 }, -- Ashen Band of Unmatched Destruction
+		{ 53490, 3 }, -- Ring of Phased Regeneration
+		{ 50170, 4 }, -- Valanar's Other Signet Ring
+		{ 50614, 4 }, -- Loop of the Endless Labyrinth
+		{ 53116, 4 }, -- Saviana's Tribute
+		{ 45495, 4 }, -- Conductive Seal
+	},
+	Trinket = {
+		{ 54588, 1 }, -- Charred Twilight Scale
+		{ 50365, 1 }, -- Phylactery of the Nameless Lich
+		{ 50348, 2 }, -- Dislodged Foreign Object
+		{ 50360, 3 }, -- Phylactery of the Nameless Lich
+		{ 50353, 3 }, -- Dislodged Foreign Object
+		{ 54572, 3 }, -- Charred Twilight Scale
+		{ 45466, 4 }, -- Scale of Fates
+		{ 50345, 4 }, -- Muradin's Spyglass
+		{ 45518, 4 }, -- Flare of the Heavens
+		{ 47477, 4 }, -- Reign of the Dead
+		{ 47188, 4 }, -- Reign of the Unliving
+		{ 50357, 4 }, -- Maghia's Misguided Quill
+		{ 47316, 4 }, -- Reign of the Dead
+		{ 47182, 4 }, -- Reign of the Unliving
+		{ 50259, 4 }, -- Nevermelting Ice Crystal
+	},
+	TwoHand = {
+		{ 50731, 3 }, -- Archus, Greatstaff of Antonidas
+		{ 50725, 4 }, -- Dying Light
+		{ 51943, 4 }, -- Halion, Staff of Forgotten Love
+		{ 50429, 4 }, -- Archus, Greatstaff of Antonidas
+		{ 51898, 4 }, -- Mag'hari Chieftain's Staff
+		{ 51887, 4 }, -- Abracadaver
+	},
+	MainHand = {
+		{ 50732, 1 }, -- Bloodsurge, Kel'Thuzad's Blade of Agony
+		{ 50704, 4 }, -- Rigormortis
+		{ 50608, 4 }, -- Frozen Bonespike
+		{ 51939, 4 }, -- Tel'thas, Dagger of the Blood King
+		{ 50427, 4 }, -- Bloodsurge, Kel'Thuzad's Blade of Agony
+		{ 51932, 4 }, -- Frost Needle
+		{ 50068, 4 }, -- Rigormortis
+		{ 51815, 4 }, -- Bleak Coldarra Carver
+		{ 51910, 4 }, -- Midnight Sun
+		{ 47518, 4 }, -- Mortalis
+		{ 47517, 4 }, -- Blade of the Unbroken Covenant
+	},
+	OffHand = {
+		{ 50719, 1 }, -- Shadow Silk Spindle
+		{ 50635, 3 }, -- Sundial of Eternal Dusk
+		{ 50173, 3 }, -- Shadow Silk Spindle
+		{ 50423, 4 }, -- Sundial of Eternal Dusk
+		{ 51922, 4 }, -- Scourgelord's Baton
+		{ 48032, 4 }, -- Lightbane Focus
+		{ 47958, 4 }, -- Chalice of Benedictus
+		{ 47437, 4 }, -- Talisman of Heedless Sins
+		{ 47064, 4 }, -- Symbol of Transgression
+		{ 45617, 4 }, -- Cosmos
+		{ 50781, 4 }, -- Scourgelord's Baton
+	},
+	Ranged = {
+		{ 50684, 1 }, -- Corpse-Impaling Spike
+		{ 50631, 2 }, -- Nightmare Ender
+		{ 50033, 3 }, -- Corpse-Impaling Spike
+		{ 51852, 3 }, -- Wand of Ruby Claret
+		{ 51838, 3 }, -- Lana'thel's Bloody Nail
+		{ 50472, 4 }, -- Nightmare Ender
+		{ 45294, 4 }, -- Petrified Ivy Sprig
+		{ 51326, 4 }, -- Wand of Ruby Claret
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/demonology/dps-bis-gear-pre-raid-pve
+ns:RegisterBiS("WARLOCK", "Demonology", "PreRaid", {
+	Head = {
+		{ 37684, 1 }, -- Forgotten Shadow Hood
+		{ 34405, 2 }, -- Helm of Arcane Purity
+		{ 37294, 2 }, -- Crown of Unbridled Magic
+		{ 34339, 3 }, -- Cowl of Light's Purity
+		{ 44910, 3 }, -- Titan-Forged Hood of Dominance
+		{ 44909, 4 }, -- Titan-Forged Hood of Salvation
+		{ 41991, 4 }, -- Hateful Gladiator's Felweave Cowl
+		{ 42553, 1 }, -- Visage Liquification Goggles
+		{ 34340, 4 }, -- Dark Conjuror's Collar
+		{ 37715, 4 }, -- Cowl of the Dire Troll
+		{ 41990, 4 }, -- Savage Gladiator's Felweave Cowl
+		{ 32525, 4 }, -- Cowl of the Illidari High Lord
+		{ 37594, 4 }, -- Elder Headpiece
+		{ 31051, 4 }, -- Hood of the Malefic
+		{ 41984, 4 }, -- Hat of Wintry Doom
+	},
+	Neck = {
+		{ 42032, 1 }, -- Deadly Gladiator's Pendant of Deliverance
+		{ 40680, 1 }, -- Encircling Burnished Gold Chains
+		{ 42025, 2 }, -- Hateful Gladiator's Pendant of Deliverance
+		{ 42030, 2 }, -- Deadly Gladiator's Pendant of Ascendancy
+		{ 39472, 1 }, -- Chain of Latent Energies
+		{ 42647, 3 }, -- Titanium Spellshock Necklace
+		{ 42031, 2 }, -- Deadly Gladiator's Pendant of Subjugation
+		{ 42029, 4 }, -- Deadly Gladiator's Pendant of Dominance
+		{ 37290, 4 }, -- Dragon Prow Amulet
+		{ 37683, 4 }, -- Necromancer's Amulet
+		{ 43404, 4 }, -- Zuramat's Necklace
+		{ 42024, 4 }, -- Hateful Gladiator's Pendant of Ascendancy
+	},
+	Shoulder = {
+		{ 37196, 1 }, -- Runecaster's Mantle
+		{ 34393, 2 }, -- Shoulderpads of Knowledge's Pursuit
+		{ 34210, 1 }, -- Amice of the Convoker
+		{ 37691, 3 }, -- Mantle of Deceit
+		{ 34202, 3 }, -- Shawl of Wonderment
+		{ 42009, 3 }, -- Hateful Gladiator's Felweave Amice
+		{ 37673, 4 }, -- Dark Runic Mantle
+		{ 37055, 4 }, -- Silken Amice of the Ymirjar
+		{ 36982, 4 }, -- Mantle of Electrical Charges
+		{ 31054, 4 }, -- Mantle of the Malefic
+		{ 42008, 4 }, -- Savage Gladiator's Felweave Amice
+		{ 37655, 4 }, -- Mantle of the Tribunal
+	},
+	Back = {
+		{ 42066, 1 }, -- Deadly Gladiator's Cloak of Deliverance
+		{ 37799, 1 }, -- Reanimator's Cloak
+		{ 42059, 2 }, -- Hateful Gladiator's Cloak of Deliverance
+		{ 42064, 2 }, -- Deadly Gladiator's Cloak of Ascendancy
+		{ 42063, 2 }, -- Deadly Gladiator's Cloak of Subjugation
+		{ 42062, 3 }, -- Deadly Gladiator's Cloak of Dominance
+		{ 43283, 3 }, -- Subterranean Waterfall Shroud
+		{ 41610, 1 }, -- Deathchill Cloak
+		{ 37630, 4 }, -- Shroud of Moorabi
+		{ 42057, 4 }, -- Hateful Gladiator's Cloak of Ascendancy
+		{ 34242, 4 }, -- Tattered Cape of Antonidas
+		{ 42055, 4 }, -- Hateful Gladiator's Cloak of Dominance
+		{ 41609, 4 }, -- Wispcloak
+		{ 37291, 4 }, -- Ancient Dragon Spirit Cape
+		{ 42056, 4 }, -- Hateful Gladiator's Cloak of Subjugation
+	},
+	Chest = {
+		{ 39497, 1 }, -- Heroes' Plagueheart Robe
+		{ 42100, 3 }, -- Moonshroud Robe
+		{ 34233, 4 }, -- Robes of Faltered Light
+		{ 46065, 4 }, -- Titan-Forged Raiment of Dominance
+		{ 42102, 4 }, -- Spellweave Robe
+		{ 46066, 4 }, -- Titan-Forged Raiment of Salvation
+		{ 34364, 4 }, -- Sunfire Robe
+		{ 34399, 4 }, -- Robes of Ghostly Hatred
+		{ 34232, 4 }, -- Fel Conquerer Raiments
+	},
+	Wrist = {
+		{ 37361, 1 }, -- Cuffs of Winged Levitation
+		{ 44200, 2 }, -- Ancestral Sinew Wristguards
+		{ 41878, 2 }, -- Hateful Gladiator's Cuffs of Salvation
+		{ 36945, 3 }, -- Verdisa's Cuffs of Dreaming
+		{ 37370, 3 }, -- Cuffs of the Trussed Hall
+		{ 37884, 4 }, -- Azure Cloth Bindings
+		{ 41907, 4 }, -- Hateful Gladiator's Cuffs of Dominance
+		{ 37113, 4 }, -- Demonic Fabric Bands
+		{ 34436, 4 }, -- Bracers of the Malefic
+		{ 37725, 4 }, -- Savage Wound Wrap
+		{ 41555, 4 }, -- Black Duskweave Wristwraps
+	},
+	Hands = {
+		{ 37172, 2 }, -- Gloves of Glistening Runes
+		{ 37798, 2 }, -- Overlook Handguards
+		{ 42103, 2 }, -- Moonshroud Gloves
+		{ 42113, 3 }, -- Spellweave Gloves
+		{ 34342, 3 }, -- Handguards of the Dawn
+		{ 37687, 3 }, -- Gloves of Distorted Time
+		{ 34406, 4 }, -- Gloves of Tyri's Power
+		{ 37153, 4 }, -- Gloves of the Crystal Gardener
+		{ 39500, 1 }, -- Heroes' Plagueheart Gloves
+		{ 34344, 4 }, -- Handguards of Defiled Worlds
+		{ 42111, 4 }, -- Ebonweave Gloves
+		{ 44256, 4 }, -- Sterile Flesh-Handling Gloves
+		{ 42015, 4 }, -- Hateful Gladiator's Felweave Handguards
+	},
+	Waist = {
+		{ 44309, 1 }, -- Sash of Jordan
+		{ 37408, 1 }, -- Girdle of Bane
+		{ 37850, 2 }, -- Flowing Sash of Order
+		{ 41877, 2 }, -- Hateful Gladiator's Cord of Salvation
+		{ 40696, 2 }, -- Plush Sash of Guzbah
+		{ 37289, 2 }, -- Sash of Phantasmal Images
+		{ 41896, 4 }, -- Hateful Gladiator's Cord of Dominance
+		{ 44302, 4 }, -- Belt of Dark Mending
+		{ 37242, 4 }, -- Sash of the Servant
+		{ 30888, 4 }, -- Anetheron's Noose
+		{ 44104, 4 }, -- Fishy Cinch
+		{ 37637, 4 }, -- Living Mojo Belt
+		{ 34541, 4 }, -- Belt of the Malefic
+		{ 37680, 4 }, -- Belt of Unified Souls
+	},
+	Legs = {
+		{ 34170, 1 }, -- Pantaloons of Calming Strife
+		{ 34386, 1 }, -- Pantaloons of Growing Strife
+		{ 37189, 2 }, -- Breeches of the Caller
+		{ 37876, 3 }, -- Cyanigosa's Leggings
+		{ 37731, 3 }, -- Opposed Stasis Leggings
+		{ 34181, 1 }, -- Leggings of Calamity
+		{ 42003, 3 }, -- Hateful Gladiator's Felweave Trousers
+		{ 37854, 4 }, -- Woven Bracae Leggings
+		{ 42002, 4 }, -- Savage Gladiator's Felweave Trousers
+		{ 37369, 4 }, -- Sorrowgrave's Breeches
+		{ 36976, 4 }, -- Ring-Lord's Leggings
+		{ 41553, 4 }, -- Black Duskweave Leggings
+	},
+	Feet = {
+		{ 40558, 1 }, -- Arcanic Tramplers
+		{ 40246, 2 }, -- Boots of Impetuous Ideals
+		{ 41879, 2 }, -- Hateful Gladiator's Slippers of Salvation
+		{ 44202, 2 }, -- Sandals of Crimson Fury
+		{ 37867, 3 }, -- Footwraps of Teleportation
+		{ 44899, 4 }, -- Titan-Forged Slippers of Dominance
+		{ 44900, 4 }, -- Titan-Forged Slippers of Salvation
+		{ 41901, 4 }, -- Hateful Gladiator's Slippers of Dominance
+		{ 32239, 4 }, -- Slippers of the Seacaller
+		{ 37730, 4 }, -- Cleric's Linen Shoes
+	},
+	Ring = {
+		{ 44934, 1 }, -- Loop of the Kirin Tor
+		{ 42644, 1 }, -- Titanium Spellshock Ring
+		{ 37732, 2 }, -- Spectral Seal of the Prophet
+		{ 42114, 2 }, -- Deadly Gladiator's Band of Ascendancy
+		{ 40585, 1 }, -- Signet of the Kirin Tor
+		{ 37694, 3 }, -- Band of Guile
+		{ 37192, 3 }, -- Annhylde's Ring
+		{ 44283, 4 }, -- Signet of Hopeful Light
+		{ 37079, 4 }, -- Enchanted Wire Stitching
+		{ 42110, 4 }, -- Hateful Gladiator's Band of Dominance
+		{ 43253, 4 }, -- Ring of Northern Tears
+		{ 44387, 4 }, -- Bat-Wool Signet
+		{ 37371, 4 }, -- Ring of the Frenzied Wolvar
+		{ 43408, 4 }, -- Solitaire of Reflecting Beams
+		{ 37869, 4 }, -- Globule Signet
+		{ 37232, 4 }, -- Ring of the Traitor King
+	},
+	Trinket = {
+		{ 42395, 1 }, -- Figurine - Twilight Serpent
+		{ 37873, 1 }, -- Mark of the War Prisoner
+		{ 49076, 1 }, -- Mithril Pocketwatch
+		{ 40682, 1 }, -- Sundial of the Exiled
+		{ 37660, 2 }, -- Forge Ember
+		{ 44912, 2 }, -- Flow of Knowledge
+		{ 33829, 3 }, -- Hex Shrunken Head
+		{ 37844, 3 }, -- Winged Talisman
+		{ 34429, 3 }, -- Shifting Naaru Sliver
+		{ 42132, 4 }, -- Battlemaster's Bravery
+		{ 37835, 4 }, -- Je'Tze's Bell
+		{ 42988, 4 }, -- Darkmoon Card: Illusion
+		{ 36972, 4 }, -- Tome of Arcane Phenomena
+		{ 32483, 4 }, -- The Skull of Gul'dan
+	},
+	TwoHand = {
+		{ 37360, 1 }, -- Staff of Draconic Combat
+		{ 37384, 4 }, -- Staff of Wayward Principles
+		{ 37617, 4 }, -- Staff of Sinister Claws
+		{ 34337, 4 }, -- Golden Staff of the Sin'dorei
+		{ 36975, 4 }, -- Malygos' Favor
+		{ 37099, 4 }, -- Sempiternal Staff
+		{ 34182, 4 }, -- Grand Magister's Staff of Torrents
+	},
+	MainHand = {
+		{ 45085, 1 }, -- Titansteel Spellblade
+		{ 37721, 4 }, -- Cursed Lich Blade
+		{ 37377, 4 }, -- Netherbreath Spellblade
+		{ 44173, 4 }, -- Flameheart Spell Scalpel
+		{ 37060, 4 }, -- Jeweled Coronation Sword
+		{ 49227, 4 }, -- Skoll's Fang
+		{ 34336, 4 }, -- Sunflare
+	},
+	OffHand = {
+		{ 40699, 1 }, -- Handbook of Obscure Remedies
+		{ 44210, 2 }, -- Faces of Doom
+		{ 40698, 1 }, -- Ward of the Violet Citadel
+		{ 38322, 3 }, -- Iron-bound Tome
+		{ 37889, 4 }, -- Prison Manifest
+		{ 37086, 4 }, -- Tome of Salramm
+		{ 37134, 4 }, -- Telestra's Journal
+		{ 37718, 4 }, -- Temple Crystal Fragment
+	},
+	Ranged = {
+		{ 34348, 1 }, -- Wand of Cleansing Light
+		{ 37619, 2 }, -- Wand of Ahn'kahet
+		{ 34347, 3 }, -- Wand of the Demonsoul
+		{ 37626, 3 }, -- Wand of Sseratus
+		{ 37238, 4 }, -- Rod of the Fallen Monarch
+		{ 37038, 4 }, -- Brazier Igniter
+		{ 36989, 4 }, -- Ancient Measuring Rod
+		{ 37177, 4 }, -- Wand of the San'layn
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/demonology/dps-bis-gear-pve-phase-1
+ns:RegisterBiS("WARLOCK", "Demonology", "P1", {
+	Head = {
+		{ 40562, 2 }, -- Hood of Rationality
+		{ 43995, 2 }, -- Enamored Cowl
+		{ 40287, 3 }, -- Cowl of Vanity
+		{ 40421, 1 }, -- Valorous Plagueheart Circlet
+		{ 39732, 4 }, -- Faerlina's Madness
+		{ 39496, 4 }, -- Heroes' Plagueheart Circlet
+		{ 39409, 4 }, -- Cowl of Winged Fear
+		{ 37684, 4 }, -- Forgotten Shadow Hood
+		{ 41992, 4 }, -- Deadly Gladiator's Felweave Cowl
+		{ 40339, 4 }, -- Gothik's Cowl
+	},
+	Neck = {
+		{ 44661, 1 }, -- Wyrmrest Necklace of Power
+		{ 40486, 2 }, -- Necklace of the Glittering Chamber
+		{ 40064, 2 }, -- Thunderstorm Amulet
+		{ 44658, 3 }, -- Chain of the Ancient Wyrm
+		{ 40412, 4 }, -- Ousted Bead Necklace
+		{ 44662, 4 }, -- Life-Binder's Locket
+		{ 40374, 4 }, -- Cosmic Lights
+		{ 42032, 4 }, -- Deadly Gladiator's Pendant of Deliverance
+		{ 40680, 4 }, -- Encircling Burnished Gold Chains
+	},
+	Shoulder = {
+		{ 39719, 2 }, -- Mantle of the Locusts
+		{ 40555, 2 }, -- Mantle of Dissemination
+		{ 40351, 3 }, -- Mantle of the Fatigued Sage
+		{ 40424, 1 }, -- Valorous Plagueheart Shoulderpads
+		{ 40286, 3 }, -- Mantle of the Corrupted
+		{ 39284, 4 }, -- Miasma Mantle
+		{ 37196, 4 }, -- Runecaster's Mantle
+		{ 39499, 4 }, -- Heroes' Plagueheart Shoulderpads
+	},
+	Back = {
+		{ 40405, 1 }, -- Cape of the Unworthy Wizard
+		{ 44005, 1 }, -- Pennant Cloak
+		{ 40723, 3 }, -- Disguise of the Kumiho
+		{ 40253, 3 }, -- Shawl of the Old Maid
+		{ 42066, 4 }, -- Deadly Gladiator's Cloak of Deliverance
+		{ 39241, 4 }, -- Dark Shroud of the Scourge
+		{ 40251, 4 }, -- Shroud of Luminosity
+		{ 37799, 4 }, -- Reanimator's Cloak
+	},
+	Chest = {
+		{ 40423, 1 }, -- Valorous Plagueheart Robe
+		{ 40194, 2 }, -- Blanketing Robes of Snow
+		{ 40602, 2 }, -- Robes of Mutation
+		{ 44002, 3 }, -- The Sanctum's Flowing Vestments
+		{ 39497, 4 }, -- Heroes' Plagueheart Robe
+		{ 40062, 4 }, -- Digested Silken Robes
+		{ 40381, 4 }, -- Sympathy
+	},
+	Wrist = {
+		{ 44008, 1 }, -- Unsullied Cuffs
+		{ 40198, 3 }, -- Bands of Impurity
+		{ 40740, 4 }, -- Wraps of the Astral Traveler
+		{ 39731, 4 }, -- Punctilious Bindings
+		{ 41892, 4 }, -- Deadly Gladiator's Cuffs of Salvation
+		{ 39390, 4 }, -- Resurgent Phantom Bindings
+		{ 39252, 4 }, -- Preceptor's Bindings
+	},
+	Hands = {
+		{ 40197, 2 }, -- Gloves of the Fallen Wizard
+		{ 39733, 2 }, -- Gloves of Token Respect
+		{ 39192, 3 }, -- Gloves of Dark Gestures
+		{ 37172, 3 }, -- Gloves of Glistening Runes
+		{ 37798, 4 }, -- Overlook Handguards
+		{ 42103, 4 }, -- Moonshroud Gloves
+		{ 40420, 1 }, -- Valorous Plagueheart Gloves
+		{ 42113, 4 }, -- Spellweave Gloves
+		{ 40380, 4 }, -- Gloves of Grandeur
+		{ 34342, 4 }, -- Handguards of the Dawn
+	},
+	Waist = {
+		{ 40561, 1 }, -- Leash of Heedless Magic
+		{ 39735, 3 }, -- Belt of False Dignity
+		{ 41880, 4 }, -- Deadly Gladiator's Cord of Salvation
+		{ 44309, 4 }, -- Sash of Jordan
+		{ 40271, 4 }, -- Sash of Solitude
+		{ 40301, 2 }, -- Cincture of Polarity
+		{ 39190, 4 }, -- Agonal Sash
+		{ 37408, 4 }, -- Girdle of Bane
+	},
+	Legs = {
+		{ 40398, 1 }, -- Leggings of Mortal Arrogance
+		{ 40376, 1 }, -- Legwraps of the Defeated Dragon
+		{ 40060, 2 }, -- Distorted Limbs
+		{ 39408, 2 }, -- Leggings of Sapphiron
+		{ 40560, 1 }, -- Leggings of the Wanton Spellcaster
+		{ 39309, 3 }, -- Leggings of the Instructor
+		{ 40422, 3 }, -- Valorous Plagueheart Leggings
+	},
+	Feet = {
+		{ 40558, 1 }, -- Arcanic Tramplers
+		{ 40326, 2 }, -- Boots of Forlorn Wishes
+		{ 40269, 2 }, -- Boots of Persuasion
+		{ 40750, 2 }, -- Xintor's Expeditionary Boots
+		{ 40751, 2 }, -- Slippers of the Holy Light
+		{ 41884, 3 }, -- Deadly Gladiator's Treads of Salvation
+		{ 39254, 4 }, -- Saltarello Shoes
+		{ 40246, 2 }, -- Boots of Impetuous Ideals
+		{ 39273, 4 }, -- Sullen Cloth Boots
+		{ 41879, 4 }, -- Hateful Gladiator's Slippers of Salvation
+		{ 44202, 4 }, -- Sandals of Crimson Fury
+	},
+	Ring = {
+		{ 40080, 1 }, -- Lost Jewel
+		{ 40719, 1 }, -- Band of Channeled Magic
+		{ 40399, 1 }, -- Signet of Manifested Pain
+		{ 39250, 3 }, -- Ring of Holy Cleansing
+		{ 39231, 3 }, -- Timeworn Silken Band
+		{ 42644, 3 }, -- Titanium Spellshock Ring
+		{ 39389, 3 }, -- Signet of the Malevolent
+		{ 44934, 3 }, -- Loop of the Kirin Tor
+		{ 37732, 3 }, -- Spectral Seal of the Prophet
+		{ 42114, 4 }, -- Deadly Gladiator's Band of Ascendancy
+		{ 40375, 4 }, -- Ring of Decaying Beauty
+		{ 40433, 4 }, -- Wyrmrest Band
+		{ 40585, 4 }, -- Signet of the Kirin Tor
+		{ 40108, 4 }, -- Seized Beauty
+	},
+	Trinket = {
+		{ 40255, 1 }, -- Dying Curse
+		{ 40432, 1 }, -- Illustration of the Dragon Soul
+		{ 40682, 1 }, -- Sundial of the Exiled
+		{ 49076, 1 }, -- Mithril Pocketwatch
+		{ 42395, 3 }, -- Figurine - Twilight Serpent
+		{ 39229, 4 }, -- Embrace of the Spider
+	},
+	TwoHand = {
+		{ 40348, 2 }, -- Damnation
+		{ 40455, 3 }, -- Staff of Restraint
+		{ 40489, 3 }, -- Greatstaff of the Nexus
+		{ 42384, 3 }, -- Deadly Gladiator's Energy Staff
+		{ 44420, 4 }, -- Deadly Gladiator's Focus Staff
+		{ 40300, 4 }, -- Spire of Sunset
+	},
+	MainHand = {
+		{ 40396, 1 }, -- The Turning Tide
+		{ 39424, 4 }, -- The Soulblade
+		{ 40408, 4 }, -- Haunting Call
+		{ 40336, 4 }, -- Life and Death
+		{ 42346, 4 }, -- Deadly Gladiator's Spellblade
+	},
+	OffHand = {
+		{ 39766, 1 }, -- Matriarch's Spawn
+		{ 40192, 2 }, -- Accursed Spine
+		{ 42531, 2 }, -- Deadly Gladiator's Reprieve
+		{ 39199, 1 }, -- Watchful Eye
+		{ 40699, 2 }, -- Handbook of Obscure Remedies
+		{ 40273, 2 }, -- Surplus Limb
+		{ 44210, 3 }, -- Faces of Doom
+		{ 42530, 3 }, -- Hateful Gladiator's Reprieve
+		{ 38322, 4 }, -- Iron-bound Tome
+		{ 40698, 4 }, -- Ward of the Violet Citadel
+		{ 42525, 4 }, -- Deadly Gladiator's Endgame
+		{ 40350, 4 }, -- Urn of Lost Memories
+	},
+	Ranged = {
+		{ 39426, 1 }, -- Wand of the Archlich
+		{ 40284, 2 }, -- Plague Igniter
+		{ 34348, 2 }, -- Wand of Cleansing Light
+		{ 42513, 2 }, -- Deadly Gladiator's Baton of Light
+		{ 37619, 3 }, -- Wand of Ahn'kahet
+		{ 39712, 3 }, -- Gemmed Wand of the Nerubians
+		{ 34347, 4 }, -- Wand of the Demonsoul
+		{ 42502, 4 }, -- Deadly Gladiator's Touch of Defeat
+		{ 40245, 4 }, -- Fading Glow
+		{ 37626, 4 }, -- Wand of Sseratus
+		{ 40335, 4 }, -- Touch of Horror
+		{ 37238, 4 }, -- Rod of the Fallen Monarch
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/demonology/dps-bis-gear-pve-phase-2
+ns:RegisterBiS("WARLOCK", "Demonology", "P2", {
+	Head = {
+		{ 45497, 1 }, -- Crown of Luminescence
+		{ 45150, 2 }, -- Collar of the Wyrmhunter
+		{ 45532, 3 }, -- Cowl of Dark Whispers
+		{ 46140, 3 }, -- Conqueror's Deathbringer Hood
+		{ 45289, 3 }, -- Lifespark Visage
+		{ 40562, 4 }, -- Hood of Rationality
+	},
+	Neck = {
+		{ 45243, 1 }, -- Sapphire Amulet of Renewal
+		{ 45133, 1 }, -- Pendant of Fiery Havoc
+		{ 45447, 2 }, -- Watchful Eye of Fate
+		{ 45933, 2 }, -- Pendant of the Shallow Grave
+		{ 45443, 3 }, -- Charm of Meticulous Timing
+		{ 45822, 4 }, -- Evoker's Charm
+		{ 44661, 4 }, -- Wyrmrest Necklace of Power
+	},
+	Shoulder = {
+		{ 46068, 1 }, -- Amice of Inconceivable Horror
+		{ 46136, 1 }, -- Conqueror's Deathbringer Shoulderpads
+		{ 45253, 3 }, -- Mantle of Wavering Calm
+		{ 46013, 3 }, -- Underworld Mantle
+		{ 45514, 4 }, -- Mantle of the Unknowing
+		{ 45186, 4 }, -- Soot-Covered Mantle
+		{ 45422, 4 }, -- Valorous Deathbringer Shoulderpads
+	},
+	Back = {
+		{ 45618, 1 }, -- Sunglimmer Cloak
+		{ 45242, 2 }, -- Drape of Mortal Downfall
+		{ 46321, 2 }, -- Sunglimmer Drape
+		{ 46042, 2 }, -- Drape of the Messenger
+		{ 44005, 3 }, -- Pennant Cloak
+	},
+	Chest = {
+		{ 45272, 2 }, -- Robes of the Umbral Brute
+		{ 45240, 1 }, -- Raiments of the Iron Council
+		{ 46137, 1 }, -- Conqueror's Deathbringer Robe
+		{ 45421, 3 }, -- Valorous Deathbringer Robe
+		{ 46012, 3 }, -- Vestments of the Piercing Light
+		{ 44002, 3 }, -- The Sanctum's Flowing Vestments
+		{ 45865, 4 }, -- Raiments of the Corrupted
+	},
+	Wrist = {
+		{ 45446, 1 }, -- Grasps of Reason
+		{ 44008, 3 }, -- Unsullied Cuffs
+		{ 45275, 3 }, -- Bracers of Unleashed Magic
+		{ 45146, 3 }, -- Shackles of the Odalisque
+		{ 45549, 4 }, -- Grips of Chaos
+		{ 45423, 4 }, -- Runetouch Wristwraps
+		{ 39731, 4 }, -- Punctilious Bindings
+		{ 45291, 4 }, -- Combustion Bracers
+		{ 40198, 4 }, -- Bands of Impurity
+	},
+	Hands = {
+		{ 45665, 1 }, -- Pharos Gloves
+		{ 45520, 1 }, -- Handwraps of the Vigilant
+		{ 46045, 3 }, -- Pulsar Gloves
+		{ 45273, 4 }, -- Handwraps of Plentiful Recovery
+		{ 45840, 4 }, -- Touch of the Occult
+		{ 45117, 4 }, -- Constructor's Handwraps
+		{ 46135, 4 }, -- Conqueror's Deathbringer Gloves
+	},
+	Waist = {
+		{ 45619, 1 }, -- Starwatcher's Binding
+		{ 45557, 2 }, -- Sash of Ancient Power
+		{ 45558, 3 }, -- Cord of the White Dawn
+		{ 45119, 2 }, -- Embrace of the Leviathan
+		{ 40561, 3 }, -- Leash of Heedless Magic
+		{ 45508, 4 }, -- Belt of the Darkspeaker
+		{ 45831, 4 }, -- Sash of Potent Incantations
+	},
+	Legs = {
+		{ 45488, 1 }, -- Leggings of the Enslaved Idol
+		{ 46034, 2 }, -- Leggings of Profound Darkness
+		{ 46139, 1 }, -- Conqueror's Deathbringer Leggings
+		{ 45468, 3 }, -- Leggings of Lost Love
+		{ 45848, 3 }, -- Legwraps of the Master Conjurer
+		{ 45238, 3 }, -- Overload Legwraps
+		{ 45420, 4 }, -- Valorous Deathbringer Leggings
+		{ 40398, 4 }, -- Leggings of Mortal Arrogance
+		{ 40560, 4 }, -- Leggings of the Wanton Spellcaster
+	},
+	Feet = {
+		{ 45135, 1 }, -- Boots of Fiery Resolution
+		{ 45537, 2 }, -- Treads of the False Oracle
+		{ 46050, 3 }, -- Starlight Treads
+		{ 45483, 4 }, -- Boots of the Servant
+		{ 45566, 4 }, -- Spellslinger's Slippers
+		{ 45567, 4 }, -- Savior's Slippers
+		{ 45441, 4 }, -- Sandals of the Ancient Keeper
+		{ 40558, 4 }, -- Arcanic Tramplers
+	},
+	Ring = {
+		{ 45495, 1 }, -- Conductive Seal
+		{ 46046, 1 }, -- Nebula Band
+		{ 45297, 1 }, -- Shimmering Seal
+		{ 45168, 4 }, -- Pyrelight Circle
+		{ 45691, 4 }, -- Inscribed Signet of the Kirin Tor
+		{ 45451, 4 }, -- Frozen Loop
+		{ 46096, 4 }, -- Signet of Soft Lament
+		{ 45946, 4 }, -- Fire Orchid Signet
+		{ 45113, 4 }, -- Glowing Ring of Reclamation
+		{ 40399, 4 }, -- Signet of Manifested Pain
+	},
+	Trinket = {
+		{ 45518, 1 }, -- Flare of the Heavens
+		{ 45148, 1 }, -- Living Flame
+		{ 45466, 2 }, -- Scale of Fates
+		{ 40432, 2 }, -- Illustration of the Dragon Soul
+		{ 40255, 2 }, -- Dying Curse
+		{ 45490, 4 }, -- Pandora's Plea
+		{ 45308, 4 }, -- Eye of the Broodmother
+		{ 45866, 4 }, -- Elemental Focus Stone
+		{ 39229, 4 }, -- Embrace of the Spider
+	},
+	TwoHand = {
+		{ 45457, 1 }, -- Staff of Endless Winter
+		{ 45886, 2 }, -- Icecore Staff
+		{ 45479, 3 }, -- The Lifebinder
+		{ 45234, 4 }, -- Rapture
+		{ 45171, 4 }, -- Intensity
+		{ 46025, 4 }, -- Devotion
+	},
+	MainHand = {
+		{ 45620, 1 }, -- Starshard Edge
+		{ 45990, 3 }, -- Fusion Blade
+		{ 45527, 4 }, -- Soulscribe
+		{ 45437, 4 }, -- Runescribed Blade
+		{ 40396, 4 }, -- The Turning Tide
+	},
+	OffHand = {
+		{ 45617, 1 }, -- Cosmos
+		{ 45271, 2 }, -- Ironmender
+		{ 45115, 3 }, -- Leviathan Fueling Manual
+		{ 45314, 3 }, -- Igniter Rod
+		{ 39766, 4 }, -- Matriarch's Spawn
+		{ 40273, 4 }, -- Surplus Limb
+		{ 40192, 4 }, -- Accursed Spine
+	},
+	Ranged = {
+		{ 45294, 1 }, -- Petrified Ivy Sprig
+		{ 45511, 2 }, -- Scepter of Lost Souls
+		{ 45170, 3 }, -- Scepter of Creation
+		{ 45257, 3 }, -- Quartz Crystal Wand
+		{ 45713, 4 }, -- Nurturing Touch
+		{ 39426, 4 }, -- Wand of the Archlich
+		{ 39712, 4 }, -- Gemmed Wand of the Nerubians
+		{ 40284, 4 }, -- Plague Igniter
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/demonology/dps-bis-gear-pve-phase-3
+ns:RegisterBiS("WARLOCK", "Demonology", "P3", {
+	Head = {
+		{ 47796, 1 }, -- Gul'dan's Hood of Triumph
+		{ 47789, 1 }, -- Kel'Thuzad's Hood of Triumph
+		{ 47804, 3 }, -- Gul'dan's Hood of Triumph
+		{ 47778, 3 }, -- Kel'Thuzad's Hood of Triumph
+		{ 45497, 4 }, -- Crown of Luminescence
+		{ 49484, 4 }, -- Nemesis Skullcap
+		{ 47801, 4 }, -- Gul'dan's Hood of Conquest
+		{ 47784, 4 }, -- Kel'Thuzad's Hood of Conquest
+		{ 47695, 4 }, -- Hood of Clouded Sight
+		{ 47694, 4 }, -- Helm of Clouded Sight
+		{ 47693, 4 }, -- Hood of Fiery Aftermath
+		{ 47692, 4 }, -- Hood of Smoldering Aftermath
+		{ 49315, 4 }, -- Nemesis Skullcover
+		{ 45532, 4 }, -- Cowl of Dark Whispers
+		{ 45150, 4 }, -- Collar of the Wyrmhunter
+	},
+	Neck = {
+		{ 45133, 1 }, -- Pendant of Fiery Havoc
+		{ 45243, 1 }, -- Sapphire Amulet of Renewal
+		{ 47468, 2 }, -- Cry of the Val'kyr
+		{ 47144, 2 }, -- Wail of the Val'kyr
+		{ 45447, 2 }, -- Watchful Eye of Fate
+		{ 48030, 2 }, -- Darkbane Amulet
+		{ 47957, 2 }, -- Darkbane Pendant
+		{ 45933, 3 }, -- Pendant of the Shallow Grave
+		{ 45443, 3 }, -- Charm of Meticulous Timing
+		{ 47890, 3 }, -- Darkbane Amulet
+		{ 47747, 3 }, -- Darkbane Pendant
+		{ 47307, 3 }, -- Cry of the Val'kyr
+		{ 47139, 3 }, -- Wail of the Val'kyr
+		{ 44661, 4 }, -- Wyrmrest Necklace of Power
+	},
+	Shoulder = {
+		{ 47793, 1 }, -- Gul'dan's Shoulderpads of Triumph
+		{ 47792, 1 }, -- Kel'Thuzad's Shoulderpads of Triumph
+		{ 47807, 3 }, -- Gul'dan's Shoulderpads of Triumph
+		{ 47781, 3 }, -- Kel'Thuzad's Shoulderpads of Triumph
+		{ 46068, 3 }, -- Amice of Inconceivable Horror
+		{ 47716, 4 }, -- Mantle of Revered Mortality
+		{ 47715, 4 }, -- Pauldrons of Revered Mortality
+		{ 47798, 4 }, -- Gul'dan's Shoulderpads of Conquest
+		{ 47787, 4 }, -- Kel'Thuzad's Shoulderpads of Conquest
+		{ 47714, 4 }, -- Pauldrons of Catastrophic Emanation
+		{ 47713, 4 }, -- Mantle of Catastrophic Emanation
+		{ 45253, 4 }, -- Mantle of Wavering Calm
+		{ 46136, 4 }, -- Conqueror's Deathbringer Shoulderpads
+		{ 45514, 4 }, -- Mantle of the Unknowing
+		{ 46013, 4 }, -- Underworld Mantle
+		{ 45186, 4 }, -- Soot-Covered Mantle
+	},
+	Back = {
+		{ 47554, 1 }, -- Lady Liadrin's Conviction
+		{ 47553, 1 }, -- Bolvar's Devotion
+		{ 47552, 2 }, -- Jaina's Radiance
+		{ 47551, 2 }, -- Aethas' Intensity
+		{ 48672, 3 }, -- Shawl of Fervent Crusader
+		{ 48667, 3 }, -- Shawl of the Devout Crusader
+		{ 47417, 3 }, -- Drape of the Refreshing Winds
+		{ 46977, 3 }, -- Shawl of the Refreshing Winds
+		{ 45618, 4 }, -- Sunglimmer Cloak
+		{ 48671, 4 }, -- Drape of Bitter Incantation
+		{ 48666, 4 }, -- Drape of the Sunreavers
+		{ 47452, 4 }, -- Shroud of Displacement
+		{ 47095, 4 }, -- Cloak of Displacement
+		{ 46321, 4 }, -- Sunglimmer Drape
+		{ 45242, 4 }, -- Drape of Mortal Downfall
+		{ 47291, 4 }, -- Shroud of Displacement
+		{ 47089, 4 }, -- Cloak of Displacement
+	},
+	Chest = {
+		{ 47794, 1 }, -- Gul'dan's Robe of Triumph
+		{ 47791, 1 }, -- Kel'Thuzad's Robe of Triumph
+		{ 47806, 3 }, -- Gul'dan's Robe of Triumph
+		{ 47779, 3 }, -- Kel'Thuzad's Robe of Triumph
+		{ 47462, 4 }, -- Skyweaver Vestments
+		{ 47129, 4 }, -- Skyweaver Robes
+		{ 47425, 4 }, -- Flowing Robes of Ascent
+		{ 46993, 4 }, -- Flowing Vestments of Ascent
+		{ 47799, 4 }, -- Gul'dan's Robe of Conquest
+		{ 47786, 4 }, -- Kel'Thuzad's Robe of Conquest
+		{ 47301, 4 }, -- Skyweaver Vestments
+		{ 47126, 4 }, -- Skyweaver Robes
+		{ 47606, 4 }, -- Royal Moonshroud Robe
+		{ 47605, 4 }, -- Royal Moonshroud Robe
+		{ 47264, 4 }, -- Flowing Robes of Ascent
+		{ 46992, 4 }, -- Flowing Vestments of Ascent
+		{ 48051, 4 }, -- Robes of the Sleepless
+		{ 47974, 4 }, -- Vestments of the Sleepless
+		{ 47604, 4 }, -- Merlin's Robe
+		{ 47603, 4 }, -- Merlin's Robe
+	},
+	Wrist = {
+		{ 47485, 1 }, -- Bindings of the Ashen Saint
+		{ 47208, 1 }, -- Armbands of the Ashen Saint
+		{ 45446, 2 }, -- Grasps of Reason
+		{ 47588, 3 }, -- Royal Moonshroud Bracers
+		{ 47587, 3 }, -- Royal Moonshroud Bracers
+		{ 47324, 3 }, -- Bindings of the Ashen Saint
+		{ 47203, 3 }, -- Armbands of the Ashen Saint
+		{ 47586, 3 }, -- Bejeweled Wizard's Bracers
+		{ 47585, 3 }, -- Bejeweled Wizard's Bracers
+		{ 48000, 3 }, -- Felspark Bracers
+		{ 47927, 3 }, -- Felspark Bindings
+		{ 47467, 4 }, -- Dark Essence Bindings
+		{ 47143, 4 }, -- Bindings of Dark Essence
+		{ 44008, 4 }, -- Unsullied Cuffs
+		{ 45146, 4 }, -- Shackles of the Odalisque
+		{ 41894, 4 }, -- Relentless Gladiator's Cuffs of Salvation
+	},
+	Hands = {
+		{ 47797, 1 }, -- Gul'dan's Gloves of Triumph
+		{ 47788, 1 }, -- Kel'Thuzad's Gloves of Triumph
+		{ 47803, 3 }, -- Gul'dan's Gloves of Triumph
+		{ 47782, 3 }, -- Kel'Thuzad's Gloves of Triumph
+		{ 46045, 3 }, -- Pulsar Gloves
+		{ 48028, 3 }, -- Looming Shadow Wraps
+		{ 47956, 3 }, -- Gloves of Looming Shadow
+		{ 47487, 4 }, -- Handwraps of the Lifeless Touch
+		{ 47236, 4 }, -- Gloves of the Lifeless Touch
+		{ 47802, 4 }, -- Gul'dan's Gloves of Conquest
+		{ 47783, 4 }, -- Kel'Thuzad's Gloves of Conquest
+		{ 45520, 4 }, -- Handwraps of the Vigilant
+		{ 47889, 4 }, -- Looming Shadow Wraps
+		{ 47745, 4 }, -- Gloves of Looming Shadow
+		{ 47326, 4 }, -- Handwraps of the Lifeless Touch
+		{ 47235, 4 }, -- Gloves of the Lifeless Touch
+		{ 45665, 4 }, -- Pharos Gloves
+	},
+	Waist = {
+		{ 47419, 1 }, -- Belt of the Tenebrous Mist
+		{ 46973, 1 }, -- Cord of the Tenebrous Mist
+		{ 45619, 3 }, -- Starwatcher's Binding
+		{ 47258, 4 }, -- Belt of the Tenebrous Mist
+		{ 46972, 4 }, -- Cord of the Tenebrous Mist
+		{ 48054, 4 }, -- Belt of the Eternal
+		{ 47977, 4 }, -- Cinch of the Undying
+		{ 47994, 4 }, -- Icehowl Binding
+		{ 47921, 4 }, -- Icehowl Cinch
+		{ 47447, 4 }, -- Belt of Biting Cold
+		{ 47084, 4 }, -- Cord of Biting Cold
+		{ 45558, 4 }, -- Cord of the White Dawn
+		{ 47286, 4 }, -- Belt of Biting Cold
+		{ 47081, 4 }, -- Cord of Biting Cold
+		{ 45557, 4 }, -- Sash of Ancient Power
+		{ 47855, 4 }, -- Icehowl Binding
+		{ 47617, 4 }, -- Icehowl Cinch
+	},
+	Legs = {
+		{ 47435, 1 }, -- Pants of the Soothing Touch
+		{ 47062, 1 }, -- Leggings of the Soothing Touch
+		{ 47795, 3 }, -- Gul'dan's Leggings of Triumph
+		{ 47790, 3 }, -- Kel'Thuzad's Leggings of Triumph
+		{ 47274, 4 }, -- Pants of the Soothing Touch
+		{ 47051, 4 }, -- Leggings of the Soothing Touch
+		{ 47478, 4 }, -- Breeches of the Deepening Void
+		{ 47189, 4 }, -- Leggings of the Deepening Void
+		{ 48004, 4 }, -- Legwraps of the Demonic Messenger
+		{ 47931, 4 }, -- Leggings of the Demonic Messenger
+		{ 45488, 4 }, -- Leggings of the Enslaved Idol
+		{ 46034, 4 }, -- Leggings of Profound Darkness
+		{ 47805, 4 }, -- Gul'dan's Leggings of Triumph
+		{ 47780, 4 }, -- Kel'Thuzad's Leggings of Triumph
+		{ 46139, 4 }, -- Conqueror's Deathbringer Leggings
+		{ 47317, 4 }, -- Breeches of the Deepening Void
+		{ 47187, 4 }, -- Leggings of the Deepening Void
+	},
+	Feet = {
+		{ 47454, 1 }, -- Sandals of the Mourning Widow
+		{ 47097, 1 }, -- Boots of the Mourning Widow
+		{ 45135, 2 }, -- Boots of Fiery Resolution
+		{ 47482, 4 }, -- Boots of the Icy Floe
+		{ 47205, 4 }, -- Footpads of the Icy Floe
+		{ 45537, 4 }, -- Treads of the False Oracle
+		{ 47293, 4 }, -- Sandals of the Mourning Widow
+		{ 47092, 4 }, -- Boots of the Mourning Widow
+		{ 46050, 4 }, -- Starlight Treads
+		{ 47321, 4 }, -- Boots of the Icy Floe
+		{ 47194, 4 }, -- Footpads of the Icy Floe
+		{ 45483, 4 }, -- Boots of the Servant
+		{ 48012, 4 }, -- Sunreaver Magus' Sandals
+		{ 47940, 4 }, -- Sandals of the Silver Magus
+		{ 41886, 4 }, -- Relentless Gladiator's Treads of Salvation
+		{ 49234, 4 }, -- Boots of the Grieving Soul
+		{ 49233, 4 }, -- Sandals of the Grieving Soul
+	},
+	Ring = {
+		{ 47489, 1 }, -- Lurid Manifestation
+		{ 47237, 1 }, -- Band of Deplorable Violence
+		{ 45495, 1 }, -- Conductive Seal
+		{ 45297, 2 }, -- Shimmering Seal
+		{ 48001, 2 }, -- Firestorm Band
+		{ 47928, 2 }, -- Firestorm Ring
+		{ 47732, 3 }, -- Band of the Invoker
+		{ 47439, 3 }, -- Circle of the Darkmender
+		{ 47224, 3 }, -- Ring of the Darkmender
+		{ 46096, 3 }, -- Signet of Soft Lament
+		{ 46046, 3 }, -- Nebula Band
+		{ 47327, 3 }, -- Lurid Manifestation
+		{ 47054, 3 }, -- Band of Deplorable Violence
+		{ 48957, 3 }, -- Etched Signet of the Kirin Tor
+		{ 45614, 3 }, -- Starshine Circle
+	},
+	Trinket = {
+		{ 45518, 1 }, -- Flare of the Heavens
+		{ 40255, 1 }, -- Dying Curse
+		{ 45148, 2 }, -- Living Flame
+		{ 47477, 3 }, -- Reign of the Dead
+		{ 47188, 3 }, -- Reign of the Unliving
+		{ 47316, 4 }, -- Reign of the Dead
+		{ 47182, 4 }, -- Reign of the Unliving
+		{ 45466, 4 }, -- Scale of Fates
+		{ 47213, 4 }, -- Abyssal Rune
+		{ 40432, 4 }, -- Illustration of the Dragon Soul
+		{ 47432, 4 }, -- Solace of the Fallen
+		{ 47059, 4 }, -- Solace of the Defeated
+		{ 45308, 4 }, -- Eye of the Broodmother
+	},
+	TwoHand = {
+		{ 47525, 4 }, -- Sufferance
+		{ 47524, 4 }, -- Clemency
+		{ 48412, 4 }, -- Relentless Gladiator's Acute Staff
+		{ 45457, 4 }, -- Staff of Endless Winter
+		{ 48036, 4 }, -- Illumination
+		{ 47960, 4 }, -- Enlightenment
+		{ 48045, 4 }, -- Perdition
+		{ 47968, 4 }, -- Cold Convergence
+	},
+	MainHand = {
+		{ 47422, 1 }, -- Barb of Tarasque
+		{ 46980, 1 }, -- Blade of Tarasque
+		{ 47518, 1 }, -- Mortalis
+		{ 47517, 1 }, -- Blade of the Unbroken Covenant
+		{ 49191, 3 }, -- Relentless Gladiator's Blade of Celerity
+		{ 45620, 3 }, -- Starshard Edge
+		{ 48408, 3 }, -- Relentless Gladiator's Mageblade
+		{ 45990, 4 }, -- Fusion Blade
+		{ 48708, 4 }, -- Spellstorm Blade
+		{ 48701, 4 }, -- Spellharvest
+		{ 48013, 4 }, -- Sunreaver Disciple's Blade
+		{ 47941, 4 }, -- Blade of the Silver Disciple
+		{ 47261, 4 }, -- Barb of Tarasque
+		{ 46979, 4 }, -- Blade of Tarasque
+	},
+	OffHand = {
+		{ 47470, 1 }, -- Mystifying Charm
+		{ 47146, 1 }, -- Chalice of Searing Light
+		{ 48032, 1 }, -- Lightbane Focus
+		{ 47958, 1 }, -- Chalice of Benedictus
+		{ 47437, 1 }, -- Talisman of Heedless Sins
+		{ 47064, 1 }, -- Symbol of Transgression
+		{ 45617, 2 }, -- Cosmos
+		{ 47276, 2 }, -- Talisman of Heedless Sins
+		{ 47053, 2 }, -- Symbol of Transgression
+		{ 47913, 2 }, -- Lightbane Focus
+		{ 47742, 2 }, -- Chalice of Benedictus
+		{ 47309, 2 }, -- Mystifying Charm
+		{ 47138, 2 }, -- Chalice of Searing Light
+		{ 45271, 3 }, -- Ironmender
+		{ 45115, 3 }, -- Leviathan Fueling Manual
+		{ 49490, 4 }, -- Antediluvian Cornerstone Grimoire
+	},
+	Ranged = {
+		{ 45294, 1 }, -- Petrified Ivy Sprig
+		{ 47658, 2 }, -- Brimstone Igniter
+		{ 45257, 3 }, -- Quartz Crystal Wand
+		{ 47995, 3 }, -- Scepter of Imprisoned Souls
+		{ 47922, 3 }, -- Rod of Imprisoned Souls
+		{ 45170, 3 }, -- Scepter of Creation
+		{ 45511, 4 }, -- Scepter of Lost Souls
+		{ 49185, 4 }, -- Relentless Gladiator's Wand of Alacrity
+		{ 45713, 4 }, -- Nurturing Touch
+		{ 47856, 4 }, -- Scepter of Imprisoned Souls
+		{ 47612, 4 }, -- Rod of Imprisoned Souls
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/demonology/dps-bis-gear-pve-phase-4
+ns:RegisterBiS("WARLOCK", "Demonology", "P4", {
+	Head = {
+		{ 51231, 1 }, -- Sanctified Dark Coven Hood
+		{ 50661, 2 }, -- Corp'rethar Ceremonial Crown
+		{ 51208, 3 }, -- Sanctified Dark Coven Hood
+		{ 51896, 4 }, -- Thaumaturge's Crackling Cowl
+		{ 50006, 4 }, -- Corp'rethar Ceremonial Crown
+		{ 50241, 4 }, -- Dark Coven Hood
+		{ 51837, 4 }, -- Cowl of Malefic Repose
+		{ 47796, 4 }, -- Gul'dan's Hood of Triumph
+		{ 47789, 4 }, -- Kel'Thuzad's Hood of Triumph
+	},
+	Neck = {
+		{ 50658, 1 }, -- Amulet of the Silent Eulogy
+		{ 50609, 2 }, -- Bone Sentinel's Amulet
+		{ 50005, 3 }, -- Amulet of the Silent Eulogy
+		{ 50724, 3 }, -- Blood Queen's Crimson Choker
+		{ 49975, 3 }, -- Bone Sentinel's Amulet
+		{ 51863, 4 }, -- Pendant of Split Veins
+		{ 51894, 4 }, -- Soulcleave Pendant
+		{ 50182, 4 }, -- Blood Queen's Crimson Choker
+		{ 45133, 4 }, -- Pendant of Fiery Havoc
+		{ 45243, 4 }, -- Sapphire Amulet of Renewal
+	},
+	Shoulder = {
+		{ 51234, 1 }, -- Sanctified Dark Coven Shoulderpads
+		{ 50643, 2 }, -- Shoulders of Mercy Killing
+		{ 51205, 3 }, -- Sanctified Dark Coven Shoulderpads
+		{ 49991, 4 }, -- Shoulders of Mercy Killing
+		{ 51859, 4 }, -- Shoulders of Ruinous Senility
+		{ 50449, 4 }, -- Stiffened Corpse Shoulderpads
+		{ 50244, 4 }, -- Dark Coven Shoulderpads
+		{ 47793, 4 }, -- Gul'dan's Shoulderpads of Triumph
+		{ 47792, 4 }, -- Kel'Thuzad's Shoulderpads of Triumph
+		{ 46068, 4 }, -- Amice of Inconceivable Horror
+	},
+	Back = {
+		{ 54583, 1 }, -- Cloak of Burning Dusk
+		{ 50668, 2 }, -- Greatcloak of the Turned Champion
+		{ 47553, 2 }, -- Bolvar's Devotion
+		{ 47554, 2 }, -- Lady Liadrin's Conviction
+		{ 50628, 2 }, -- Frostbinder's Shredded Cape
+		{ 47552, 2 }, -- Jaina's Radiance
+		{ 47551, 2 }, -- Aethas' Intensity
+		{ 53489, 2 }, -- Cloak of Burning Dusk
+		{ 50014, 2 }, -- Greatcloak of the Turned Champion
+		{ 54556, 3 }, -- Abduction's Cover
+		{ 48672, 3 }, -- Shawl of Fervent Crusader
+		{ 48667, 3 }, -- Shawl of the Devout Crusader
+		{ 51826, 3 }, -- Lich Wrappings
+		{ 46977, 3 }, -- Shawl of the Refreshing Winds
+		{ 47417, 3 }, -- Drape of the Refreshing Winds
+		{ 47095, 3 }, -- Cloak of Displacement
+		{ 47452, 3 }, -- Shroud of Displacement
+		{ 50205, 3 }, -- Frostbinder's Shredded Cape
+		{ 53115, 3 }, -- Abduction's Cover
+	},
+	Chest = {
+		{ 50717, 1 }, -- Sanguine Silk Robes
+		{ 51233, 2 }, -- Sanctified Dark Coven Robe
+		{ 50629, 4 }, -- Robe of the Waking Nightmare
+		{ 51851, 4 }, -- Bloodsoul Raiment
+		{ 50172, 4 }, -- Sanguine Silk Robes
+		{ 51206, 4 }, -- Sanctified Dark Coven Robe
+		{ 47794, 4 }, -- Gul'dan's Robe of Triumph
+		{ 47791, 4 }, -- Kel'Thuzad's Robe of Triumph
+		{ 50418, 4 }, -- Robe of the Waking Nightmare
+		{ 47425, 4 }, -- Flowing Robes of Ascent
+		{ 46993, 4 }, -- Flowing Vestments of Ascent
+		{ 47301, 4 }, -- Skyweaver Vestments
+		{ 47126, 4 }, -- Skyweaver Robes
+	},
+	Wrist = {
+		{ 54582, 1 }, -- Bracers of Fiery Night
+		{ 50686, 2 }, -- Death Surgeon's Sleeves
+		{ 50651, 2 }, -- The Lady's Brittle Bracers
+		{ 50032, 2 }, -- Death Surgeon's Sleeves
+		{ 53486, 2 }, -- Bracers of Fiery Night
+		{ 51872, 2 }, -- Ether-Soaked Bracers
+		{ 51918, 3 }, -- Bracers of Dark Blessings
+		{ 47485, 3 }, -- Bindings of the Ashen Saint
+		{ 47208, 3 }, -- Armbands of the Ashen Saint
+		{ 49994, 3 }, -- The Lady's Brittle Bracers
+		{ 45446, 4 }, -- Grasps of Reason
+		{ 47467, 4 }, -- Dark Essence Bindings
+		{ 47143, 4 }, -- Bindings of Dark Essence
+		{ 50785, 4 }, -- Bracers of Dark Blessings
+	},
+	Hands = {
+		{ 51230, 1 }, -- Sanctified Dark Coven Gloves
+		{ 50663, 3 }, -- Gunship Captain's Mittens
+		{ 51209, 3 }, -- Sanctified Dark Coven Gloves
+		{ 50722, 3 }, -- San'layn Ritualist Gloves
+		{ 51921, 4 }, -- Sister's Handshrouds
+		{ 50011, 4 }, -- Gunship Captain's Mittens
+		{ 50240, 4 }, -- Dark Coven Gloves
+		{ 50176, 4 }, -- San'layn Ritualist Gloves
+		{ 51874, 4 }, -- Gloves of Broken Fingers
+		{ 50782, 4 }, -- Sister's Handshrouds
+	},
+	Waist = {
+		{ 50702, 1 }, -- Lingering Illness
+		{ 50613, 2 }, -- Crushing Coldwraith Belt
+		{ 54562, 3 }, -- Misbegotten Belt
+		{ 50063, 4 }, -- Lingering Illness
+		{ 50997, 4 }, -- Circle of Ossus
+		{ 51930, 4 }, -- Cord of the Patronizing Practitioner
+		{ 50996, 4 }, -- Belt of Omission
+		{ 47419, 4 }, -- Belt of the Tenebrous Mist
+		{ 46973, 4 }, -- Cord of the Tenebrous Mist
+		{ 49978, 4 }, -- Crushing Coldwraith Belt
+		{ 51862, 4 }, -- Cauterized Cord
+		{ 47447, 4 }, -- Belt of Biting Cold
+		{ 47084, 4 }, -- Cord of Biting Cold
+		{ 53118, 4 }, -- Misbegotten Belt
+	},
+	Legs = {
+		{ 51232, 1 }, -- Sanctified Dark Coven Leggings
+		{ 50694, 2 }, -- Plaguebringer's Stained Pants
+		{ 51207, 4 }, -- Sanctified Dark Coven Leggings
+		{ 50056, 4 }, -- Plaguebringer's Stained Pants
+		{ 51823, 4 }, -- Leggings of the Refracted Mind
+		{ 50242, 4 }, -- Dark Coven Leggings
+		{ 47478, 4 }, -- Breeches of the Deepening Void
+		{ 47189, 4 }, -- Leggings of the Deepening Void
+		{ 47274, 4 }, -- Pants of the Soothing Touch
+		{ 47051, 4 }, -- Leggings of the Soothing Touch
+		{ 49891, 4 }, -- Leggings of Woven Death
+		{ 51882, 4 }, -- Kilt of Untreated Wounds
+		{ 47795, 4 }, -- Gul'dan's Leggings of Triumph
+		{ 47790, 4 }, -- Kel'Thuzad's Leggings of Triumph
+	},
+	Feet = {
+		{ 50699, 1 }, -- Plague Scientist's Boots
+		{ 47454, 2 }, -- Sandals of the Mourning Widow
+		{ 47097, 2 }, -- Boots of the Mourning Widow
+		{ 49893, 2 }, -- Sandals of Consecration
+		{ 49890, 3 }, -- Deathfrost Boots
+		{ 51850, 3 }, -- Pale Corpse Boots
+		{ 47482, 3 }, -- Boots of the Icy Floe
+		{ 47205, 3 }, -- Footpads of the Icy Floe
+		{ 45135, 3 }, -- Boots of Fiery Resolution
+		{ 50062, 3 }, -- Plague Scientist's Boots
+		{ 51899, 3 }, -- Icecrown Spire Sandals
+	},
+	Ring = {
+		{ 50636, 1 }, -- Memory of Malygos
+		{ 50398, 1 }, -- Ashen Band of Endless Destruction
+		{ 50644, 2 }, -- Ring of Maddening Whispers
+		{ 50714, 2 }, -- Valanar's Other Signet Ring
+		{ 54585, 3 }, -- Ring of Phased Regeneration
+		{ 50614, 3 }, -- Loop of the Endless Labyrinth
+		{ 50664, 3 }, -- Ring of Rapid Ascent
+		{ 54563, 3 }, -- Saviana's Tribute
+		{ 50424, 3 }, -- Memory of Malygos
+		{ 50397, 3 }, -- Ashen Band of Unmatched Destruction
+		{ 53490, 3 }, -- Ring of Phased Regeneration
+		{ 49990, 4 }, -- Ring of Maddening Whispers
+		{ 50170, 4 }, -- Valanar's Other Signet Ring
+		{ 51849, 4 }, -- Cerise Coiled Ring
+		{ 47489, 4 }, -- Lurid Manifestation
+		{ 47237, 4 }, -- Band of Deplorable Violence
+		{ 53116, 4 }, -- Saviana's Tribute
+		{ 45495, 4 }, -- Conductive Seal
+		{ 50008, 4 }, -- Ring of Rapid Ascent
+	},
+	Trinket = {
+		{ 54588, 1 }, -- Charred Twilight Scale
+		{ 50365, 1 }, -- Phylactery of the Nameless Lich
+		{ 50348, 2 }, -- Dislodged Foreign Object
+		{ 50360, 3 }, -- Phylactery of the Nameless Lich
+		{ 54572, 3 }, -- Charred Twilight Scale
+		{ 45518, 2 }, -- Flare of the Heavens
+		{ 50353, 4 }, -- Dislodged Foreign Object
+		{ 40255, 4 }, -- Dying Curse
+		{ 50357, 4 }, -- Maghia's Misguided Quill
+		{ 47477, 4 }, -- Reign of the Dead
+		{ 47188, 4 }, -- Reign of the Unliving
+		{ 50345, 4 }, -- Muradin's Spyglass
+		{ 47316, 4 }, -- Reign of the Dead
+		{ 47182, 4 }, -- Reign of the Unliving
+		{ 45466, 4 }, -- Scale of Fates
+		{ 50259, 4 }, -- Nevermelting Ice Crystal
+	},
+	TwoHand = {
+		{ 50731, 1 }, -- Archus, Greatstaff of Antonidas
+		{ 50725, 4 }, -- Dying Light
+		{ 50429, 4 }, -- Archus, Greatstaff of Antonidas
+		{ 51943, 4 }, -- Halion, Staff of Forgotten Love
+		{ 51403, 4 }, -- Wrathful Gladiator's Acute Staff
+		{ 51898, 4 }, -- Mag'hari Chieftain's Staff
+		{ 51401, 4 }, -- Wrathful Gladiator's Combat Staff
+		{ 51887, 4 }, -- Abracadaver
+		{ 51828, 4 }, -- Sister Svalna's Aether Staff
+	},
+	MainHand = {
+		{ 50732, 1 }, -- Bloodsurge, Kel'Thuzad's Blade of Agony
+		{ 50704, 4 }, -- Rigormortis
+		{ 50608, 4 }, -- Frozen Bonespike
+		{ 51398, 4 }, -- Wrathful Gladiator's Blade of Celerity
+		{ 51399, 4 }, -- Wrathful Gladiator's Mageblade
+		{ 51939, 4 }, -- Tel'thas, Dagger of the Blood King
+		{ 50427, 4 }, -- Bloodsurge, Kel'Thuzad's Blade of Agony
+		{ 51815, 4 }, -- Bleak Coldarra Carver
+		{ 51932, 4 }, -- Frost Needle
+		{ 50068, 4 }, -- Rigormortis
+		{ 51910, 4 }, -- Midnight Sun
+		{ 47518, 4 }, -- Mortalis
+		{ 47517, 4 }, -- Blade of the Unbroken Covenant
+	},
+	OffHand = {
+		{ 50635, 1 }, -- Sundial of Eternal Dusk
+		{ 51922, 3 }, -- Scourgelord's Baton
+		{ 50719, 3 }, -- Shadow Silk Spindle
+		{ 50423, 3 }, -- Sundial of Eternal Dusk
+		{ 50173, 4 }, -- Shadow Silk Spindle
+		{ 47437, 4 }, -- Talisman of Heedless Sins
+		{ 47064, 4 }, -- Symbol of Transgression
+		{ 47309, 4 }, -- Mystifying Charm
+		{ 47138, 4 }, -- Chalice of Searing Light
+		{ 48032, 4 }, -- Lightbane Focus
+		{ 47958, 4 }, -- Chalice of Benedictus
+		{ 45617, 4 }, -- Cosmos
+		{ 50781, 4 }, -- Scourgelord's Baton
+	},
+	Ranged = {
+		{ 50631, 1 }, -- Nightmare Ender
+		{ 50684, 2 }, -- Corpse-Impaling Spike
+		{ 51852, 2 }, -- Wand of Ruby Claret
+		{ 45294, 2 }, -- Petrified Ivy Sprig
+		{ 51838, 3 }, -- Lana'thel's Bloody Nail
+		{ 50472, 3 }, -- Nightmare Ender
+		{ 50033, 4 }, -- Corpse-Impaling Spike
+		{ 51326, 4 }, -- Wand of Ruby Claret
+	},
+})
+
 -- https://www.wowhead.com/wotlk/guide/classes/warlock/destruction/dps-bis-gear-pre-raid-pve
 ns:RegisterBiS("WARLOCK", "Destruction", "PreRaid", {
 	Head = {
@@ -253,11 +2098,8 @@ ns:RegisterBiS("WARLOCK", "Destruction", "PreRaid", {
 	Back = {
 		{ 42064, 1 }, -- Deadly Gladiator's Cloak of Ascendancy
 		{ 41610, 1 }, -- Deathchill Cloak
-		{ 42032, 3 }, -- Deadly Gladiator's Pendant of Deliverance
 		{ 42057, 3 }, -- Hateful Gladiator's Cloak of Ascendancy
-		{ 42029, 4 }, -- Deadly Gladiator's Pendant of Dominance
 		{ 37799, 4 }, -- Reanimator's Cloak
-		{ 42031, 4 }, -- Deadly Gladiator's Pendant of Subjugation
 		{ 42055, 4 }, -- Hateful Gladiator's Cloak of Dominance
 		{ 34242, 4 }, -- Tattered Cape of Antonidas
 		{ 42059, 4 }, -- Hateful Gladiator's Cloak of Deliverance
@@ -422,5 +2264,833 @@ ns:RegisterBiS("WARLOCK", "Destruction", "PreRaid", {
 		{ 36989, 3 }, -- Ancient Measuring Rod
 		{ 37626, 3 }, -- Wand of Sseratus
 		{ 37038, 4 }, -- Brazier Igniter
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/destruction/dps-bis-gear-pve-phase-1
+ns:RegisterBiS("WARLOCK", "Destruction", "P1", {
+	Head = {
+		{ 40562, 1 }, -- Hood of Rationality
+		{ 43995, 3 }, -- Enamored Cowl
+		{ 40287, 4 }, -- Cowl of Vanity
+		{ 40421, 4 }, -- Valorous Plagueheart Circlet
+		{ 40339, 4 }, -- Gothik's Cowl
+		{ 42553, 4 }, -- Visage Liquification Goggles
+		{ 39409, 4 }, -- Cowl of Winged Fear
+		{ 39496, 4 }, -- Heroes' Plagueheart Circlet
+		{ 39732, 4 }, -- Faerlina's Madness
+		{ 39295, 4 }, -- Cowl of Sheet Lightning
+	},
+	Neck = {
+		{ 44661, 1 }, -- Wyrmrest Necklace of Power
+		{ 44658, 3 }, -- Chain of the Ancient Wyrm
+		{ 40374, 4 }, -- Cosmic Lights
+		{ 40486, 4 }, -- Necklace of the Glittering Chamber
+		{ 44662, 4 }, -- Life-Binder's Locket
+		{ 40064, 4 }, -- Thunderstorm Amulet
+		{ 39472, 4 }, -- Chain of Latent Energies
+	},
+	Shoulder = {
+		{ 40555, 2 }, -- Mantle of Dissemination
+		{ 40424, 1 }, -- Valorous Plagueheart Shoulderpads
+		{ 40351, 2 }, -- Mantle of the Fatigued Sage
+		{ 40286, 3 }, -- Mantle of the Corrupted
+		{ 39719, 3 }, -- Mantle of the Locusts
+		{ 39499, 4 }, -- Heroes' Plagueheart Shoulderpads
+	},
+	Back = {
+		{ 44005, 1 }, -- Pennant Cloak
+		{ 40405, 2 }, -- Cape of the Unworthy Wizard
+		{ 41610, 3 }, -- Deathchill Cloak
+		{ 40253, 4 }, -- Shawl of the Old Maid
+		{ 40251, 4 }, -- Shroud of Luminosity
+		{ 40723, 4 }, -- Disguise of the Kumiho
+		{ 39241, 4 }, -- Dark Shroud of the Scourge
+	},
+	Chest = {
+		{ 40526, 1 }, -- Gown of the Spell-Weaver
+		{ 40423, 3 }, -- Valorous Plagueheart Robe
+		{ 40234, 3 }, -- Heigan's Putrid Vestments
+		{ 40602, 4 }, -- Robes of Mutation
+		{ 40062, 4 }, -- Digested Silken Robes
+		{ 44002, 4 }, -- The Sanctum's Flowing Vestments
+		{ 39497, 4 }, -- Heroes' Plagueheart Robe
+		{ 40194, 4 }, -- Blanketing Robes of Snow
+	},
+	Wrist = {
+		{ 44008, 1 }, -- Unsullied Cuffs
+		{ 40325, 2 }, -- Bindings of the Expansive Mind
+		{ 40198, 2 }, -- Bands of Impurity
+		{ 40740, 3 }, -- Wraps of the Astral Traveler
+		{ 39731, 4 }, -- Punctilious Bindings
+		{ 39252, 4 }, -- Preceptor's Bindings
+		{ 40338, 4 }, -- Bindings of Yearning
+		{ 37884, 4 }, -- Azure Cloth Bindings
+		{ 39390, 4 }, -- Resurgent Phantom Bindings
+	},
+	Hands = {
+		{ 40380, 2 }, -- Gloves of Grandeur
+		{ 40420, 1 }, -- Valorous Plagueheart Gloves
+		{ 40197, 2 }, -- Gloves of the Fallen Wizard
+		{ 39733, 3 }, -- Gloves of Token Respect
+		{ 37172, 3 }, -- Gloves of Glistening Runes
+		{ 39192, 3 }, -- Gloves of Dark Gestures
+		{ 39500, 4 }, -- Heroes' Plagueheart Gloves
+		{ 42113, 4 }, -- Spellweave Gloves
+		{ 34344, 4 }, -- Handguards of Defiled Worlds
+		{ 40303, 4 }, -- Wraps of the Persecuted
+	},
+	Waist = {
+		{ 40561, 1 }, -- Leash of Heedless Magic
+		{ 40301, 2 }, -- Cincture of Polarity
+		{ 39735, 3 }, -- Belt of False Dignity
+		{ 40696, 4 }, -- Plush Sash of Guzbah
+		{ 37408, 4 }, -- Girdle of Bane
+	},
+	Legs = {
+		{ 40560, 1 }, -- Leggings of the Wanton Spellcaster
+		{ 40398, 3 }, -- Leggings of Mortal Arrogance
+		{ 39720, 4 }, -- Leggings of Atrophy
+		{ 40422, 4 }, -- Valorous Plagueheart Leggings
+	},
+	Feet = {
+		{ 40558, 1 }, -- Arcanic Tramplers
+		{ 40750, 2 }, -- Xintor's Expeditionary Boots
+		{ 40246, 2 }, -- Boots of Impetuous Ideals
+		{ 40269, 3 }, -- Boots of Persuasion
+		{ 40326, 3 }, -- Boots of Forlorn Wishes
+		{ 40751, 4 }, -- Slippers of the Holy Light
+		{ 39273, 4 }, -- Sullen Cloth Boots
+		{ 40236, 4 }, -- Serene Echoes
+		{ 44202, 4 }, -- Sandals of Crimson Fury
+	},
+	Ring = {
+		{ 40399, 1 }, -- Signet of Manifested Pain
+		{ 40080, 1 }, -- Lost Jewel
+		{ 39389, 2 }, -- Signet of the Malevolent
+		{ 40719, 3 }, -- Band of Channeled Magic
+		{ 43253, 3 }, -- Ring of Northern Tears
+		{ 42644, 3 }, -- Titanium Spellshock Ring
+		{ 40585, 4 }, -- Signet of the Kirin Tor
+		{ 39231, 4 }, -- Timeworn Silken Band
+		{ 40108, 4 }, -- Seized Beauty
+		{ 39250, 4 }, -- Ring of Holy Cleansing
+		{ 39244, 4 }, -- Ring of the Fated
+	},
+	Trinket = {
+		{ 40255, 1 }, -- Dying Curse
+		{ 40432, 1 }, -- Illustration of the Dragon Soul
+		{ 40682, 4 }, -- Sundial of the Exiled
+		{ 49076, 4 }, -- Mithril Pocketwatch
+		{ 42395, 4 }, -- Figurine - Twilight Serpent
+		{ 39229, 4 }, -- Embrace of the Spider
+	},
+	TwoHand = {
+		{ 40489, 2 }, -- Greatstaff of the Nexus
+		{ 40348, 3 }, -- Damnation
+		{ 40455, 4 }, -- Staff of Restraint
+		{ 40300, 4 }, -- Spire of Sunset
+	},
+	MainHand = {
+		{ 40396, 1 }, -- The Turning Tide
+		{ 40408, 4 }, -- Haunting Call
+		{ 39424, 4 }, -- The Soulblade
+		{ 40336, 4 }, -- Life and Death
+		{ 42346, 4 }, -- Deadly Gladiator's Spellblade
+	},
+	OffHand = {
+		{ 40273, 2 }, -- Surplus Limb
+		{ 40192, 1 }, -- Accursed Spine
+		{ 40698, 2 }, -- Ward of the Violet Citadel
+		{ 39766, 2 }, -- Matriarch's Spawn
+		{ 39199, 3 }, -- Watchful Eye
+		{ 44210, 4 }, -- Faces of Doom
+		{ 40350, 4 }, -- Urn of Lost Memories
+		{ 38322, 4 }, -- Iron-bound Tome
+		{ 42525, 4 }, -- Deadly Gladiator's Endgame
+		{ 40699, 4 }, -- Handbook of Obscure Remedies
+	},
+	Ranged = {
+		{ 39712, 1 }, -- Gemmed Wand of the Nerubians
+		{ 40284, 1 }, -- Plague Igniter
+		{ 39426, 2 }, -- Wand of the Archlich
+		{ 34348, 3 }, -- Wand of Cleansing Light
+		{ 42502, 3 }, -- Deadly Gladiator's Touch of Defeat
+		{ 37238, 3 }, -- Rod of the Fallen Monarch
+		{ 34347, 4 }, -- Wand of the Demonsoul
+		{ 40335, 4 }, -- Touch of Horror
+		{ 37177, 4 }, -- Wand of the San'layn
+		{ 40245, 4 }, -- Fading Glow
+		{ 42513, 4 }, -- Deadly Gladiator's Baton of Light
+		{ 37619, 4 }, -- Wand of Ahn'kahet
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/destruction/dps-bis-gear-pve-phase-2
+ns:RegisterBiS("WARLOCK", "Destruction", "P2", {
+	Head = {
+		{ 45497, 1 }, -- Crown of Luminescence
+		{ 45532, 2 }, -- Cowl of Dark Whispers
+		{ 45150, 2 }, -- Collar of the Wyrmhunter
+		{ 46140, 3 }, -- Conqueror's Deathbringer Hood
+		{ 40562, 4 }, -- Hood of Rationality
+		{ 45289, 4 }, -- Lifespark Visage
+	},
+	Neck = {
+		{ 45243, 1 }, -- Sapphire Amulet of Renewal
+		{ 45133, 1 }, -- Pendant of Fiery Havoc
+		{ 45447, 2 }, -- Watchful Eye of Fate
+		{ 45933, 2 }, -- Pendant of the Shallow Grave
+		{ 45443, 3 }, -- Charm of Meticulous Timing
+		{ 45822, 3 }, -- Evoker's Charm
+		{ 45236, 4 }, -- Unblinking Eye
+		{ 44661, 4 }, -- Wyrmrest Necklace of Power
+	},
+	Shoulder = {
+		{ 46068, 1 }, -- Amice of Inconceivable Horror
+		{ 46136, 1 }, -- Conqueror's Deathbringer Shoulderpads
+		{ 45253, 3 }, -- Mantle of Wavering Calm
+		{ 45514, 4 }, -- Mantle of the Unknowing
+		{ 46013, 4 }, -- Underworld Mantle
+		{ 45186, 4 }, -- Soot-Covered Mantle
+		{ 45422, 4 }, -- Valorous Deathbringer Shoulderpads
+	},
+	Back = {
+		{ 45618, 1 }, -- Sunglimmer Cloak
+		{ 45242, 2 }, -- Drape of Mortal Downfall
+		{ 46042, 3 }, -- Drape of the Messenger
+		{ 46321, 3 }, -- Sunglimmer Drape
+		{ 45493, 4 }, -- Asimov's Drape
+		{ 44005, 4 }, -- Pennant Cloak
+	},
+	Chest = {
+		{ 45240, 2 }, -- Raiments of the Iron Council
+		{ 46137, 1 }, -- Conqueror's Deathbringer Robe
+		{ 45272, 2 }, -- Robes of the Umbral Brute
+		{ 45421, 3 }, -- Valorous Deathbringer Robe
+		{ 46012, 3 }, -- Vestments of the Piercing Light
+		{ 44002, 4 }, -- The Sanctum's Flowing Vestments
+		{ 45865, 4 }, -- Raiments of the Corrupted
+	},
+	Wrist = {
+		{ 45446, 1 }, -- Grasps of Reason
+		{ 44008, 2 }, -- Unsullied Cuffs
+		{ 45146, 2 }, -- Shackles of the Odalisque
+		{ 45275, 3 }, -- Bracers of Unleashed Magic
+		{ 45549, 3 }, -- Grips of Chaos
+		{ 45423, 4 }, -- Runetouch Wristwraps
+		{ 45291, 4 }, -- Combustion Bracers
+		{ 40198, 4 }, -- Bands of Impurity
+		{ 39731, 4 }, -- Punctilious Bindings
+	},
+	Hands = {
+		{ 45665, 1 }, -- Pharos Gloves
+		{ 45520, 2 }, -- Handwraps of the Vigilant
+		{ 46045, 2 }, -- Pulsar Gloves
+		{ 45273, 4 }, -- Handwraps of Plentiful Recovery
+		{ 45840, 4 }, -- Touch of the Occult
+		{ 46135, 4 }, -- Conqueror's Deathbringer Gloves
+		{ 45117, 4 }, -- Constructor's Handwraps
+	},
+	Waist = {
+		{ 45619, 1 }, -- Starwatcher's Binding
+		{ 45558, 2 }, -- Cord of the White Dawn
+		{ 45557, 2 }, -- Sash of Ancient Power
+		{ 45119, 2 }, -- Embrace of the Leviathan
+		{ 40561, 3 }, -- Leash of Heedless Magic
+		{ 45508, 3 }, -- Belt of the Darkspeaker
+		{ 45831, 4 }, -- Sash of Potent Incantations
+	},
+	Legs = {
+		{ 45488, 1 }, -- Leggings of the Enslaved Idol
+		{ 46034, 2 }, -- Leggings of Profound Darkness
+		{ 46139, 1 }, -- Conqueror's Deathbringer Leggings
+		{ 45468, 3 }, -- Leggings of Lost Love
+		{ 45848, 3 }, -- Legwraps of the Master Conjurer
+		{ 45238, 4 }, -- Overload Legwraps
+		{ 45420, 4 }, -- Valorous Deathbringer Leggings
+		{ 40398, 4 }, -- Leggings of Mortal Arrogance
+		{ 40560, 4 }, -- Leggings of the Wanton Spellcaster
+	},
+	Feet = {
+		{ 45135, 1 }, -- Boots of Fiery Resolution
+		{ 45537, 2 }, -- Treads of the False Oracle
+		{ 46050, 3 }, -- Starlight Treads
+		{ 45483, 4 }, -- Boots of the Servant
+		{ 45566, 4 }, -- Spellslinger's Slippers
+		{ 45567, 4 }, -- Savior's Slippers
+		{ 45441, 4 }, -- Sandals of the Ancient Keeper
+		{ 45258, 4 }, -- Sandals of Rash Temperament
+		{ 40558, 4 }, -- Arcanic Tramplers
+	},
+	Ring = {
+		{ 45495, 1 }, -- Conductive Seal
+		{ 46046, 1 }, -- Nebula Band
+		{ 46096, 2 }, -- Signet of Soft Lament
+		{ 45297, 2 }, -- Shimmering Seal
+		{ 45168, 3 }, -- Pyrelight Circle
+		{ 45113, 3 }, -- Glowing Ring of Reclamation
+		{ 45451, 4 }, -- Frozen Loop
+		{ 45946, 4 }, -- Fire Orchid Signet
+		{ 45418, 4 }, -- Lady Maye's Sapphire Ring
+		{ 45515, 4 }, -- Ring of the Vacant Eye
+		{ 45691, 4 }, -- Inscribed Signet of the Kirin Tor
+		{ 40399, 4 }, -- Signet of Manifested Pain
+	},
+	Trinket = {
+		{ 45518, 1 }, -- Flare of the Heavens
+		{ 40432, 1 }, -- Illustration of the Dragon Soul
+		{ 45466, 1 }, -- Scale of Fates
+		{ 45490, 4 }, -- Pandora's Plea
+		{ 45308, 4 }, -- Eye of the Broodmother
+		{ 45866, 4 }, -- Elemental Focus Stone
+		{ 45148, 4 }, -- Living Flame
+		{ 40255, 4 }, -- Dying Curse
+		{ 39229, 4 }, -- Embrace of the Spider
+	},
+	TwoHand = {
+		{ 45457, 1 }, -- Staff of Endless Winter
+		{ 45886, 2 }, -- Icecore Staff
+		{ 45479, 3 }, -- The Lifebinder
+		{ 45234, 4 }, -- Rapture
+		{ 45171, 4 }, -- Intensity
+		{ 46025, 4 }, -- Devotion
+	},
+	MainHand = {
+		{ 45620, 1 }, -- Starshard Edge
+		{ 45990, 2 }, -- Fusion Blade
+		{ 45437, 4 }, -- Runescribed Blade
+		{ 45527, 4 }, -- Soulscribe
+		{ 40396, 4 }, -- The Turning Tide
+	},
+	OffHand = {
+		{ 45617, 1 }, -- Cosmos
+		{ 45271, 2 }, -- Ironmender
+		{ 45115, 3 }, -- Leviathan Fueling Manual
+		{ 45314, 3 }, -- Igniter Rod
+		{ 39766, 4 }, -- Matriarch's Spawn
+		{ 40273, 4 }, -- Surplus Limb
+		{ 40192, 4 }, -- Accursed Spine
+	},
+	Ranged = {
+		{ 45294, 1 }, -- Petrified Ivy Sprig
+		{ 45511, 2 }, -- Scepter of Lost Souls
+		{ 45170, 3 }, -- Scepter of Creation
+		{ 45257, 3 }, -- Quartz Crystal Wand
+		{ 45713, 4 }, -- Nurturing Touch
+		{ 39426, 4 }, -- Wand of the Archlich
+		{ 40284, 4 }, -- Plague Igniter
+		{ 39712, 4 }, -- Gemmed Wand of the Nerubians
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/destruction/dps-bis-gear-pve-phase-3
+ns:RegisterBiS("WARLOCK", "Destruction", "P3", {
+	Head = {
+		{ 47796, 1 }, -- Gul'dan's Hood of Triumph
+		{ 47789, 1 }, -- Kel'Thuzad's Hood of Triumph
+		{ 49484, 3 }, -- Nemesis Skullcap
+		{ 45497, 3 }, -- Crown of Luminescence
+		{ 47804, 3 }, -- Gul'dan's Hood of Triumph
+		{ 47778, 3 }, -- Kel'Thuzad's Hood of Triumph
+		{ 47695, 3 }, -- Hood of Clouded Sight
+		{ 47694, 3 }, -- Helm of Clouded Sight
+		{ 49315, 4 }, -- Nemesis Skullcover
+		{ 45532, 4 }, -- Cowl of Dark Whispers
+		{ 47801, 4 }, -- Gul'dan's Hood of Conquest
+		{ 47784, 4 }, -- Kel'Thuzad's Hood of Conquest
+		{ 47693, 4 }, -- Hood of Fiery Aftermath
+		{ 47692, 4 }, -- Hood of Smoldering Aftermath
+		{ 45150, 4 }, -- Collar of the Wyrmhunter
+	},
+	Neck = {
+		{ 47468, 1 }, -- Cry of the Val'kyr
+		{ 47144, 1 }, -- Wail of the Val'kyr
+		{ 45133, 2 }, -- Pendant of Fiery Havoc
+		{ 45243, 2 }, -- Sapphire Amulet of Renewal
+		{ 45447, 3 }, -- Watchful Eye of Fate
+		{ 45933, 3 }, -- Pendant of the Shallow Grave
+		{ 47307, 4 }, -- Cry of the Val'kyr
+		{ 47139, 4 }, -- Wail of the Val'kyr
+		{ 48030, 4 }, -- Darkbane Amulet
+		{ 47957, 4 }, -- Darkbane Pendant
+		{ 45443, 4 }, -- Charm of Meticulous Timing
+		{ 45699, 4 }, -- Pendant of the Piercing Glare
+		{ 47890, 4 }, -- Darkbane Amulet
+		{ 47747, 4 }, -- Darkbane Pendant
+	},
+	Shoulder = {
+		{ 47793, 1 }, -- Gul'dan's Shoulderpads of Triumph
+		{ 47792, 1 }, -- Kel'Thuzad's Shoulderpads of Triumph
+		{ 46068, 2 }, -- Amice of Inconceivable Horror
+		{ 47807, 3 }, -- Gul'dan's Shoulderpads of Triumph
+		{ 47781, 3 }, -- Kel'Thuzad's Shoulderpads of Triumph
+		{ 47716, 4 }, -- Mantle of Revered Mortality
+		{ 47715, 4 }, -- Pauldrons of Revered Mortality
+		{ 47798, 4 }, -- Gul'dan's Shoulderpads of Conquest
+		{ 47787, 4 }, -- Kel'Thuzad's Shoulderpads of Conquest
+		{ 47714, 4 }, -- Pauldrons of Catastrophic Emanation
+		{ 47713, 4 }, -- Mantle of Catastrophic Emanation
+		{ 46136, 4 }, -- Conqueror's Deathbringer Shoulderpads
+		{ 45253, 4 }, -- Mantle of Wavering Calm
+		{ 46013, 4 }, -- Underworld Mantle
+		{ 45514, 4 }, -- Mantle of the Unknowing
+		{ 45186, 4 }, -- Soot-Covered Mantle
+	},
+	Back = {
+		{ 47552, 1 }, -- Jaina's Radiance
+		{ 47551, 1 }, -- Aethas' Intensity
+		{ 47554, 1 }, -- Lady Liadrin's Conviction
+		{ 47553, 1 }, -- Bolvar's Devotion
+		{ 47452, 3 }, -- Shroud of Displacement
+		{ 47095, 3 }, -- Cloak of Displacement
+		{ 48671, 3 }, -- Drape of Bitter Incantation
+		{ 48666, 3 }, -- Drape of the Sunreavers
+		{ 48672, 3 }, -- Shawl of Fervent Crusader
+		{ 48667, 3 }, -- Shawl of the Devout Crusader
+		{ 47417, 3 }, -- Drape of the Refreshing Winds
+		{ 46977, 3 }, -- Shawl of the Refreshing Winds
+		{ 45618, 4 }, -- Sunglimmer Cloak
+		{ 45242, 4 }, -- Drape of Mortal Downfall
+		{ 46321, 4 }, -- Sunglimmer Drape
+		{ 47490, 4 }, -- Maiden's Adoration
+		{ 47238, 4 }, -- Maiden's Favor
+	},
+	Chest = {
+		{ 47794, 1 }, -- Gul'dan's Robe of Triumph
+		{ 47791, 1 }, -- Kel'Thuzad's Robe of Triumph
+		{ 47462, 1 }, -- Skyweaver Vestments
+		{ 47129, 1 }, -- Skyweaver Robes
+		{ 47425, 4 }, -- Flowing Robes of Ascent
+		{ 46993, 4 }, -- Flowing Vestments of Ascent
+		{ 47806, 4 }, -- Gul'dan's Robe of Triumph
+		{ 47779, 4 }, -- Kel'Thuzad's Robe of Triumph
+		{ 47301, 4 }, -- Skyweaver Vestments
+		{ 47126, 4 }, -- Skyweaver Robes
+		{ 47604, 4 }, -- Merlin's Robe
+		{ 47603, 4 }, -- Merlin's Robe
+		{ 47606, 4 }, -- Royal Moonshroud Robe
+		{ 47605, 4 }, -- Royal Moonshroud Robe
+		{ 47264, 4 }, -- Flowing Robes of Ascent
+		{ 46992, 4 }, -- Flowing Vestments of Ascent
+		{ 46137, 4 }, -- Conqueror's Deathbringer Robe
+		{ 47799, 4 }, -- Gul'dan's Robe of Conquest
+		{ 47786, 4 }, -- Kel'Thuzad's Robe of Conquest
+	},
+	Wrist = {
+		{ 47467, 1 }, -- Dark Essence Bindings
+		{ 47143, 1 }, -- Bindings of Dark Essence
+		{ 47485, 1 }, -- Bindings of the Ashen Saint
+		{ 47208, 1 }, -- Armbands of the Ashen Saint
+		{ 45446, 2 }, -- Grasps of Reason
+		{ 47586, 2 }, -- Bejeweled Wizard's Bracers
+		{ 47585, 2 }, -- Bejeweled Wizard's Bracers
+		{ 47324, 3 }, -- Bindings of the Ashen Saint
+		{ 47203, 3 }, -- Armbands of the Ashen Saint
+		{ 47306, 3 }, -- Dark Essence Bindings
+		{ 47141, 3 }, -- Bindings of Dark Essence
+		{ 48000, 3 }, -- Felspark Bracers
+		{ 47927, 3 }, -- Felspark Bindings
+		{ 47588, 4 }, -- Royal Moonshroud Bracers
+		{ 47587, 4 }, -- Royal Moonshroud Bracers
+		{ 47861, 4 }, -- Felspark Bracers
+		{ 47663, 4 }, -- Felspark Bindings
+		{ 44008, 4 }, -- Unsullied Cuffs
+	},
+	Hands = {
+		{ 47797, 1 }, -- Gul'dan's Gloves of Triumph
+		{ 47788, 1 }, -- Kel'Thuzad's Gloves of Triumph
+		{ 47487, 1 }, -- Handwraps of the Lifeless Touch
+		{ 47236, 1 }, -- Gloves of the Lifeless Touch
+		{ 45665, 2 }, -- Pharos Gloves
+		{ 48028, 3 }, -- Looming Shadow Wraps
+		{ 47956, 3 }, -- Gloves of Looming Shadow
+		{ 47803, 3 }, -- Gul'dan's Gloves of Triumph
+		{ 47782, 3 }, -- Kel'Thuzad's Gloves of Triumph
+		{ 46045, 4 }, -- Pulsar Gloves
+		{ 45520, 4 }, -- Handwraps of the Vigilant
+		{ 47889, 4 }, -- Looming Shadow Wraps
+		{ 47745, 4 }, -- Gloves of Looming Shadow
+		{ 47802, 4 }, -- Gul'dan's Gloves of Conquest
+		{ 47783, 4 }, -- Kel'Thuzad's Gloves of Conquest
+		{ 47326, 4 }, -- Handwraps of the Lifeless Touch
+		{ 47235, 4 }, -- Gloves of the Lifeless Touch
+	},
+	Waist = {
+		{ 47419, 1 }, -- Belt of the Tenebrous Mist
+		{ 46973, 1 }, -- Cord of the Tenebrous Mist
+		{ 47447, 1 }, -- Belt of Biting Cold
+		{ 47084, 1 }, -- Cord of Biting Cold
+		{ 47286, 3 }, -- Belt of Biting Cold
+		{ 47081, 3 }, -- Cord of Biting Cold
+		{ 47258, 3 }, -- Belt of the Tenebrous Mist
+		{ 46972, 3 }, -- Cord of the Tenebrous Mist
+		{ 45619, 3 }, -- Starwatcher's Binding
+		{ 47994, 4 }, -- Icehowl Binding
+		{ 47921, 4 }, -- Icehowl Cinch
+		{ 48054, 4 }, -- Belt of the Eternal
+		{ 47977, 4 }, -- Cinch of the Undying
+		{ 47855, 4 }, -- Icehowl Binding
+		{ 47617, 4 }, -- Icehowl Cinch
+		{ 45557, 4 }, -- Sash of Ancient Power
+		{ 47909, 4 }, -- Belt of the Eternal
+		{ 47837, 4 }, -- Cinch of the Undying
+	},
+	Legs = {
+		{ 47435, 1 }, -- Pants of the Soothing Touch
+		{ 47062, 1 }, -- Leggings of the Soothing Touch
+		{ 47795, 1 }, -- Gul'dan's Leggings of Triumph
+		{ 47790, 1 }, -- Kel'Thuzad's Leggings of Triumph
+		{ 47478, 2 }, -- Breeches of the Deepening Void
+		{ 47189, 2 }, -- Leggings of the Deepening Void
+		{ 45488, 3 }, -- Leggings of the Enslaved Idol
+		{ 47805, 4 }, -- Gul'dan's Leggings of Triumph
+		{ 47780, 4 }, -- Kel'Thuzad's Leggings of Triumph
+		{ 47274, 4 }, -- Pants of the Soothing Touch
+		{ 47051, 4 }, -- Leggings of the Soothing Touch
+		{ 47317, 4 }, -- Breeches of the Deepening Void
+		{ 47187, 4 }, -- Leggings of the Deepening Void
+		{ 46139, 4 }, -- Conqueror's Deathbringer Leggings
+		{ 48004, 4 }, -- Legwraps of the Demonic Messenger
+		{ 47931, 4 }, -- Leggings of the Demonic Messenger
+		{ 46034, 4 }, -- Leggings of Profound Darkness
+	},
+	Feet = {
+		{ 47454, 1 }, -- Sandals of the Mourning Widow
+		{ 47097, 1 }, -- Boots of the Mourning Widow
+		{ 47482, 2 }, -- Boots of the Icy Floe
+		{ 47205, 2 }, -- Footpads of the Icy Floe
+		{ 45135, 3 }, -- Boots of Fiery Resolution
+		{ 48012, 4 }, -- Sunreaver Magus' Sandals
+		{ 47940, 4 }, -- Sandals of the Silver Magus
+		{ 45537, 4 }, -- Treads of the False Oracle
+		{ 47293, 4 }, -- Sandals of the Mourning Widow
+		{ 47092, 4 }, -- Boots of the Mourning Widow
+		{ 47321, 4 }, -- Boots of the Icy Floe
+		{ 47194, 4 }, -- Footpads of the Icy Floe
+		{ 45566, 4 }, -- Spellslinger's Slippers
+		{ 46050, 4 }, -- Starlight Treads
+		{ 45483, 4 }, -- Boots of the Servant
+	},
+	Ring = {
+		{ 47489, 1 }, -- Lurid Manifestation
+		{ 47237, 1 }, -- Band of Deplorable Violence
+		{ 45495, 1 }, -- Conductive Seal
+		{ 48001, 2 }, -- Firestorm Band
+		{ 47928, 2 }, -- Firestorm Ring
+		{ 46046, 2 }, -- Nebula Band
+		{ 45297, 2 }, -- Shimmering Seal
+		{ 47732, 3 }, -- Band of the Invoker
+		{ 47439, 3 }, -- Circle of the Darkmender
+		{ 47224, 3 }, -- Ring of the Darkmender
+		{ 47327, 3 }, -- Lurid Manifestation
+		{ 47054, 3 }, -- Band of Deplorable Violence
+		{ 45614, 3 }, -- Starshine Circle
+		{ 48957, 4 }, -- Etched Signet of the Kirin Tor
+		{ 47862, 4 }, -- Firestorm Band
+		{ 47618, 4 }, -- Firestorm Ring
+	},
+	Trinket = {
+		{ 47477, 1 }, -- Reign of the Dead
+		{ 47188, 1 }, -- Reign of the Unliving
+		{ 45518, 1 }, -- Flare of the Heavens
+		{ 47316, 3 }, -- Reign of the Dead
+		{ 47182, 3 }, -- Reign of the Unliving
+		{ 45148, 4 }, -- Living Flame
+		{ 40432, 4 }, -- Illustration of the Dragon Soul
+		{ 45308, 4 }, -- Eye of the Broodmother
+		{ 47432, 4 }, -- Solace of the Fallen
+		{ 47059, 4 }, -- Solace of the Defeated
+		{ 45466, 4 }, -- Scale of Fates
+		{ 40255, 4 }, -- Dying Curse
+		{ 47213, 4 }, -- Abyssal Rune
+	},
+	TwoHand = {
+		{ 47525, 4 }, -- Sufferance
+		{ 47524, 4 }, -- Clemency
+		{ 45457, 4 }, -- Staff of Endless Winter
+		{ 48410, 4 }, -- Relentless Gladiator's Skirmish Staff
+		{ 48414, 4 }, -- Relentless Gladiator's Combat Staff
+		{ 48045, 4 }, -- Perdition
+		{ 47968, 4 }, -- Cold Convergence
+		{ 48036, 4 }, -- Illumination
+		{ 47960, 4 }, -- Enlightenment
+	},
+	MainHand = {
+		{ 47422, 1 }, -- Barb of Tarasque
+		{ 46980, 1 }, -- Blade of Tarasque
+		{ 47518, 1 }, -- Mortalis
+		{ 47517, 1 }, -- Blade of the Unbroken Covenant
+		{ 49191, 4 }, -- Relentless Gladiator's Blade of Celerity
+		{ 48408, 4 }, -- Relentless Gladiator's Mageblade
+		{ 45620, 4 }, -- Starshard Edge
+		{ 47261, 4 }, -- Barb of Tarasque
+		{ 46979, 4 }, -- Blade of Tarasque
+		{ 48013, 4 }, -- Sunreaver Disciple's Blade
+		{ 47941, 4 }, -- Blade of the Silver Disciple
+		{ 48708, 4 }, -- Spellstorm Blade
+		{ 48701, 4 }, -- Spellharvest
+		{ 45990, 4 }, -- Fusion Blade
+	},
+	OffHand = {
+		{ 47437, 1 }, -- Talisman of Heedless Sins
+		{ 47064, 1 }, -- Symbol of Transgression
+		{ 47470, 2 }, -- Mystifying Charm
+		{ 47146, 2 }, -- Chalice of Searing Light
+		{ 48032, 3 }, -- Lightbane Focus
+		{ 47958, 3 }, -- Chalice of Benedictus
+		{ 47276, 3 }, -- Talisman of Heedless Sins
+		{ 47053, 3 }, -- Symbol of Transgression
+		{ 47309, 4 }, -- Mystifying Charm
+		{ 47138, 4 }, -- Chalice of Searing Light
+		{ 45115, 4 }, -- Leviathan Fueling Manual
+		{ 45617, 4 }, -- Cosmos
+		{ 47913, 4 }, -- Lightbane Focus
+		{ 47742, 4 }, -- Chalice of Benedictus
+		{ 45271, 4 }, -- Ironmender
+	},
+	Ranged = {
+		{ 45294, 1 }, -- Petrified Ivy Sprig
+		{ 45257, 3 }, -- Quartz Crystal Wand
+		{ 47658, 3 }, -- Brimstone Igniter
+		{ 47995, 4 }, -- Scepter of Imprisoned Souls
+		{ 47922, 4 }, -- Rod of Imprisoned Souls
+		{ 45511, 4 }, -- Scepter of Lost Souls
+		{ 47856, 4 }, -- Scepter of Imprisoned Souls
+		{ 47612, 4 }, -- Rod of Imprisoned Souls
+		{ 45170, 4 }, -- Scepter of Creation
+		{ 49185, 4 }, -- Relentless Gladiator's Wand of Alacrity
+		{ 45713, 4 }, -- Nurturing Touch
+	},
+})
+
+-- https://www.wowhead.com/wotlk/guide/classes/warlock/destruction/dps-bis-gear-pve-phase-4
+ns:RegisterBiS("WARLOCK", "Destruction", "P4", {
+	Head = {
+		{ 51231, 1 }, -- Sanctified Dark Coven Hood
+		{ 51208, 4 }, -- Sanctified Dark Coven Hood
+		{ 50661, 4 }, -- Corp'rethar Ceremonial Crown
+		{ 51837, 4 }, -- Cowl of Malefic Repose
+		{ 50006, 4 }, -- Corp'rethar Ceremonial Crown
+		{ 51896, 4 }, -- Thaumaturge's Crackling Cowl
+		{ 50241, 4 }, -- Dark Coven Hood
+		{ 51554, 4 }, -- Cowl of Malefic Repose
+		{ 47796, 4 }, -- Gul'dan's Hood of Triumph
+		{ 47789, 4 }, -- Kel'Thuzad's Hood of Triumph
+		{ 47693, 4 }, -- Hood of Fiery Aftermath
+		{ 47692, 4 }, -- Hood of Smoldering Aftermath
+	},
+	Neck = {
+		{ 50658, 1 }, -- Amulet of the Silent Eulogy
+		{ 50724, 2 }, -- Blood Queen's Crimson Choker
+		{ 50005, 3 }, -- Amulet of the Silent Eulogy
+		{ 50609, 3 }, -- Bone Sentinel's Amulet
+		{ 51863, 3 }, -- Pendant of Split Veins
+		{ 50182, 3 }, -- Blood Queen's Crimson Choker
+		{ 51894, 3 }, -- Soulcleave Pendant
+		{ 47468, 4 }, -- Cry of the Val'kyr
+		{ 47144, 4 }, -- Wail of the Val'kyr
+		{ 49975, 4 }, -- Bone Sentinel's Amulet
+		{ 50809, 4 }, -- Soulcleave Pendant
+	},
+	Shoulder = {
+		{ 51234, 1 }, -- Sanctified Dark Coven Shoulderpads
+		{ 50643, 2 }, -- Shoulders of Mercy Killing
+		{ 51205, 3 }, -- Sanctified Dark Coven Shoulderpads
+		{ 49991, 4 }, -- Shoulders of Mercy Killing
+		{ 51859, 4 }, -- Shoulders of Ruinous Senility
+		{ 50244, 4 }, -- Dark Coven Shoulderpads
+		{ 50449, 4 }, -- Stiffened Corpse Shoulderpads
+		{ 51020, 4 }, -- Shoulders of Ruinous Senility
+		{ 47793, 4 }, -- Gul'dan's Shoulderpads of Triumph
+		{ 47792, 4 }, -- Kel'Thuzad's Shoulderpads of Triumph
+		{ 47714, 4 }, -- Pauldrons of Catastrophic Emanation
+		{ 47713, 4 }, -- Mantle of Catastrophic Emanation
+	},
+	Back = {
+		{ 54583, 1 }, -- Cloak of Burning Dusk
+		{ 50628, 2 }, -- Frostbinder's Shredded Cape
+		{ 47552, 1 }, -- Jaina's Radiance
+		{ 47551, 1 }, -- Aethas' Intensity
+		{ 50668, 2 }, -- Greatcloak of the Turned Champion
+		{ 53489, 2 }, -- Cloak of Burning Dusk
+		{ 50205, 3 }, -- Frostbinder's Shredded Cape
+		{ 54556, 3 }, -- Abduction's Cover
+		{ 47553, 3 }, -- Bolvar's Devotion
+		{ 47554, 3 }, -- Lady Liadrin's Conviction
+		{ 51826, 3 }, -- Lich Wrappings
+		{ 48671, 3 }, -- Drape of Bitter Incantation
+		{ 48666, 3 }, -- Drape of the Sunreavers
+		{ 47095, 4 }, -- Cloak of Displacement
+		{ 47452, 4 }, -- Shroud of Displacement
+		{ 50014, 4 }, -- Greatcloak of the Turned Champion
+		{ 53115, 4 }, -- Abduction's Cover
+		{ 50469, 4 }, -- Volde's Cloak of the Night Sky
+	},
+	Chest = {
+		{ 51233, 1 }, -- Sanctified Dark Coven Robe
+		{ 50629, 3 }, -- Robe of the Waking Nightmare
+		{ 50717, 3 }, -- Sanguine Silk Robes
+		{ 51206, 4 }, -- Sanctified Dark Coven Robe
+		{ 51813, 4 }, -- Robes of Azure Downfall
+		{ 50418, 4 }, -- Robe of the Waking Nightmare
+		{ 51790, 4 }, -- Robes of Azure Downfall
+		{ 51851, 4 }, -- Bloodsoul Raiment
+		{ 50243, 4 }, -- Dark Coven Robe
+	},
+	Wrist = {
+		{ 54582, 1 }, -- Bracers of Fiery Night
+		{ 50651, 2 }, -- The Lady's Brittle Bracers
+		{ 53486, 2 }, -- Bracers of Fiery Night
+		{ 51872, 2 }, -- Ether-Soaked Bracers
+		{ 47467, 3 }, -- Dark Essence Bindings
+		{ 47143, 3 }, -- Bindings of Dark Essence
+		{ 50686, 3 }, -- Death Surgeon's Sleeves
+		{ 47485, 4 }, -- Bindings of the Ashen Saint
+		{ 47208, 4 }, -- Armbands of the Ashen Saint
+		{ 47586, 4 }, -- Bejeweled Wizard's Bracers
+		{ 47585, 4 }, -- Bejeweled Wizard's Bracers
+		{ 48000, 4 }, -- Felspark Bracers
+		{ 47927, 4 }, -- Felspark Bindings
+		{ 51007, 4 }, -- Ether-Soaked Bracers
+		{ 50032, 4 }, -- Death Surgeon's Sleeves
+		{ 51918, 4 }, -- Bracers of Dark Blessings
+	},
+	Hands = {
+		{ 51230, 1 }, -- Sanctified Dark Coven Gloves
+		{ 50663, 2 }, -- Gunship Captain's Mittens
+		{ 50722, 3 }, -- San'layn Ritualist Gloves
+		{ 51921, 3 }, -- Sister's Handshrouds
+		{ 51209, 4 }, -- Sanctified Dark Coven Gloves
+		{ 50011, 4 }, -- Gunship Captain's Mittens
+		{ 50983, 4 }, -- Gloves of False Gestures
+		{ 45665, 4 }, -- Pharos Gloves
+		{ 50240, 4 }, -- Dark Coven Gloves
+		{ 47797, 4 }, -- Gul'dan's Gloves of Triumph
+		{ 47788, 4 }, -- Kel'Thuzad's Gloves of Triumph
+	},
+	Waist = {
+		{ 50613, 1 }, -- Crushing Coldwraith Belt
+		{ 50702, 3 }, -- Lingering Illness
+		{ 49978, 3 }, -- Crushing Coldwraith Belt
+		{ 51862, 3 }, -- Cauterized Cord
+		{ 50996, 4 }, -- Belt of Omission
+		{ 50997, 4 }, -- Circle of Ossus
+		{ 47447, 4 }, -- Belt of Biting Cold
+		{ 47084, 4 }, -- Cord of Biting Cold
+		{ 51930, 4 }, -- Cord of the Patronizing Practitioner
+		{ 54562, 4 }, -- Misbegotten Belt
+		{ 50063, 4 }, -- Lingering Illness
+		{ 51017, 4 }, -- Cauterized Cord
+		{ 53118, 4 }, -- Misbegotten Belt
+	},
+	Legs = {
+		{ 50694, 1 }, -- Plaguebringer's Stained Pants
+		{ 51232, 2 }, -- Sanctified Dark Coven Leggings
+		{ 50056, 4 }, -- Plaguebringer's Stained Pants
+		{ 51207, 4 }, -- Sanctified Dark Coven Leggings
+		{ 51882, 4 }, -- Kilt of Untreated Wounds
+		{ 47478, 4 }, -- Breeches of the Deepening Void
+		{ 47189, 4 }, -- Leggings of the Deepening Void
+		{ 49891, 4 }, -- Leggings of Woven Death
+		{ 45488, 4 }, -- Leggings of the Enslaved Idol
+		{ 51823, 4 }, -- Leggings of the Refracted Mind
+		{ 47795, 4 }, -- Gul'dan's Leggings of Triumph
+		{ 47790, 4 }, -- Kel'Thuzad's Leggings of Triumph
+	},
+	Feet = {
+		{ 50699, 1 }, -- Plague Scientist's Boots
+		{ 50062, 3 }, -- Plague Scientist's Boots
+		{ 49890, 4 }, -- Deathfrost Boots
+		{ 51899, 4 }, -- Icecrown Spire Sandals
+		{ 47482, 4 }, -- Boots of the Icy Floe
+		{ 47205, 4 }, -- Footpads of the Icy Floe
+		{ 51850, 4 }, -- Pale Corpse Boots
+		{ 47454, 4 }, -- Sandals of the Mourning Widow
+		{ 47097, 4 }, -- Boots of the Mourning Widow
+		{ 49893, 4 }, -- Sandals of Consecration
+		{ 45537, 4 }, -- Treads of the False Oracle
+		{ 45135, 4 }, -- Boots of Fiery Resolution
+	},
+	Ring = {
+		{ 50664, 1 }, -- Ring of Rapid Ascent
+		{ 50398, 1 }, -- Ashen Band of Endless Destruction
+		{ 50714, 2 }, -- Valanar's Other Signet Ring
+		{ 50614, 2 }, -- Loop of the Endless Labyrinth
+		{ 50636, 2 }, -- Memory of Malygos
+		{ 54585, 3 }, -- Ring of Phased Regeneration
+		{ 50644, 3 }, -- Ring of Maddening Whispers
+		{ 50008, 3 }, -- Ring of Rapid Ascent
+		{ 50397, 3 }, -- Ashen Band of Unmatched Destruction
+		{ 54563, 3 }, -- Saviana's Tribute
+		{ 51849, 3 }, -- Cerise Coiled Ring
+		{ 53490, 3 }, -- Ring of Phased Regeneration
+		{ 50170, 3 }, -- Valanar's Other Signet Ring
+		{ 53116, 4 }, -- Saviana's Tribute
+	},
+	Trinket = {
+		{ 54588, 1 }, -- Charred Twilight Scale
+		{ 50365, 1 }, -- Phylactery of the Nameless Lich
+		{ 50348, 2 }, -- Dislodged Foreign Object
+		{ 50360, 3 }, -- Phylactery of the Nameless Lich
+		{ 50353, 3 }, -- Dislodged Foreign Object
+		{ 54572, 3 }, -- Charred Twilight Scale
+		{ 47477, 3 }, -- Reign of the Dead
+		{ 47188, 3 }, -- Reign of the Unliving
+		{ 47316, 4 }, -- Reign of the Dead
+		{ 47182, 4 }, -- Reign of the Unliving
+		{ 45518, 4 }, -- Flare of the Heavens
+		{ 50345, 4 }, -- Muradin's Spyglass
+		{ 45466, 4 }, -- Scale of Fates
+		{ 50357, 4 }, -- Maghia's Misguided Quill
+	},
+	TwoHand = {
+		{ 50731, 3 }, -- Archus, Greatstaff of Antonidas
+		{ 51943, 4 }, -- Halion, Staff of Forgotten Love
+		{ 50725, 4 }, -- Dying Light
+		{ 50429, 4 }, -- Archus, Greatstaff of Antonidas
+		{ 51405, 4 }, -- Wrathful Gladiator's Skirmish Staff
+		{ 51401, 4 }, -- Wrathful Gladiator's Combat Staff
+		{ 51828, 4 }, -- Sister Svalna's Aether Staff
+		{ 51887, 4 }, -- Abracadaver
+		{ 51898, 4 }, -- Mag'hari Chieftain's Staff
+	},
+	MainHand = {
+		{ 50732, 1 }, -- Bloodsurge, Kel'Thuzad's Blade of Agony
+		{ 50704, 4 }, -- Rigormortis
+		{ 50608, 4 }, -- Frozen Bonespike
+		{ 51939, 4 }, -- Tel'thas, Dagger of the Blood King
+		{ 51399, 4 }, -- Wrathful Gladiator's Mageblade
+		{ 51398, 4 }, -- Wrathful Gladiator's Blade of Celerity
+		{ 50427, 4 }, -- Bloodsurge, Kel'Thuzad's Blade of Agony
+		{ 51932, 4 }, -- Frost Needle
+		{ 51815, 4 }, -- Bleak Coldarra Carver
+	},
+	OffHand = {
+		{ 50719, 1 }, -- Shadow Silk Spindle
+		{ 50635, 2 }, -- Sundial of Eternal Dusk
+		{ 50173, 2 }, -- Shadow Silk Spindle
+		{ 51922, 3 }, -- Scourgelord's Baton
+		{ 50423, 4 }, -- Sundial of Eternal Dusk
+		{ 47470, 2 }, -- Mystifying Charm
+		{ 47146, 2 }, -- Chalice of Searing Light
+		{ 47437, 4 }, -- Talisman of Heedless Sins
+		{ 47064, 4 }, -- Symbol of Transgression
+		{ 45617, 4 }, -- Cosmos
+		{ 50781, 4 }, -- Scourgelord's Baton
+		{ 48032, 4 }, -- Lightbane Focus
+		{ 47958, 4 }, -- Chalice of Benedictus
+	},
+	Ranged = {
+		{ 50684, 1 }, -- Corpse-Impaling Spike
+		{ 50631, 2 }, -- Nightmare Ender
+		{ 51852, 3 }, -- Wand of Ruby Claret
+		{ 50033, 3 }, -- Corpse-Impaling Spike
+		{ 51838, 3 }, -- Lana'thel's Bloody Nail
+		{ 50472, 4 }, -- Nightmare Ender
+		{ 47995, 4 }, -- Scepter of Imprisoned Souls
+		{ 47922, 4 }, -- Rod of Imprisoned Souls
+		{ 51326, 4 }, -- Wand of Ruby Claret
+		{ 45294, 4 }, -- Petrified Ivy Sprig
 	},
 })

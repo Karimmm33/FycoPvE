@@ -40,6 +40,18 @@ ASCII only (the client renders anything else as mojibake), valid escapes,
 balanced blocks, no orphaned ALL_CAPS constants. It is a lexer, not a
 parser: a clean run is not proof the file parses, and never proof it runs.
 
+Then run the automated suite, which loads the real addon in Lua 5.1 against
+a mock client (`tests/wowmock.lua`) and drives it:
+
+```
+pip install lupa        # once
+python tests/run_tests.py
+```
+
+Every feature gets tests there, and every in-game check goes in
+`docs/TESTING.md` with an ID. A new frame method the mock does not model is
+listed at the end of a run; confirm it exists in 3.3.5a.
+
 ## HARD RULE 4 — generated data is never edited by hand
 
 `Data/Items.lua` and `Data/BiS/*.lua` are written by `scripts/build_data.py`
@@ -93,7 +105,17 @@ scripts/ref/*.json ───┘        (ref tables: scripts/extract_refs.py, fro
 ```
 
 - Wowhead's `/wotlk/` guide URLs now redirect to Cataclysm, so guides are read
-  from pinned archive.org captures. Pin a new snapshot deliberately.
+  from pinned archive.org captures. `scripts/discover_guides.py` rewrites
+  `guides.json` with the newest capture of every class/spec/phase guide (one
+  CDX query; asking per page is far too slow).
+- Guide layouts vary a lot across ~150 pages. The parser reads tables cell by
+  cell, maps armour headings by their first word (`ARMOR`), sorts weapon and
+  relic sections into TwoHand/MainHand/OffHand/Ranged by each item's real
+  inventory type, and folds dozens of rank labels into four tiers
+  (`tier_of`). Anything it cannot place is printed as `UNMAPPED` at the end of
+  the build: read that output after every build.
+- An item whose inventory type cannot go in its slot is dropped with a
+  `dropped` line (the Destruction pre-raid guide lists necklaces under Back).
 - AzerothCore spawn rows mostly have no zone, so cities are recognised by
   bounding box (`CITY_BOXES`) and anything else unresolved shows no zone
   rather than a continent name.

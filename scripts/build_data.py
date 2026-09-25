@@ -22,6 +22,7 @@ import json
 import os
 import re
 import sys
+import time
 import unicodedata
 import urllib.request
 
@@ -35,17 +36,17 @@ ACORE_TABLES = [
     "gameobject_loot_template", "npc_vendor", "quest_template",
 ]
 
-# guide heading -> the addon's slot key (Data/Constants.lua ns.SlotGroups)
-HEADINGS = {
-    "Head": "Head", "Neck": "Neck", "Shoulders": "Shoulder", "Back": "Back",
-    "Chest": "Chest", "Wrist": "Wrist", "Hands": "Hands", "Waist": "Waist",
-    "Legs": "Legs", "Feet": "Feet", "Rings": "Ring", "Trinkets": "Trinket",
-    "2-Handed Weapons": "TwoHand", "1-Handed Weapons": "MainHand",
-    "Offhand": "OffHand", "Wand": "Ranged",
-}
+# slot keys (Data/Constants.lua ns.GearRows / ns.ListName) in write order
 SLOT_ORDER = ["Head", "Neck", "Shoulder", "Back", "Chest", "Wrist", "Hands", "Waist",
               "Legs", "Feet", "Ring", "Trinket", "TwoHand", "MainHand", "OffHand", "Ranged"]
-TIERS = {"Best": 1, "Great": 2, "Good": 3, "Mediocre": 4}
+
+# which item_template.InventoryType values may appear on each slot's list
+SLOT_INV = {
+    "Head": {1}, "Neck": {2}, "Shoulder": {3}, "Back": {16}, "Chest": {5, 20}, "Wrist": {9},
+    "Hands": {10}, "Waist": {6}, "Legs": {7}, "Feet": {8}, "Ring": {11}, "Trinket": {12},
+    "TwoHand": {17}, "MainHand": {13, 21}, "OffHand": {13, 14, 22, 23},
+    "Ranged": {15, 25, 26, 28},
+}
 
 # Wowhead [currency=N] ids that appear in guide source notes
 WH_CURRENCY = {101: "Emblem of Heroism", 102: "Emblem of Valor", 126: "Wintergrasp Mark of Honor",
@@ -74,8 +75,16 @@ def fetch(url, path, refresh):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     print("  downloading", url)
     req = urllib.request.Request(url, headers={"User-Agent": "FycoPvE-build/0.1"})
-    with urllib.request.urlopen(req, timeout=120) as r:
-        data = r.read()
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                data = r.read()
+            break
+        except Exception as e:   # archive.org throttles bursts; back off and retry
+            if attempt == 4:
+                raise
+            print("    retry %d: %s" % (attempt + 1, e))
+            time.sleep(10 * (attempt + 1))
     if data[:2] == b"\x1f\x8b":
         data = gzip.decompress(data)
     with open(path, "wb") as f:
@@ -137,7 +146,167 @@ def read_table(name):
 # guides
 # ---------------------------------------------------------------------------
 
-ROW = re.compile(r"\[tr\]\s*\[td\](Best|Great|Good|Mediocre)\[/td\]\s*\[td\]\[item=(\d+)\]\[/td\](.*?)\[/tr\]", re.S)
+# what the parser met but could not place, reported at the end of a build
+UNKNOWN = {"headings": {}, "tiers": {}}
+
+# First word(s) of an armour/jewellery heading -> slot. Guides write "Head",
+# "Head for Balance Druid DPS Phase 1", "Head options for ...", "Helmets".
+ARMOR = {
+    "head": "Head", "neck": "Neck", "shoulder": "Shoulder", "shoulders": "Shoulder",
+    "back": "Back", "cloak": "Back", "cloaks": "Back", "chest": "Chest", "wrist": "Wrist",
+    "wrists": "Wrist", "hands": "Hands", "gloves": "Hands", "waist": "Waist", "belt": "Waist",
+    "legs": "Legs", "feet": "Feet", "boots": "Feet", "ring": "Ring", "rings": "Ring",
+    "trinket": "Trinket", "trinkets": "Trinket",
+    "heads": "Head", "helm": "Head", "helmet": "Head", "helmets": "Head", "necks": "Neck",
+    "backs": "Back", "chests": "Chest", "hand": "Hands", "waists": "Waist", "leg": "Legs",
+    "foot": "Feet", "finger": "Ring", "fingers": "Ring",
+}
+
+# --- tier tokens ------------------------------------------------------------
+# Phase guides often list the TOKEN ("Crown of the Lost Protector") instead of
+# the tier piece you wear. A token cannot be equipped, so it is swapped for the
+# class's pieces that vendors sell for it, keeping the set that suits the spec.
+CLASS_ID = {"WARRIOR": 1, "PALADIN": 2, "HUNTER": 3, "ROGUE": 4, "PRIEST": 5, "DEATHKNIGHT": 6,
+            "SHAMAN": 7, "MAGE": 8, "WARLOCK": 9, "DRUID": 11}
+CASTER_DPS = {"Balance", "Elemental", "Shadow", "Arcane", "Fire", "Affliction", "Demonology",
+              "Destruction"}
+# item_template stat_type values
+ST_AGI, ST_STR, ST_DEF, ST_DODGE, ST_PARRY = 3, 4, 12, 13, 14
+
+
+def spec_role(cls, spec, url):
+    if "-tank-" in url:
+        return "tank"
+    if "-healer-" in url or spec in CASTER_DPS or (cls == "MAGE" and spec == "Frost"):
+        return "spell"
+    return "melee"
+
+
+def item_role(row):
+    """What an armour piece is built for, from its stats. Coarse on purpose:
+    AzerothCore stores spell power as an equip spell, not a stat, so a caster
+    piece and a healer piece cannot be told apart here -- both are "spell"."""
+    stats = {row["stat_type%d" % i] for i in range(1, 11) if row["stat_value%d" % i]}
+    if stats & {ST_DEF, ST_DODGE, ST_PARRY}:
+        return "tank"
+    if stats & {ST_AGI, ST_STR}:
+        return "melee"
+    return "spell"
+# Anything that looks like this is a weapon or relic section. Its items are
+# sorted into TwoHand / MainHand / OffHand / Ranged by their real inventory
+# type once the database is loaded, because the headings vary too much
+# ("2-Hander", "Weapons", "Guns and Bows", "Sigils") to trust.
+WEAPONISH = ("weapon", "hander", "handed", "hand", "staff", "staves", "bow", "gun", "wand", "relic",
+             "idol", "sigil", "libram", "totem", "shield", "ranged", "dagger", "mace", "sword",
+             "axe", "polearm", "fist", "thrown", "offhand")
+
+CELL = re.compile(r"\[td[^\]]*\](.*?)\[/td\]", re.S)
+
+
+def plain(markup):
+    return re.sub(r"\[[^\]]*\]", "", markup).strip()
+
+
+def classify_heading(heading):
+    """-> slot key, ("weapon", is_offhand), or None for sections that hold no gear lists."""
+    h = plain(heading).lower()
+    lead = re.split(r"\s+for\s+|\s+-\s+|\s*\(", h)[0].strip()
+    lead = re.sub(r"\s+options?$", "", lead)
+    if lead in ARMOR:
+        return ARMOR[lead]
+    if any(k in lead for k in WEAPONISH):
+        return ("weapon", "off" in lead)
+    return None
+
+
+def tier_of(label):
+    """Guides rank with dozens of labels ("BiS", "Best Threat Skewed", "Optional",
+    "Close Second", "3"). Fold them into the four tiers the addon shows."""
+    t = label.strip().lower()
+    if t.isdigit():
+        n = int(t)
+        return 1 if n == 1 else 2 if n == 2 else 3 if n <= 4 else 4
+    if "pre-bis" in t or "pre bis" in t:
+        return 3
+    # easy-to-get stopgaps: on the list, but the bottom of it
+    if "catch" in t or "pre-raid" in t or "okay" in t:
+        return 4
+    if "swap" in t:
+        return 3
+    if "alternative" in t and "best" in t:
+        return 2
+    if "second" in t:
+        return 2 if "close" in t else 3
+    if "best" in t or "bis" in t:
+        return 1
+    if "great" in t:
+        return 2
+    if "good" in t or "alternative" in t or "optional" in t:
+        return 3
+    if "mediocre" in t or "starter" in t or "bad" in t:
+        return 4
+    if "strong" in t or "recommended" in t:
+        return 2
+    if "decent" in t or "place" in t:
+        return 3
+    # Anything else ("Threat", "Dodge & On-use", "Engineering BoP") is still an
+    # option the guide lists for the slot; keep it mid-table, but report it.
+    UNKNOWN["tiers"][label.strip()] = UNKNOWN["tiers"].get(label.strip(), 0) + 1
+    return 3
+
+
+def parse_rows(body):
+    """Every (label, [itemIDs], sourceMarkup) in a section's tables.
+
+    Read cell by cell rather than with one pattern, because guides vary:
+    a Horde and an Alliance version can share one item cell, and some guides
+    split a row in two -- a label-only row followed by the row with the item.
+    """
+    out, pending = [], None
+    for chunk in body.split("[tr]")[1:]:
+        cells = CELL.findall(chunk.split("[/tr]")[0] if "[/tr]" in chunk else chunk)
+        if not cells:
+            continue
+        item_cell = next((c for c in cells if "[item=" in c), None)
+        label = next((plain(c) for c in cells if "[item=" not in c and plain(c)), "")
+        if item_cell is None:
+            # a label-only row; it names the row that follows
+            if label and len(label) <= 40:
+                pending = label
+            continue
+        if cells.index(item_cell) > 2:
+            continue   # a table whose first columns are not a rank (e.g. slot summaries)
+        items = [int(x) for x in re.findall(r"\[item=(\d+)\]", item_cell)]
+        if pending and (not label or len(label) <= 2):
+            label = pending
+        pending = None
+        if not label or len(label) > 40 or label.lower() in ("priority", "rank", "item"):
+            continue
+        out.append((label, items, cells[-1] if cells[-1] is not item_cell else ""))
+    return out
+
+
+def place_weapons(slots, items):
+    """Sort each weapon section's items into real slots by inventory type."""
+    for key in [k for k in slots if isinstance(k, tuple)]:
+        offhand = key[1]
+        for row in slots.pop(key):
+            inv = items.get(row[0], {}).get("InventoryType")
+            if inv == 17:
+                slot = "TwoHand"
+            elif inv in (15, 25, 26, 28):
+                slot = "Ranged"
+            elif inv in (14, 22, 23):
+                slot = "OffHand"
+            elif inv == 21:
+                slot = "MainHand"
+            elif inv == 13:
+                slot = "OffHand" if offhand else "MainHand"
+            else:
+                continue   # unknown item or not a weapon; the slot check reports it
+            lst = slots.setdefault(slot, [])
+            if row[0] not in {x[0] for x in lst}:
+                lst.append(row)
 
 
 def guide_markup(html):
@@ -149,25 +318,29 @@ def guide_markup(html):
 
 
 def parse_guide(text):
-    """Return {slot: [(itemID, tier, sourceMarkup)]} in the guide's order."""
+    """Return {slot or ("weapon", offhand): [(itemID, tier, sourceMarkup)]} in guide order."""
     slots = {}
-    parts = re.split(r"\[h4\](.*?)\[/h4\]", text)
+    parts = re.split(r"\[h[34][^\]]*\](.*?)\[/h[34]\]", text)
     for k in range(1, len(parts), 2):
         heading, body = parts[k].strip(), parts[k + 1]
-        rows = ROW.findall(body)
+        rows = parse_rows(body)
         if not rows:
             continue
-        if heading not in HEADINGS:
-            raise ValueError("guide heading not mapped to a slot: %r" % heading)
-        out, seen = [], set()
-        for tier, item, rest in rows:
-            item = int(item)
-            if item in seen:
-                continue
-            seen.add(item)
-            cells = re.findall(r"\[td\](.*?)\[/td\]", rest, re.S)
-            out.append((item, TIERS[tier], cells[-1] if cells else ""))
-        slots[HEADINGS[heading]] = out
+        key = classify_heading(heading)
+        if key is None:
+            short = plain(heading).split(" for ")[0].strip()
+            UNKNOWN["headings"][short] = UNKNOWN["headings"].get(short, 0) + 1
+            continue
+        have = {x[0] for x in slots.get(key, [])}
+        out = []
+        for label, items, source in rows:
+            tier = tier_of(label)
+            for item in items:          # both faction versions, when a cell has two
+                if item in have:
+                    continue
+                have.add(item)
+                out.append((item, tier, source))
+        slots[key] = slots.get(key, []) + out
     return slots
 
 
@@ -261,6 +434,65 @@ def main():
     items = {}
     for r in read_table("item_template"):
         items[r["entry"]] = r
+
+    for *_, slots in lists:
+        place_weapons(slots, items)
+
+    # token -> every item a vendor sells for it
+    token_items = {}
+    for r in read_table("npc_vendor"):
+        x = extcost.get(r["ExtendedCost"]) if r["ExtendedCost"] else None
+        for tok, _ in (x["items"] if x else []):
+            if tok in items and items[tok]["InventoryType"] == 0 and r["item"] > 0:
+                token_items.setdefault(tok, set()).add(r["item"])
+
+    swapped = 0
+    for cls, spec, phase, url, slots in lists:
+        want_role, bit = spec_role(cls, spec, url), 1 << (CLASS_ID[cls] - 1)
+        for slot, rows in slots.items():
+            out, have = [], {x[0] for x in rows}
+            for r in rows:
+                if r[0] in token_items and items[r[0]]["InventoryType"] == 0:
+                    pieces = [i for i in sorted(token_items[r[0]]) if i in items
+                              and items[i]["InventoryType"] in SLOT_INV[slot]
+                              and (items[i]["AllowableClass"] in (-1, 0) or items[i]["AllowableClass"] & bit)]
+                    # the guide already names the exact piece: the token adds nothing
+                    if any(i in have for i in pieces):
+                        swapped += 1
+                        continue
+                    fitting = [i for i in pieces if item_role(items[i]) == want_role] or pieces
+                    for i in fitting:
+                        if i not in have:
+                            have.add(i)
+                            out.append((i, r[1], r[2]))
+                    swapped += 1
+                else:
+                    out.append(r)
+            slots[slot] = out
+    print("swapped %d tier tokens for the pieces they buy" % swapped)
+
+    # Guides are hand-written and do contain mistakes -- the Destruction
+    # pre-raid guide lists three necklaces under Back. An item whose inventory
+    # type cannot go in the slot is dropped, loudly, rather than shipped.
+    dropped = 0
+    for cls, spec, phase, _, slots in lists:
+        for slot, rows in slots.items():
+            keep = []
+            for r in rows:
+                inv = items[r[0]]["InventoryType"] if r[0] in items else None
+                if inv is not None and inv not in SLOT_INV[slot]:
+                    dropped += 1
+                    print("  dropped %s/%s/%s %s: %s (inventory type %d)"
+                          % (cls, spec, phase, slot, items[r[0]]["name"], inv))
+                else:
+                    keep.append(r)
+            slots[slot] = keep
+    wanted = set()
+    for *_, slots in lists:
+        for rows in slots.values():
+            wanted.update(r[0] for r in rows)
+    if dropped:
+        print("dropped %d misfiled items; %d distinct items remain" % (dropped, len(wanted)))
 
     ctpl = {}
     diff_parent = {}   # heroic / raid-size entry -> (base entry, difficulty index)
@@ -519,7 +751,10 @@ def main():
         for rows in slots.values():
             for item, _, markup in rows:
                 if item not in notes and markup.strip():
-                    notes[item] = guide_note(markup)
+                    note = guide_note(markup)
+                    # some guides write a literal "None" or "-" in the source column
+                    if note.lower() not in ("none", "n/a", "-", ""):
+                        notes[item] = note
                 z = re.search(r"\[zone=(\d+)\]", markup)
                 if z and item not in guide_zone:
                     guide_zone[item] = int(z.group(1))
@@ -594,6 +829,10 @@ def main():
         if entry not in toc:
             print("WARNING: add '%s' to FycoPvE.toc or the game never loads it" % entry)
 
+    for what, seen in UNKNOWN.items():
+        if seen:
+            print("UNMAPPED %s (extend ARMOR/WEAPONISH or tier_of if they hold gear): %d kinds, e.g. %s"
+                  % (what, len(seen), sorted(seen)[:12]))
     print("items: %d | with drop %d, chest %d, vendor %d, quest %d, world %d, NO source %d"
           % (len(out_items), stats["drop"], stats["chest"], stats["vendor"], stats["quest"],
              stats["world"], stats["none"]))

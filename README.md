@@ -12,10 +12,11 @@ It answers two questions:
 It is the PvE sister of [FycoPvP](https://github.com/Karimmm33/FycoPvP), and it
 will grow the same way, one module at a time.
 
-## What's in 0.1
+## Features
 
 | | |
 |---|---|
+| **Threat meter** | Everyone's threat on your target, highest first, with the tank marked. A big **THREAT 92%** warning (and sound) before *you* pull aggro. It can be moved, resized, and limited to groups or combat. |
 | **Gear tab** | One row per slot showing what you wear, where it ranks (`BiS Best #2/12`, `Good #5/12`, `not on the list`), and the next upgrade. Click the upgrade to see where it comes from. |
 | **Character sheet** | A badge on every slot: `BiS`, `#rank`, or `x`. A **BiS** button opens the Gear tab. |
 | **Equip report** | When you equip something, one chat line says how it ranks and names a better item. |
@@ -23,8 +24,9 @@ will grow the same way, one module at a time.
 | **Search tab** | Type `wrist`, `bracers`, `halls of stone`, `emblem` or part of a name. Results for your own spec come first. Click one to see every source. |
 | **Settings** | Everything is configurable under *Interface → AddOns → FycoPvE*, or from the window's **Settings** button. |
 
-**BiS lists shipped:** Warlock — Affliction and Destruction, Pre-Raid.
-More classes, specs and phases are data only and will follow.
+**BiS lists shipped:** every class and spec (tank, healer and DPS, with
+Feral Druid and Blood Death Knight split by role), for Pre-Raid and Phases 1–4
+(Naxxramas through Icecrown Citadel and Ruby Sanctum).
 
 ## Spec and phase
 
@@ -46,6 +48,9 @@ Everything below is also in the settings UI.
 | `/fpve find <text>` | where an item comes from, in chat |
 | `/fpve phase [key]` | show or set the phase (`PreRaid`, `P1` … `P4`) |
 | `/fpve spec [name\|auto]` | show or override your spec |
+| `/fpve threat unlock` | unlock the threat meter to drag it (again to lock) |
+| `/fpve threat test` | show test bars, to set it up out of combat |
+| `/fpve threat reset` | move the threat meter back to its default place |
 | `/fpve minimap` | show or hide the minimap button |
 
 ## Install

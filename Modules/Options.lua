@@ -259,6 +259,7 @@ local function BuildMain()
 		{ "gear",    "Gear - BiS check of what you wear" },
 		{ "tooltip", "Tooltips - BiS lines on items" },
 		{ "search",  "Search - where items come from" },
+		{ "threat",  "Threat - meter and pull warning" },
 	}
 	for i = 1, #mods do
 		local key = mods[i][1]

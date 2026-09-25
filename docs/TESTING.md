@@ -1,0 +1,210 @@
+# FycoPvE in-game testing sheet
+
+Work through the sections in order. For each test, do exactly what the **How**
+column says, compare with **Expected**, and report back by ID, for example:
+
+> A1 ok, A2 ok, C3 FAIL - the Ranged row says "no list" on my warlock, screenshot attached
+
+Anything marked **auto** has already been checked by the automated test suite
+(`python tests/run_tests.py`, see the bottom of this file), so for those you
+only need to confirm that the game agrees with the mock. If you see red error
+text anywhere, copy it into your report exactly.
+
+---
+
+## Setup (once)
+
+1. Close the game.
+2. In PowerShell:
+   ```powershell
+   cd D:\Projects\FycoPvE
+   .\scripts\deploy.ps1
+   ```
+   It must end with a green **Deployed.** line. It creates
+   `Interface\AddOns\FycoPvE` and does not touch FycoPvP.
+3. Start the game. On the character select screen, click **AddOns** and make
+   sure **FycoPvE** is listed and ticked.
+4. Log in on your warlock.
+
+To report a Lua error with its full text, you can run `/console scriptErrors 1`
+once and `/reload`. Errors then pop up in a window you can screenshot.
+
+---
+
+## A. Loading
+
+| ID | How | Expected |
+|---|---|---|
+| A1 | Log in and look at chat. | One line: `FycoPvE v0.x - <Spec> Warlock, Pre-Raid. /fpve to open.` The spec should match your talents. |
+| A2 | Look at the edge of the minimap. | A round book-icon button. |
+| A3 | Type `/fpve help`. | A list of commands, with no red text. |
+| A4 | Type `/reload`. | The same greeting again, and no errors. |
+
+## B. Main window
+
+| ID | How | Expected |
+|---|---|---|
+| B1 | Type `/fpve`. | A window titled **FycoPvE v0.x**, with tab buttons along the top and a **Settings** button top-right. |
+| B2 | Drag the window by its title area, close it with X, then `/fpve` again. | It reopens where you left it. |
+| B3 | With the window open, press **Escape**. | It closes. |
+| B4 | Left-click the minimap button. Then right-click it. | Left opens and closes the window. Right opens *Interface → AddOns → FycoPvE*. |
+| B5 | Drag the minimap button around the minimap. | It slides along the minimap's edge and stays there after `/reload`. |
+| B6 | Hover the minimap button. | A tooltip with your spec and phase, and click hints. |
+
+## C. Gear tab
+
+| ID | How | Expected |
+|---|---|---|
+| C1 | `/fpve`, then click **Gear**. | Spec and Phase dropdowns at the top, a summary line (`... X of 17 slots BiS`), and 17 rows from Head to Ranged. Nothing overlaps or runs off the window. |
+| C2 | Look at a row with an item. | Its icon, its name, and a status such as `BiS Best #1/12`, `Good #5/12` or `not on the list`. |
+| C3 | Hover an item icon in a row. | The normal item tooltip. |
+| C4 | Find a row with an upgrade (`-> name`). Hover its icon, then click it. | Hover shows the upgrade's tooltip. Click switches to **Search** with that item selected and every source listed on the right. |
+| C5 | Shift-click an upgrade icon with the chat box open. | The item link goes into chat. |
+| C6 | Change the **Spec** dropdown to Destruction, then back to Auto. | Rows and summary change at once. Auto shows your talent spec in brackets. |
+| C7 | Change **Phase** to Phase 1. | The rows re-rank against the Phase 1 list (from 0.3 on). |
+| C8 | Pick a spec whose lists aren't in yet, if one exists. | A message saying there is no list yet, instead of rows. |
+| C9 | If you have a staff: equip it. | Main hand is judged on the two-hand list. Off hand says `not used with a two-hander`. |
+
+## D. Character sheet
+
+| ID | How | Expected |
+|---|---|---|
+| D1 | Press **C**. | Each equipped slot has a small badge in its top-left corner: green `BiS`, a coloured `#n`, or a red `x`. Empty slots have none. |
+| D2 | Look for a **BiS** button on the character sheet. | A small button near the top right. **Tell me exactly where it lands**, or whether it covers anything. Its position is a guess, because the realm's UI is modified. |
+| D3 | Click the **BiS** button. | The FycoPvE window opens on the Gear tab. |
+| D4 | Settings → BiS and Gear → untick *Rank badge on each slot*, then reopen C. | The badges are gone. Tick it again and they come back. |
+
+## E. Equip report
+
+| ID | How | Expected |
+|---|---|---|
+| E1 | Take off a piece of gear and put it back on. | One chat line: `[item] (Slot): BiS Best #1/12`, or its rank, or `not on the Pre-Raid list`, plus `better: [item]` when there is an upgrade. |
+| E2 | Log in or `/reload`. | **No** flood of equip lines at login. |
+| E3 | Settings → BiS and Gear → untick *Say in chat how it ranks*, then swap an item. | No chat line. |
+
+## F. Tooltips
+
+| ID | How | Expected |
+|---|---|---|
+| F1 | Hover one of your equipped items that is on the list. | A line like `FycoPvE BiS: Head Best #1/12 (Pre-Raid)`, then a source line such as `Drop: Boss - Dungeon (Heroic)`. |
+| F2 | Hover an item that is on no list. | No FycoPvE lines. |
+| F3 | Link an item from the Search tab into chat, then click the link. | The chat link's tooltip has the same FycoPvE lines. |
+| F4 | Hover an item at a vendor or in the Auction House, if it's on a list. | FycoPvE lines appear there too. |
+| F5 | Settings → Tooltips → *Which lists* = *Every spec and phase of my class*. Hover a listed item. | One line per spec and phase that lists it. |
+| F6 | Settings → Tooltips → *Only while Shift is held*. Hover the item, then hold Shift. | No lines until Shift is held. |
+| F7 | Hover the same item several times, and with a comparison tooltip open. | The FycoPvE line appears **once** per tooltip, never doubled. |
+
+## G. Search
+
+| ID | How | Expected |
+|---|---|---|
+| G1 | Search tab: type `wrist`. | Only wrist items. Items on your own list come first with a `Best`/`Good` badge. The count shows at top right. |
+| G2 | Type `halls of stone`. | Items that drop in Halls of Stone. |
+| G3 | Clear the box and set **Slot** to *Trinket*. | Every trinket. |
+| G4 | Click any result. | The right pane shows the icon, name, item level and slot, **On your BiS lists** (if any), and **Where to get it** with every source. Vendor sources show the cost, for example `40 Emblem of Heroism`. |
+| G5 | Scroll the result list with the mouse wheel. | It scrolls. |
+| G6 | Tick **My class only**. | Only items on your class's lists remain. |
+| G7 | Type `/fpve find emblem` in chat. | Up to 8 items with links and a first source each, and "...and N more" if there are more. |
+| G8 | Type `/fpve find zzzz`. | A "nothing matches" message. |
+| G9 | Pick an item and compare its source with what you know from the game. | Tell me about anything that's wrong. The data is from the stock 3.3.5 database, so Rebuffed changes will show up here. |
+
+## H. Settings
+
+| ID | How | Expected |
+|---|---|---|
+| H1 | Esc → Interface → AddOns → **FycoPvE**. | A main page plus sub-pages: *BiS and Gear*, *Tooltips*, *Search* (and *Threat* from 0.4). |
+| H2 | Open every page and scroll each one to the bottom. | **Nothing is drawn outside the settings frame**, and no text overlaps. |
+| H3 | Main page: change Spec and Content phase. Open `/fpve`. | The window shows the same spec and phase. |
+| H4 | Main page: untick *Minimap button*. | The button disappears. Tick it and it's back. |
+| H5 | Main page: move *Window scale*. | The window resizes. |
+| H6 | Main page: *Reset position*. | The window returns to the centre of the screen. |
+| H7 | Change some settings, `/reload`, and look again. | Everything is still set. |
+
+## I. Spec and phase
+
+| ID | How | Expected |
+|---|---|---|
+| I1 | If you have dual spec, swap to your other spec. | Within a moment the Gear tab and badges follow the new spec (while Spec is on Auto). |
+| I2 | `/fpve spec destruction`, then `/fpve spec auto`. | Chat confirms each change, and the window follows. |
+| I3 | `/fpve phase P3`, then `/fpve phase`. | The first sets Phase 3. The second prints the current phase and the list of keys. |
+| I4 | Log onto a second character. | Phase is the same as on the first character (it's account-wide). A spec override is per character. |
+
+## J. Every class (0.2)
+
+The pre-raid lists now cover every class and spec. If you have alts, log onto
+as many different classes as you can. Each check takes a minute.
+
+| ID | How | Expected |
+|---|---|---|
+| J1 | On each alt, read the login line. | It names the alt's real spec, e.g. `Frost Death Knight, Pre-Raid`. |
+| J2 | `/fpve`, Gear tab, Phase = Pre-Raid. | Rows show ranks, not "no list for this slot", for every slot the class uses. Relic, idol, libram, totem and sigil classes get a judged **Ranged** row. |
+| J3 | Druid only: open the Spec dropdown. | Balance, Feral DPS, Feral Tank and Restoration are listed. Auto picks **Feral DPS** for a feral build; choose Feral Tank by hand for bear gear. |
+| J4 | Death Knight only: open the Spec dropdown. | Blood, Blood DPS, Frost and Unholy. Auto picks **Blood** (the tank list) for a blood build. Blood DPS has a Phase 4 list only. |
+| J5 | Dual-wield class (Rogue, Frost DK, Enhancement Shaman, Fury Warrior): look at the Main hand and Off hand rows. | Both are judged, each against its own list. |
+| J6 | Tank (Protection Warrior or Paladin): look at Off hand. | Shields are on the list. |
+
+## K. Raid phases (0.3)
+
+Phases 1 to 4 now have lists for every spec.
+
+| ID | How | Expected |
+|---|---|---|
+| K1 | Gear tab: step Phase through Pre-Raid → Phase 1 → 2 → 3 → 4. | Each one re-ranks your gear, and none says "no list". Your pre-raid items should mostly drop to `not on the list` or low ranks by Phase 3–4. |
+| K2 | Phase 1: click the upgrade on any row. | The Search pane lists a Naxxramas, Eye of Eternity, Obsidian Sanctum, Vault of Archavon, or Emblem of Valor/Heroism source. |
+| K3 | Phase 3, Search: `trial of the crusader`, then click an item. | Sources show modes like `(10, 25)` or `(25 Heroic)`. |
+| K4 | Phase 4, Search: `icecrown`, then `emblem of frost`. | ICC drops, and Emblem of Frost vendor items with costs. |
+| K5 | Hover a tier token or tier piece in Phase 1–4. | A tooltip line appears if the guide lists it. |
+| K6 | Settings → Tooltips → *Which lists* = *Every spec and phase of my class*. Hover a Phase 2 item. | A line for each phase that lists it. |
+
+## L. Threat meter (0.4)
+
+Best tested in a dungeon group. Solo, use test mode.
+
+| ID | How | Expected |
+|---|---|---|
+| L1 | `/fpve threat test`. | A small bar list: Tankadin `[T]` 100%, you (with `>` before your name) 92%, then three more. A big red **THREAT 92%** appears mid-screen for a moment, with a raid-warning sound. `/fpve threat test` again turns it off. |
+| L2 | `/fpve threat unlock`, drag the meter, `/fpve threat lock`, `/reload`. | It stays where you left it. |
+| L3 | Settings → Threat → *Bars shown*, *Width*, *Scale*, with test bars on. | The meter changes as you drag the sliders. |
+| L4 | In a group, attack a mob. | Everyone who has threat on it gets a bar, highest first. The tank is marked `[T]`. The bars are class-coloured. |
+| L5 | In combat, target the tank (a friendly player). | The meter shows the tank's target's threat, because *Use target's target* is on. |
+| L6 | Get close to pulling off the tank (warning at 90% by default). | **THREAT nn%** mid-screen, plus the sound, at most once every 3 seconds. |
+| L7 | Leave combat, or clear your target. | The meter hides. |
+| L8 | Settings → Threat → untick *Only in a group*, and tick *Warn when solo too*. Fight solo. | The meter shows while solo. The warning never fires while **you** are the one tanking. |
+| L9 | Settings → main page → untick *Threat*. | The meter never shows. |
+
+---
+
+## Automated tests
+
+`python tests/run_tests.py` (needs `pip install lupa`) loads the real addon in
+Lua 5.1 against a mock 3.3.5a client and checks the logic. It runs every time
+something changes; the latest result is recorded in the milestone log below.
+It cannot check how anything looks, where frames sit, or that the real client
+behaves like the mock. That is what the sections above are for.
+
+## Milestone log
+
+| Version | What it adds | Automated tests | In-game sections |
+|---|---|---|---|
+| 0.1 | Core, window, Gear, tooltips, Search, settings; Warlock Affliction and Destruction pre-raid | — | A–I |
+| 0.2 | Pre-raid lists for every class and spec | | J |
+| 0.3 | Phase 1–4 lists for every spec; tier tokens resolved to the pieces you wear | | K |
+| 0.4 | Threat meter and pull warning | | L |
+| **0.4.0 build** | everything above | **25 / 25 pass** (2026-09-25) | A–L |
+
+What the automated suite checked for 0.4.0, so you don't have to:
+
+- every file in the `.toc` exists and loads; login works for all 10 classes, with 4 talent layouts each
+- spec detection, override, relog, and the dual-spec swap; phase via command and dropdown
+- BiS vs. not-listed, the "counts as BiS" setting, rings never suggesting the same item twice, two-handers retiring the off hand, faction filtering
+- equip reports, including the quiet period after login; tooltip lines appear once and respect Shift-only
+- search by slot, zone, empty and nonsense input, `/fpve find`; the Search tab and jumping to an item
+- window, minimap button, character-sheet badges on and off, every settings page building and refreshing
+- the threat meter's order, hiding (no target, combat-only, module off), pull warning (threshold, never for the tank, solo off by default), test mode and commands
+- data: every spec has every phase with all 12 armour slots filled; every listed item fits its slot; every source formats without error (9 of 3,687 items have no known source)
+
+**Known data limits.** These come from the sources, not bugs to report:
+
+- When a caster or healer guide lists only a tier *token*, both of that class's spell sets are kept for the slot (e.g. Balance and Restoration pieces), because the database can't tell them apart. Where the guide names the exact piece, only that piece is listed.
+- 3 items the Destruction guide lists under Back (necklaces) are dropped.
+- About 175 crafted or PvP items have no database source. Their tooltip and Search entry show the guide's own note instead ("Tailoring", "Arena Season 7"…).

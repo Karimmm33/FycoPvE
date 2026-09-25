@@ -15,11 +15,11 @@ ns.Classes = {
 	HUNTER      = { name = "Hunter",       specs = { { "Beast Mastery", 1 }, { "Marksmanship", 2 }, { "Survival", 3 } } },
 	ROGUE       = { name = "Rogue",        specs = { { "Assassination", 1 }, { "Combat", 2 }, { "Subtlety", 3 } } },
 	PRIEST      = { name = "Priest",       specs = { { "Discipline", 1 }, { "Holy", 2 }, { "Shadow", 3 } } },
-	DEATHKNIGHT = { name = "Death Knight", specs = { { "Blood", 1 }, { "Frost", 2 }, { "Unholy", 3 } } },
+	DEATHKNIGHT = { name = "Death Knight", specs = { { "Blood", 1 }, { "Blood DPS", 1 }, { "Frost", 2 }, { "Unholy", 3 } } },
 	SHAMAN      = { name = "Shaman",       specs = { { "Elemental", 1 }, { "Enhancement", 2 }, { "Restoration", 3 } } },
 	MAGE        = { name = "Mage",         specs = { { "Arcane", 1 }, { "Fire", 2 }, { "Frost", 3 } } },
 	WARLOCK     = { name = "Warlock",      specs = { { "Affliction", 1 }, { "Demonology", 2 }, { "Destruction", 3 } } },
-	DRUID       = { name = "Druid",        specs = { { "Balance", 1 }, { "Feral", 2 }, { "Restoration", 3 } } },
+	DRUID       = { name = "Druid",        specs = { { "Balance", 1 }, { "Feral DPS", 2 }, { "Feral Tank", 2 }, { "Restoration", 3 } } },
 }
 
 -- Content phases, oldest first. The game cannot tell us which one a server is
@@ -65,7 +65,7 @@ ns.GearRows = {
 	{ inv = 14, label = "Trinket 2", list = "Trinket",  button = "CharacterTrinket1Slot", pair = 13 },
 	{ inv = 16, label = "Main hand", list = "Weapon",   button = "CharacterMainHandSlot" },
 	{ inv = 17, label = "Off hand",  list = "OffHand",  button = "CharacterSecondaryHandSlot" },
-	{ inv = 18, label = "Ranged",    list = "Ranged",   button = "CharacterRangedSlot" },
+	{ inv = 18, label = "Ranged/Relic", list = "Ranged", button = "CharacterRangedSlot" },
 }
 
 -- Human names for BiS list keys, used by tooltips and search results.
