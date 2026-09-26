@@ -15,7 +15,12 @@ frame, over the game world.
   `Modules/Options.lua` (`Column:Check`, `:Slider`, `:Title`, `:Note`,
   `:Button`, `:Buttons`, `:Dropdown`). Each advances by its real height.
 - Every options panel is a scroll frame (`MakePanel()`), sized by `Finish()`.
-- Two columns maximum, at `COL1 = 8` and `COL2 = 250`, each 230 wide.
+- Two columns maximum, sized by `Layout()` from the real width of
+  `InterfaceOptionsFramePanelContainer` (about 410 in 3.3.5a, so each column
+  is about 180). Never assume a width: fixed 230-wide columns ran past the
+  right edge in game, where nothing could be clicked. Dropdown, button and
+  slider widths are capped to the column; `options_fit_the_real_panel_width`
+  checks every page.
 - Modules add settings pages through `ns:RegisterOptions(key, title, order,
   build)`; `build(L, R)` gets the two columns. Do not add pages by editing
   `Options.lua`.

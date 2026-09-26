@@ -419,6 +419,25 @@ def options_panels_build_and_refresh():
 
 
 @test
+def options_fit_the_real_panel_width():
+    # 3.3.5a's options area is about 410 wide: nothing may reach past it
+    # (in game, widgets past the edge could not be clicked)
+    for width in (None, 410, 600):
+        saved = None
+        if width:
+            saved = ('InterfaceOptionsFramePanelContainer = CreateFrame("Frame", "InterfaceOptionsFramePanelContainer"); '
+                     'InterfaceOptionsFramePanelContainer:SetWidth(%d)' % width)
+        c = Client(saved=saved)
+        col_w, content_w = c.eval("ns:OptionsColumnWidth()")
+        assert content_w == (width or 410) - 32, (width, content_w)
+        for i in range(1, c.eval("#MOCK.panels") + 1):
+            reach = c.eval("MOCK.panels[%d].reach or 0" % i)
+            name = c.eval("MOCK.panels[%d].name" % i)
+            assert 0 < reach <= content_w, "%s reaches %s of %s (panel %s)" % (name, reach, content_w, width)
+        no_errors(c)
+
+
+@test
 def slash_help_and_unknowns():
     c = Client()
     for cmd in ("help", "gear", "phase", "spec", "debug", "debug", "find", "bogus"):
