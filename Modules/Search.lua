@@ -400,7 +400,7 @@ local function OnShow(p)
 	ShowDetail()
 end
 
-ns:AddTab("search", "Search", 20, BuildPane, OnShow)
+ns:AddTab("search", "Item search", 90, BuildPane, OnShow)
 
 --- Open the Search tab on one item, e.g. from a Gear-tab upgrade.
 function ns:ShowItem(id)

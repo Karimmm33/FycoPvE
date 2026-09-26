@@ -254,7 +254,56 @@ RAID_CLASS_COLORS = setmetatable({}, { __index = function() return { r = 1, g = 
 function UnitFactionGroup() return MOCK.faction end
 function GetActiveTalentGroup() return 1 end
 function GetNumTalentTabs() return 3 end
-function GetTalentTabInfo(i) return "Tree" .. i, "icon", MOCK.talents[i] or 0, "bg", 0 end
+
+-- Talent trees: MOCK.tree[tab] = { {name, icon, tier, col, rank, max, prev}, ... }
+-- filled by the tests from the realm's real tree data. Without one, only
+-- the per-tree point totals in MOCK.talents exist (enough to detect a spec).
+MOCK.free = 0
+local function TreePoints(tab)
+	if not MOCK.tree then return MOCK.talents[tab] or 0 end
+	local n = 0
+	for _, t in ipairs(MOCK.tree[tab] or {}) do n = n + t.rank end
+	return n
+end
+function GetTalentTabInfo(i) return "Tree" .. i, "icon", TreePoints(i), "bg", 0 end
+function GetNumTalents(tab) return MOCK.tree and #(MOCK.tree[tab] or {}) or 0 end
+function GetTalentInfo(tab, i)
+	local t = MOCK.tree and MOCK.tree[tab] and MOCK.tree[tab][i]
+	if not t then return nil end
+	return t.name, t.icon, t.tier, t.col, t.rank, t.max, false, true, t.rank + (t.prev or 0), true
+end
+function GetUnspentTalentPoints() return MOCK.free end
+function ResetGroupPreviewTalentPoints()
+	for _, tab in ipairs(MOCK.tree or {}) do for _, t in ipairs(tab) do t.prev = 0 end end
+end
+--- Like the client: refuses points beyond the free ones, or into a tier
+--- whose 5-points-per-tier requirement the tree does not meet yet.
+function AddPreviewTalentPoints(tab, i, n)
+	local used = 0
+	for _, tb in ipairs(MOCK.tree) do for _, t in ipairs(tb) do used = used + (t.prev or 0) end end
+	local t = MOCK.tree[tab][i]
+	local below = 0
+	for _, o in ipairs(MOCK.tree[tab]) do
+		if o.tier < t.tier then below = below + o.rank + (o.prev or 0) end
+	end
+	if below < (t.tier - 1) * 5 then return end
+	n = math.min(n, MOCK.free - used, t.max - t.rank - (t.prev or 0))
+	if n > 0 then t.prev = (t.prev or 0) + n end
+end
+function SetCVar(k, v) MOCK.cvars = MOCK.cvars or {}; MOCK.cvars[k] = v end
+function GetCVar(k) return MOCK.cvars and MOCK.cvars[k] end
+function IsAddOnLoaded() return MOCK.talentUI end
+function LoadAddOn() MOCK.talentUI = true end
+function ToggleTalentFrame() MOCK.talentFrameOpened = true end
+
+-- glyph sockets: MOCK.glyphSockets[s] = { kind (1 major, 2 minor), spellID }
+MOCK.glyphSockets, MOCK.spellNames = {}, {}
+function GetNumGlyphSockets() return 6 end
+function GetGlyphSocketInfo(s)
+	local g = MOCK.glyphSockets[s]
+	if not g then return true, (s % 2 == 1) and 1 or 2, nil end
+	return true, g[1], g[2]
+end
 function IsShiftKeyDown() return MOCK.shift end
 function GetInventoryItemLink(unit, slot)
 	local id = MOCK.inventory[slot]
@@ -271,7 +320,7 @@ function GetItemInfo(id)
 		4, 200, 80, "Armor", "Cloth", 1, it.equipLoc or "", "Interface\\Icons\\X"
 end
 function GetItemIcon(id) return "Interface\\Icons\\Item" .. tostring(id) end
-function GetSpellInfo(id) return "Spell " .. tostring(id) end
+function GetSpellInfo(id) return (MOCK.spellNames and MOCK.spellNames[id]) or ("Spell " .. tostring(id)) end
 function GetCoinTextureString(c) return tostring(math.floor(c / 10000)) .. "g" end
 function HandleModifiedItemClick() return false end
 function GetAddOnMetadata(_, key) return key == "Version" and "0.test" or nil end

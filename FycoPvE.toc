@@ -2,10 +2,10 @@
 ## Title: FycoPvE
 ## Notes: PvE companion - BiS check for every class and phase, item sources, threat, damage/healing meter, boss alerts
 ## Author: Karim
-## Version: 0.6.0
+## Version: 0.7.0
 ## SavedVariables: FycoPvEDB
 ## SavedVariablesPerCharacter: FycoPvECharDB
-## X-Modules: Core, Window, Gear, Tooltip, Search, Threat, Meter, Bosses, Options
+## X-Modules: Core, Window, Gear, Talents, Glyphs, Tooltip, Search, Threat, Meter, Bosses, Options
 
 Core.lua
 Widgets.lua
@@ -22,10 +22,23 @@ Data\BiS\Rogue.lua
 Data\BiS\Shaman.lua
 Data\BiS\Warlock.lua
 Data\BiS\Warrior.lua
+Data\Realm.lua
+Data\Guides\Deathknight.lua
+Data\Guides\Druid.lua
+Data\Guides\Hunter.lua
+Data\Guides\Mage.lua
+Data\Guides\Paladin.lua
+Data\Guides\Priest.lua
+Data\Guides\Rogue.lua
+Data\Guides\Shaman.lua
+Data\Guides\Warlock.lua
+Data\Guides\Warrior.lua
 Modules\Window.lua
 Modules\Gear.lua
 Modules\Tooltip.lua
 Modules\Search.lua
+Modules\Talents.lua
+Modules\Glyphs.lua
 Modules\Threat.lua
 Modules\Meter.lua
 Modules\Bosses.lua

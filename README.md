@@ -16,6 +16,8 @@ will grow the same way, one module at a time.
 
 | | |
 |---|---|
+| **Talents** | The guide's build for your spec, drawn on your own talent trees and compared with your points. **Preview in talent frame** fills it into Blizzard's talent preview, and nothing is learned until you click Learn. Talents your realm changed from the standard game are marked. |
+| **Glyphs** | The guide's major and minor glyphs with why each is picked, marked Socketed or Missing, plus any glyph you run that the guide doesn't list. |
 | **Damage & healing meter** | Damage (with DPS), effective healing (with HPS), overhealing and damage taken for your group. Pets count for their owner. Each fight is saved and named after the main enemy, with an Overall total and history. Click the title to switch mode or fight, Shift-click to report to chat. |
 | **Boss alerts** | A boss's cast flashes mid-screen, and a boss debuff on you gives a red **… on YOU** with an alarm. Timers are **learned**: FycoPvE times every boss ability itself and, from the next pull, counts down to each one. There are no hand-typed timers to be wrong. |
 | **Threat meter** | Everyone's threat on your target, highest first, with the tank marked. A big **THREAT 92%** warning (and sound) before *you* pull aggro. It can be moved, resized, and limited to groups or combat. |
@@ -53,6 +55,9 @@ Everything below is also in the settings UI.
 | `/fpve threat unlock` | unlock the threat meter to drag it (again to lock) |
 | `/fpve threat test` | show test bars, to set it up out of combat |
 | `/fpve threat reset` | move the threat meter back to its default place |
+| `/fpve talents` | the talent guide |
+| `/fpve talents preview` | fill the guide's build into your talent frame's preview |
+| `/fpve glyphs` | the glyph guide |
 | `/fpve meter report [channel]` | report the meter to party, raid, say or guild |
 | `/fpve meter reset`, `test`, `unlock` | clear the meter, show test data, or move it |
 | `/fpve boss list` | bosses with learned timers |

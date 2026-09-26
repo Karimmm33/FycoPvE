@@ -702,6 +702,128 @@ def boss_commands():
     no_errors(c)
 
 
+import json as _json
+
+TREES = _json.load(open(os.path.join(ROOT, "scripts", "ref", "talents.json"), encoding="utf-8"))
+
+
+def load_tree(c, cls, build=None):
+    """Give the mock client the realm's real talent trees for `cls`, with
+    ranks set to `build` (a guide build's trees) or zero."""
+    have = {}
+    if build:
+        for tab in range(1, 4):
+            for cell in (build[tab] or {}).values():
+                have[(tab, cell[1], cell[2])] = cell[3]
+    parts = []
+    for ti, tree in enumerate(TREES[cls], 1):
+        cells = ", ".join('{name="T%d_%d_%d", icon="i", tier=%d, col=%d, rank=%d, max=%d}'
+                          % (ti, t["tier"] + 1, t["col"] + 1, t["tier"] + 1, t["col"] + 1,
+                             have.get((ti, t["tier"] + 1, t["col"] + 1), 0), len(t["ranks"]))
+                          for t in tree["talents"])
+        parts.append("{ %s }" % cells)
+    c.run("MOCK.tree = { %s }" % ", ".join(parts))
+
+
+@test
+def talents_match_and_differ():
+    c = Client(talents=(55, 0, 16))
+    b = c.eval('ns.TalentGuides.WARLOCK.Affliction.builds[1]')
+    load_tree(c, "WARLOCK", b.trees)
+    missing, extra = c.eval("(function() local m, e = ns:TalentDiff(ns.TalentGuides.WARLOCK.Affliction.builds[1]) "
+                            "return {m, e} end)()").values()
+    assert (missing, extra) == (0, 0), (missing, extra)
+    c.run('ns:OpenWindow("talents")')
+    assert "match" in strip_colors(c.eval("(function() for _, f in ipairs(MOCK.frames) do "
+        "if f._kind == 'FontString' and f._text and f._text:find('match') then return f._text end end "
+        "return '' end)()"))
+    # one point moved: one missing, one extra
+    c.run("for _, t in ipairs(MOCK.tree[1]) do if t.rank > 0 then t.rank = t.rank - 1 break end end")
+    c.run("for _, t in ipairs(MOCK.tree[2]) do if t.tier == 1 then t.rank = 1 break end end")
+    missing, extra = c.eval("(function() local m, e = ns:TalentDiff(ns.TalentGuides.WARLOCK.Affliction.builds[1]) "
+                            "return {m, e} end)()").values()
+    assert (missing, extra) == (1, 1), (missing, extra)
+    c.run('ns:OpenWindow("talents")')
+    no_errors(c)
+
+
+@test
+def talent_preview_fills_the_build():
+    c = Client(talents=(0, 0, 0))
+    c.slash("spec affliction")
+    load_tree(c, "WARLOCK")
+    c.run("MOCK.free = 71")
+    c.clear_chat()
+    c.slash("talents preview")
+    placed = c.eval("(function() local n = 0 for _, tb in ipairs(MOCK.tree) do for _, t in ipairs(tb) do "
+                    "n = n + (t.prev or 0) end end return n end)()")
+    assert placed == 71, placed
+    assert c.eval("MOCK.cvars.previewTalents") == "1" and c.eval("MOCK.talentUI")
+    assert any("71 of 71" in strip_colors(m) for m in c.chat()), c.chat()
+    # nothing is learned: ranks are untouched
+    assert c.eval("(function() for _, tb in ipairs(MOCK.tree) do for _, t in ipairs(tb) do "
+                  "if t.rank > 0 then return false end end end return true end)()")
+    # only 10 free points: says how many could not be placed
+    c.run("MOCK.free = 10")
+    c.clear_chat()
+    c.slash("talents preview")
+    assert any("could not be placed" in strip_colors(m) for m in c.chat()), c.chat()
+    no_errors(c)
+
+
+@test
+def glyphs_page():
+    c = Client(talents=(55, 0, 16))
+    major = c.eval("ns.TalentGuides.WARLOCK.Affliction.glyphs.major[1][2]")
+    c.run('MOCK.spellNames[70001] = "%s"; MOCK.spellNames[70002] = "Glyph of Nothing Useful"' % major)
+    c.run("MOCK.glyphSockets[1] = {1, 70001}; MOCK.glyphSockets[3] = {1, 70002}")
+    have = c.eval("ns:SocketedGlyphs()")
+    assert have[major] == "major"
+    missing = c.eval("ns:MissingGlyphs()")
+    names = [missing[i][1] for i in range(1, len(missing) + 1)]
+    assert major not in names and names, names
+    c.run('ns:OpenWindow("glyphs")')
+    texts = c.eval("(function() local out = {} for _, f in ipairs(MOCK.frames) do "
+                   "if f._kind == 'FontString' and f._text and f._shown then out[#out + 1] = f._text end end "
+                   "return table.concat(out, '|') end)()")
+    assert "Socketed" in texts and "Missing" in texts and "Glyph of Nothing Useful" in texts, texts[:300]
+    no_errors(c)
+
+
+@test
+def every_talent_build_fits_the_realm_trees():
+    """Every decoded build of every spec lands on real talents, within rank
+    limits and the 71-point budget, and its tree totals add up."""
+    c = Client()
+    guides = c.eval("ns.TalentGuides")
+    bad, builds = [], 0
+    for cls in guides.keys():
+        cells = {}
+        for ti, tree in enumerate(TREES[cls], 1):
+            for t in tree["talents"]:
+                cells[(ti, t["tier"] + 1, t["col"] + 1)] = len(t["ranks"])
+        for spec in guides[cls].keys():
+            for b in guides[cls][spec].builds.values():
+                builds += 1
+                total = 0
+                for tab in range(1, 4):
+                    s = 0
+                    for cell in (b.trees[tab] or {}).values():
+                        key = (tab, cell[1], cell[2])
+                        if key not in cells:
+                            bad.append("%s %s %s: no talent at %s" % (cls, spec, b.name, key))
+                        elif cell[3] > cells[key]:
+                            bad.append("%s %s %s: %d points in a %d-rank talent" % (cls, spec, b.name, cell[3], cells[key]))
+                        s += cell[3]
+                    if s != b.pts[tab]:
+                        bad.append("%s %s %s: tree %d adds to %d, not %d" % (cls, spec, b.name, tab, s, b.pts[tab]))
+                    total += s
+                if total > 71:
+                    bad.append("%s %s %s: %d points" % (cls, spec, b.name, total))
+    assert not bad, "\n".join(bad[:20])
+    print("    (%d builds checked)" % builds)
+
+
 @test
 def every_source_formats():
     c = Client()

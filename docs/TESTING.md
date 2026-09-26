@@ -209,6 +209,27 @@ on each boss has alerts but no timer bars.
 | N8 | `/fpve boss forget <boss name>`, then `/fpve boss list`. | That boss is gone. `/fpve boss forget` alone clears all of them. |
 | N9 | Settings → Boss alerts: switch off casts, "on YOU", sounds. | Each stops. |
 
+## O. Talents and glyphs (0.7)
+
+The window now has a **sidebar** on the left (Gear, Talents, Glyphs, Item
+search…) instead of buttons along the top.
+
+| ID | How | Expected |
+|---|---|---|
+| O1 | `/fpve`. | The pages are listed down the left. Everything fits and nothing overlaps; the Gear and Item search pages look as before, just shifted right. |
+| O2 | Talents page. | Your three talent trees, drawn with the real icons. The tree titles read e.g. `Affliction  55 (you 55)`. Each talent the guide uses shows its points. Talents neither of you use are greyed out. |
+| O3 | Compare with your own talents. | Green border: you match the guide. Yellow `1/3`: the guide wants more. Red: you have points the guide doesn't use. The summary at the top right says either "match" or how many points differ. |
+| O4 | Hover any talent. | The normal talent tooltip, plus `FycoPvE guide x/y  you x/y`. |
+| O5 | If the guide has more than one build, pick another in **Build**. | The trees and the text below change. |
+| O6 | Read the text under the trees. | The guide's explanation of the build, with spell names in blue. It scrolls. |
+| O7 | Click **Preview in talent frame**. With free talent points (for example on a fresh spec, or after a respec): | The talent frame opens with the guide's points shown as a **preview**. Chat says `placed X of Y`. **Nothing is learned** until you click Learn in the talent frame, and Reset there cancels it. |
+| O8 | Click Preview when your points are already spent differently. | Chat explains how many points couldn't be placed and that your talents have points the guide doesn't use. Nothing breaks. |
+| O9 | Spec dropdown → another spec. | That spec's build shows against your current talents. |
+| O10 | Glyphs page. | Major and Minor glyphs, each with its icon, a **Socketed** or **Missing** tag, and why the guide picks it. Glyphs you have that the guide doesn't list appear at the bottom under "Also socketed". |
+| O11 | Socket or remove a glyph (or swap spec). | The Glyphs page updates. |
+| O12 | `/fpve talents`, `/fpve talents preview`, `/fpve glyphs`. | They open the pages, or run the preview. |
+| O13 | On a Protection Warrior, if you have one: Talents page. | Painkiller, Unbroken Rage, Blood and Thunder and the other reworked talents have an orange **!**. Their tooltips say they were changed on this realm. |
+
 ---
 
 ## Automated tests
@@ -231,6 +252,11 @@ behaves like the mock. That is what the sections above are for.
 | 0.5 | Damage and healing meter | | M |
 | 0.6 | Boss alerts: cast alerts, "on YOU" debuffs, learned timers | | N |
 | **0.6.0 build** | everything above | **31 / 31 pass** (2026-09-25) | **A–N passed** |
+| 0.7 | Sidebar window, Talents page with talent-frame preview, Glyphs page, Rebuffed change detection | **35 / 35 pass** (2026-09-26) | O (and O1 re-checks B, C, G) |
+
+Added for 0.7: the Affliction build is recognised as a match and a moved point is counted as 1 missing and 1 extra; the preview places all 71 points into the *preview* without learning any, and reports when points are short; the Glyphs page marks Socketed and Missing and lists extra glyphs; all **73 builds of all 30 specs** land on real talents of this realm's trees, within rank limits and 71 points.
+
+**What Rebuffed changes, from its own client files:** 3 new Protection Warrior talents, and about 144 changed spells, mostly Protection Warrior talents, rogue poison durations, Windfury and Tricks of the Trade. **No warlock spells or talents differ from the standard game.** Protection Warrior builds put a few points in two stock talents this realm removed; those points are skipped.
 
 Added for 0.5 and 0.6: the meter counts damage, effective healing, overhealing and damage taken correctly, with pets merged or kept apart; ignores players outside the group; splits fights, keeps Overall and history, and resets; reports to chat with no `|` characters (the server rejects them). Boss alerts: an encounter starts only on a real boss; cast and "on YOU" alerts fire and clear; buffs and trash never alert; timers are learned on the first pull (first cast about 10s, interval about 20s in the test) and count down on the second; the commands work.
 

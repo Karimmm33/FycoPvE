@@ -248,6 +248,27 @@ function ns:RegisterBiS(class, spec, phase, lists)
 	end
 end
 
+-- ns.TalentGuides[class][spec] = { builds = {...}, glyphs = { major, minor } },
+-- written by the generated Data/Guides files
+ns.TalentGuides = {}
+
+function ns:RegisterTalentGuide(class, spec, data)
+	ns.TalentGuides[class] = ns.TalentGuides[class] or {}
+	ns.TalentGuides[class][spec] = data
+end
+
+function ns:TalentGuide(class, spec)
+	local c = ns.TalentGuides[class or ns:PlayerClass()]
+	return c and c[spec or ns:Spec()]
+end
+
+--- Guide notes carry {spell:N}; the client supplies the spell's name.
+function ns:GuideText(text)
+	return (text or ""):gsub("{spell:(%d+)}", function(n)
+		return "|cff71d5ff" .. ((GetSpellInfo(tonumber(n))) or "a spell") .. "|r"
+	end)
+end
+
 function ns:BiSLists(class, spec, phase)
 	local c = ns.BiS[class]
 	local s = c and c[spec]
@@ -485,6 +506,16 @@ SlashCmdList.FYCOPVE = function(input)
 			      .. "|cffffff00test|r or |cffffff00unlock|r")
 		end
 
+	elseif cmd == "talents" then
+		if rest:lower() == "preview" then
+			ns:PreviewTalents()
+		else
+			ns:OpenWindow("talents")
+		end
+
+	elseif cmd == "glyphs" then
+		ns:OpenWindow("glyphs")
+
 	elseif cmd == "minimap" then
 		ns:Set("general", "minimap", not ns:Get("general", "minimap"))
 		ns:Print("minimap button " .. (ns:Get("general", "minimap") and "shown" or "hidden"))
@@ -504,6 +535,8 @@ SlashCmdList.FYCOPVE = function(input)
 		ns:Print("  |cffffff00/fpve threat unlock, test, reset|r - move, preview or re-centre the threat meter")
 		ns:Print("  |cffffff00/fpve meter report, reset, test, unlock|r - the damage and healing meter")
 		ns:Print("  |cffffff00/fpve boss list, forget, test, unlock|r - boss alerts and learned timers")
+		ns:Print("  |cffffff00/fpve talents|r    - the talent guide (|cffffff00talents preview|r fills your talent frame)")
+		ns:Print("  |cffffff00/fpve glyphs|r     - the glyph guide")
 		ns:Print("  |cffffff00/fpve minimap|r    - show or hide the minimap button")
 		ns:Print("  |cffffff00/fpve debug|r      - toggle debug output")
 	end

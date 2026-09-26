@@ -10,8 +10,10 @@
 local ADDON, ns = ...
 local M = ns:Module("window", 5)
 
-local W, H = 660, 520
-local TAB_W = 110
+-- The guide grows a page at a time, so the pages are a sidebar on the left
+-- rather than a row of tabs that runs out of width.
+local W, H = 820, 540
+local SIDE_W, NAV_H = 130, 24
 
 local tabs = {}          -- { key, label, order, build, onShow, pane, button }
 local win, current
@@ -103,9 +105,9 @@ local function Build()
 	for i = 1, #tabs do
 		local t = tabs[i]
 		local b = CreateFrame("Button", nil, win, "UIPanelButtonTemplate")
-		b:SetWidth(TAB_W)
-		b:SetHeight(22)
-		b:SetPoint("TOPLEFT", 18 + (i - 1) * (TAB_W + 4), -44)
+		b:SetWidth(SIDE_W)
+		b:SetHeight(NAV_H - 2)
+		b:SetPoint("TOPLEFT", 16, -48 - (i - 1) * NAV_H)
 		b:SetText(t.label)
 		b:SetScript("OnClick", function() Select(t.key) end)
 		t.button = b
@@ -113,12 +115,12 @@ local function Build()
 
 	local line = win:CreateTexture(nil, "ARTWORK")
 	line:SetTexture(1, 1, 1, 0.15)
-	line:SetHeight(1)
-	line:SetPoint("TOPLEFT", 16, -72)
-	line:SetPoint("TOPRIGHT", -16, -72)
+	line:SetWidth(1)
+	line:SetPoint("TOPLEFT", SIDE_W + 24, -46)
+	line:SetPoint("BOTTOMLEFT", SIDE_W + 24, 16)
 
 	win.content = CreateFrame("Frame", nil, win)
-	win.content:SetPoint("TOPLEFT", 18, -80)
+	win.content:SetPoint("TOPLEFT", SIDE_W + 34, -48)
 	win.content:SetPoint("BOTTOMRIGHT", -18, 16)
 
 	win:SetScript("OnShow", function()

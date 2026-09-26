@@ -114,6 +114,13 @@ scripts/ref/*.json ───┘        (ref tables: scripts/extract_refs.py, fro
   inventory type, and folds dozens of rank labels into four tiers
   (`tier_of`). Anything it cannot place is printed as `UNMAPPED` at the end of
   the build: read that output after every build.
+- Talent builds: `scripts/extract_talents.py` reads the realm's own talent
+  trees from `rebuffed.mpq` and compares talents and spells with the stock
+  `locale-enGB.MPQ` (-> `scripts/ref/talents.json`, `realm_changes.json`).
+  `scripts/build_guides.py` decodes each Wowhead talent string against the
+  **stock** tree order (the realm adds talents, so realm order would shift
+  every digit) and places the points on the realm's trees by talent ID.
+  In-game, talents are always matched by tier and column, never by index.
 - An item whose inventory type cannot go in its slot is dropped with a
   `dropped` line (the Destruction pre-raid guide lists necklaces under Back).
 - AzerothCore spawn rows mostly have no zone, so cities are recognised by
