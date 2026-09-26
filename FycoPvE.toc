@@ -2,7 +2,7 @@
 ## Title: FycoPvE
 ## Notes: PvE guide and companion - BiS, talents, glyphs, enchants, caps, rotation helper, professions, threat, meter, boss alerts
 ## Author: Karim
-## Version: 0.12.0
+## Version: 0.12.1
 ## SavedVariables: FycoPvEDB
 ## SavedVariablesPerCharacter: FycoPvECharDB
 ## X-Modules: Core, Window, Overview, Gear, Talents, Glyphs, Enchants, Stats, Rotation, Professions, Tooltip, Search, Threat, Meter, Bosses, Options
@@ -47,6 +47,7 @@ Data\Guides\Warrior.lua
 Modules\Window.lua
 Modules\RealmPack.lua
 Modules\Scanner.lua
+Data\Realm\Frostmourne.lua
 Modules\Gear.lua
 Modules\Tooltip.lua
 Modules\Search.lua

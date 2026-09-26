@@ -1116,6 +1116,34 @@ def realm_pack_merge_rule():
     assert rp.merge([[5, 1]], [10], stats, w) == ([[5, 1]], [])
     # a plate helm is not for a warlock
     assert not rp.usable_by_warlock({"sub": "Plate"}, "Head") and rp.usable_by_warlock({"sub": "Cloth"}, "Head")
+    # the 3.3.5 client suffixes stat names with _SHORT
+    assert rp.score({"ITEM_MOD_SPELL_POWER_SHORT": 50}, w) == 50
+    # plain stats written as Equip lines are not "effects"; a proc is
+    rec = {"lines": ["Equip: Improves haste rating by 28.", "Equip: Increases spell power by 66.",
+                     "Equip: Restores 21 mana per 5 sec.", "Equip: Your spells have a chance to grant 505 haste."]}
+    assert rp.real_effects(rec) == ["Equip: Your spells have a chance to grant 505 haste."], rp.real_effects(rec)
+    # healer gear is kept away from a caster DPS
+    assert rp.dps_problem({"stats": {"ITEM_MOD_POWER_REGEN0_SHORT": 21}})
+    assert rp.dps_problem({"lines": ["Equip: Your healing spells have a chance to ..."]})
+    assert rp.dps_problem({"stats": {"ITEM_MOD_SPELL_POWER_SHORT": 65, "ITEM_MOD_SPIRIT_SHORT": 43}}) is None
+
+
+@test
+def frostmourne_pack_data():
+    """The shipped pack: on for Frostmourne, off elsewhere, warlock lists only,
+    and the item it adds shows its Valor cost."""
+    on = Client(talents=(55, 0, 16), saved='MOCK.realm = "Frostmourne"')
+    assert on.eval("ns.RealmPacks[1].on") is True
+    first = on.eval("ns.BiS.WARLOCK.Affliction.PreRaid.Wrist[1][1]")
+    assert on.eval("ns.Items[%d].n" % first) == "Wraps of the Astral Traveler", on.eval("ns.Items[%d].n" % first)
+    text = strip_colors(" ".join(on.eval("ns:SourceLines(%d)" % first).values()))
+    assert "Valor" in text and "Frostmourne Rebuffed" in text, text
+    assert list(on.eval("ns.RealmPacks[1].lists").keys()) == ["WARLOCK"]
+    off = Client(talents=(55, 0, 16), saved='MOCK.realm = "Icecrown"')
+    assert off.eval("ns.RealmPacks[1].on") is False
+    assert off.eval("ns.Items[ns.BiS.WARLOCK.Affliction.PreRaid.Wrist[1][1]].n") != "Wraps of the Astral Traveler"
+    no_errors(on)
+    no_errors(off)
 
 
 @test

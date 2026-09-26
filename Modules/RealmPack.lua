@@ -57,12 +57,17 @@ function ns:ApplyRealmPacks()
 				end
 			end
 		end
+		-- A pack item may be a normal item the addon already knows (on this
+		-- server, Emblem gear sold for renamed currency); keep that record so
+		-- switching the pack off gives the normal entry back, not a hole.
+		pack.origItems = pack.origItems or {}
 		for id, rec in pairs(pack.items or {}) do
 			rec.custom = pack.name
+			if pack.origItems[id] == nil then pack.origItems[id] = ns.Items[id] or false end
 			if on then
 				ns.Items[id] = rec
 			elseif ns.Items[id] == rec then
-				ns.Items[id] = nil
+				ns.Items[id] = pack.origItems[id] or nil
 			end
 		end
 		pack.on = on

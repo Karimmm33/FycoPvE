@@ -306,7 +306,7 @@ pack: after U1–U5, tell me, and I build the pack from what was recorded.
 | U4 | `/fpve scan`. | Lists the vendors and item counts recorded. |
 | U5 | `/reload` (this writes the data to disk), then tell me. | — (I then build the pack.) |
 | U6 | Settings → **Server data**. | The *Server packs* dropdown (Auto / Always on / Off), the pack status, *Record every vendor I open*, and the scan buttons. |
-| U7 | *After I've built the pack:* Gear tab as Affliction, Pre-Raid. | Where a Valor item beats the guide's, it appears in the list and as an upgrade. Its Search entry says **Custom Frostmourne Rebuffed item** with the Valor cost. |
+| U7 | Gear tab as Affliction, Pre-Raid (the pack is built from your scan). | **Wrist:** Wraps of the Astral Traveler is #1 BiS. **Ring:** Band of Channeled Magic is #1 BiS. **Back:** Disguise of the Kumiho ranks Good. **Feet:** Xintor's Expeditionary Boots and Slippers of the Holy Light rank Good or Mediocre. Search one of them: it says **Custom Frostmourne Rebuffed item**, sold by Magister Brasael for **1250 (or 1650) Valor**. |
 | U8 | *After the pack:* Settings → Server data → *Off*. | The custom items vanish and the lists are exactly Wowhead's again. *Auto* brings them back (because you're on Frostmourne). |
 
 ---
@@ -339,6 +339,9 @@ behaves like the mock. That is what the sections above are for.
 | 0.11 | Professions page | | T |
 | **0.11.0 build** | everything above | **40 / 40 pass** (2026-09-26) | O–T |
 | 0.12 | Vendor and BiS scanner; server packs with an Auto/On/Off switch | **44 / 44 pass** (2026-09-26) | U |
+| 0.12.1 | The Frostmourne Rebuffed pack, built from your scan | **45 / 45 pass** (2026-09-26) | U7, U8 |
+
+**What the scan showed (0.12.1).** The two vendors (Magister Brasael, Magistrix Lambriesse) sell **standard** WotLK emblem gear, with stats unchanged from the normal game. What's custom is the **currency**: "Valor" is the old Emblem of Valor and "Justice" is the old Emblem of Heroism, with prices in the thousands. The Valor items are item level 213 and count as **Phase 1** gear on Wowhead, so they never appear on its pre-raid lists; on this server you can buy them before raiding. The pack adds the five that beat pre-raid picks for Affliction and Destruction. **14 healer items were left out** (mana per 5, or healing procs such as The Egg of Mortal Essence and Soul Preserver) because their stats score well but their effects do nothing for a warlock.
 
 Added for 0.12: a vendor's items are recorded with stats and a Valor cost, and items the server hadn't sent yet are picked up a moment later; the BiS scan records guide items' stats; a pack switches on for its realm in Auto, off elsewhere, and on/off by hand, and Off restores the guide's lists exactly; a custom item shows its Valor cost and becomes the upgrade over a non-listed helm; the merge rule places items by score and takes the tier of the item they displace, skips items that beat nothing, counts gem sockets, and refuses plate for a warlock. A dry run on a synthetic scan placed a cloth Valor hood #1 on the Affliction pre-raid head list, above the Goggles.
 
