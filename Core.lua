@@ -88,6 +88,49 @@ function ns:Debug(...)
 end
 
 ----------------------------------------------------------------------
+-- combat log watchdog
+----------------------------------------------------------------------
+-- The 3.3.5 client sometimes stops delivering COMBAT_LOG_EVENT_UNFILTERED,
+-- most often after a zone change such as a dungeon-finder teleport. The
+-- stall is in the client, not in Lua, so /reload does not bring it back;
+-- clearing the client's combat log does. Every successful cast of the
+-- player's is also a SPELL_CAST_SUCCESS in the log, so a cast followed by
+-- a silent log means it is stuck. The meter and boss alerts both need it.
+
+local lastLog, castAt, told = 0, nil, false
+
+--- Clear the client's combat log, which restarts a stalled one. Harmless
+--- when nothing was wrong: only the Blizzard combat log tab's history goes.
+function ns:RepairCombatLog(reason)
+	if CombatLogClearEntries then CombatLogClearEntries() end
+	castAt = nil
+	ns:Debug("combat log cleared (" .. reason .. ")")
+end
+
+ns:On("COMBAT_LOG_EVENT_UNFILTERED", function()
+	lastLog = GetTime()
+	castAt = nil
+end)
+ns:On("UNIT_SPELLCAST_SUCCEEDED", function(_, unit)
+	if unit == "player" and not castAt then castAt = GetTime() end
+end)
+-- zoning is when it breaks, so clear it on every loading screen as well
+ns:On("PLAYER_ENTERING_WORLD", function() ns:RepairCombatLog("loading screen") end)
+ns:On("ZONE_CHANGED_NEW_AREA", function() ns:RepairCombatLog("new zone") end)
+
+ns:OnTick(function(now)
+	if not castAt or now - castAt < 1 then return end
+	if now - lastLog >= 2 then
+		ns:RepairCombatLog("a cast never reached the log")
+		if not told then
+			told = true
+			ns:Print("the combat log had stopped (a 3.3.5 client bug, usually after a teleport) - restarted it.")
+		end
+	end
+	castAt = nil
+end)
+
+----------------------------------------------------------------------
 -- message bus
 ----------------------------------------------------------------------
 

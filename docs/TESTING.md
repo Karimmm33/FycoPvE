@@ -192,6 +192,7 @@ Best tested in a dungeon group. Solo, use test mode.
 | M9 | A healer in the group heals. | Healing shows *effective* healing, and Overhealing shows the rest. Shields (Power Word: Shield) are **not** counted; that's a limit of the 3.3.5 combat log. |
 | M10 | Settings → Meter: try every slider and checkbox, plus *Reset data*. | Each takes effect immediately. |
 | M11 | Scroll the mouse wheel over the meter with more players than bars. | It scrolls. |
+| M12 | Queue with the dungeon finder into a dungeon, and after its last boss queue straight into the next one **without leaving** (0.12.3). | The meter works in both dungeons with no relog. If the client ever drops the combat log anyway, within a second of your next cast chat says `the combat log had stopped (a 3.3.5 client bug, usually after a teleport) - restarted it.` and the meter picks up again. |
 
 ## N. Boss alerts (0.6)
 
@@ -345,6 +346,7 @@ behaves like the mock. That is what the sections above are for.
 | 0.12 | Vendor and BiS scanner; server packs with an Auto/On/Off switch | **44 / 44 pass** (2026-09-26) | U |
 | 0.12.1 | The Frostmourne Rebuffed pack, built from your scan | **45 / 45 pass** (2026-09-26) | U7, U8 |
 | 0.12.2 | Gems & Enchants: hoverable icons with real stats and where to get each; crafted sources for every item | **46 / 46 pass** (2026-09-26) | Q8–Q11 |
+| 0.12.3 | Fix: meter (and boss alerts) dead after a dungeon-finder teleport until relog -- combat log watchdog | **47 / 47 pass** (2026-09-26) | M12 |
 
 **What the scan showed (0.12.1).** The two vendors (Magister Brasael, Magistrix Lambriesse) sell **standard** WotLK emblem gear, with stats unchanged from the normal game. What's custom is the **currency**: "Valor" is the old Emblem of Valor and "Justice" is the old Emblem of Heroism, with prices in the thousands. The Valor items are item level 213 and count as **Phase 1** gear on Wowhead, so they never appear on its pre-raid lists; on this server you can buy them before raiding. The pack adds the five that beat pre-raid picks for Affliction and Destruction. **14 healer items were left out** (mana per 5, or healing procs such as The Egg of Mortal Essence and Soul Preserver) because their stats score well but their effects do nothing for a warlock.
 

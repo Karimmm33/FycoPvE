@@ -2,7 +2,7 @@
 ## Title: FycoPvE
 ## Notes: PvE guide and companion - BiS, talents, glyphs, enchants, caps, rotation helper, professions, threat, meter, boss alerts
 ## Author: Karim
-## Version: 0.12.2
+## Version: 0.12.3
 ## SavedVariables: FycoPvEDB
 ## SavedVariablesPerCharacter: FycoPvECharDB
 ## X-Modules: Core, Window, Overview, Gear, Talents, Glyphs, Enchants, Stats, Rotation, Professions, Tooltip, Search, Threat, Meter, Bosses, Options

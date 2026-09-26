@@ -621,6 +621,34 @@ def meter_segments_overall_and_reset():
 
 
 @test
+def combat_log_watchdog_restarts_a_stalled_log():
+    c = Client()
+    c.run("_cleared = 0; function CombatLogClearEntries() _cleared = _cleared + 1 end")
+    me = "0x0000000000000001"
+    # a cast that shows up in the log is fine
+    c.run('MOCK.advance(3); MOCK.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Shadow Bolt")')
+    cleu(c, "SPELL_CAST_SUCCESS", me, "Tester", ME, "", "", 0, 686, "Shadow Bolt", 32)
+    c.run("MOCK.advance(2)")
+    assert c.eval("_cleared") == 0
+    # someone else's cast is not ours to judge
+    c.run('MOCK.fire("UNIT_SPELLCAST_SUCCEEDED", "party1", "Heal"); MOCK.advance(3)')
+    assert c.eval("_cleared") == 0
+    # a cast with a silent log: cleared once, and the player is told once
+    c.clear_chat()
+    c.run('MOCK.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Shadow Bolt"); MOCK.advance(1.5)')
+    assert c.eval("_cleared") == 1
+    assert any("combat log had stopped" in strip_colors(m) for m in c.chat()), c.chat()
+    c.clear_chat()
+    c.run('MOCK.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Shadow Bolt"); MOCK.advance(1.5)')
+    assert c.eval("_cleared") == 2
+    assert not any("combat log had stopped" in strip_colors(m) for m in c.chat())
+    # every loading screen clears it too (the dungeon-finder teleport case)
+    c.run('MOCK.fire("PLAYER_ENTERING_WORLD")')
+    assert c.eval("_cleared") == 3
+    no_errors(c)
+
+
+@test
 def meter_report_and_commands():
     c = Client()
     c.slash("meter test")
