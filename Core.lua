@@ -149,6 +149,10 @@ ns.Defaults = {
 		minimapAngle = 200,
 		windowScale = 1.0,
 		loginMessage = true,
+		realmPack = "auto",   -- server packs: "auto" (only on their server), "on", "off"
+	},
+	scan = {
+		vendors = true,       -- record every vendor opened, for server packs
 	},
 	gear = {
 		bisTier = 1,          -- tiers 1..bisTier count as "BiS"
@@ -242,11 +246,7 @@ end
 -- answer "is this on a list" without scanning them all.
 ns.BiS, ns.BiSIndex = {}, {}
 
-function ns:RegisterBiS(class, spec, phase, lists)
-	ns.BiS[class] = ns.BiS[class] or {}
-	ns.BiS[class][spec] = ns.BiS[class][spec] or {}
-	ns.BiS[class][spec][phase] = lists
-
+local function IndexLists(class, spec, phase, lists)
 	for listKey, list in pairs(lists) do
 		for pos = 1, #list do
 			local id = list[pos][1]
@@ -255,6 +255,23 @@ function ns:RegisterBiS(class, spec, phase, lists)
 				class = class, spec = spec, phase = phase, list = listKey,
 				pos = pos, tier = list[pos][2], count = #list,
 			})
+		end
+	end
+end
+
+function ns:RegisterBiS(class, spec, phase, lists)
+	ns.BiS[class] = ns.BiS[class] or {}
+	ns.BiS[class][spec] = ns.BiS[class][spec] or {}
+	ns.BiS[class][spec][phase] = lists
+	IndexLists(class, spec, phase, lists)
+end
+
+--- Rebuild the item -> lists index after lists were swapped (server packs).
+function ns:RebuildBiSIndex()
+	ns.BiSIndex = {}
+	for class, specs in pairs(ns.BiS) do
+		for spec, phases in pairs(specs) do
+			for phase, lists in pairs(phases) do IndexLists(class, spec, phase, lists) end
 		end
 	end
 end
@@ -550,6 +567,20 @@ SlashCmdList.FYCOPVE = function(input)
 	elseif cmd == "glyphs" then
 		ns:OpenWindow("glyphs")
 
+	elseif cmd == "scan" then
+		local sub = rest:lower()
+		if sub == "bis" then
+			ns:ScanBiS(false)
+		elseif sub == "bis all" then
+			ns:ScanBiS(true)
+		elseif sub == "clear" then
+			ns:ScanClear()
+		else
+			ns:ScanReport()
+			ns:Print("|cffffff00/fpve scan bis|r (this phase) or |cffffff00scan bis all|r records your BiS items' "
+			      .. "stats; vendors are recorded when you open them; |cffffff00scan clear|r forgets it all")
+		end
+
 	elseif cmd == "overview" or cmd == "check" then
 		ns:OpenWindow("overview")
 
@@ -594,6 +625,7 @@ SlashCmdList.FYCOPVE = function(input)
 		ns:Print("  |cffffff00/fpve talents|r    - the talent guide (|cffffff00talents preview|r fills your talent frame)")
 		ns:Print("  |cffffff00/fpve glyphs|r     - the glyph guide")
 		ns:Print("  |cffffff00/fpve overview|r   - the character check-up")
+		ns:Print("  |cffffff00/fpve scan [bis, bis all, clear]|r - record server data for custom gear")
 		ns:Print("  |cffffff00/fpve enchants, stats, professions|r - those guide pages")
 		ns:Print("  |cffffff00/fpve rotation [unlock, reset]|r - the rotation guide, or move the helper")
 		ns:Print("  |cffffff00/fpve minimap|r    - show or hide the minimap button")

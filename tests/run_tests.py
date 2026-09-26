@@ -1020,6 +1020,105 @@ def professions_and_overview():
 
 
 @test
+def scanner_records_vendors_and_bis():
+    c = Client(talents=(55, 0, 16))
+    c.run(r'''
+    MOCK.units.npc = { name = "Valor Quartermaster", guid = "0xV1" }
+    MOCK.items[90001] = { name = "Custom Hood", equipLoc = "INVTYPE_HEAD", sub = "Cloth", ilvl = 219,
+                          stats = { ITEM_MOD_SPELL_POWER = 90, ITEM_MOD_HASTE_RATING = 60 } }
+    MOCK.merchant = { items = {
+        { id = 90001, extended = 1, costs = { { "Valor Points", 150, 90999 } } },
+        { id = 90002, price = 50000 },            -- not cached yet
+    } }
+    MOCK.fire("MERCHANT_SHOW")
+    ''')
+    v = c.eval('FycoPvEDB.serverScan.vendors["Valor Quartermaster"]')
+    rec = v[90001]
+    assert rec.n == "Custom Hood" and rec.stats.ITEM_MOD_SPELL_POWER == 90 and rec.loc == "INVTYPE_HEAD"
+    assert rec.cost["items"][1].name == "Valor Points" and rec.cost["items"][1].count == 150
+    assert v[90002] is None
+    assert any("still loading" in strip_colors(m) for m in c.chat()), c.chat()
+    # the server sends the missing item a moment later: picked up without reopening
+    c.run('MOCK.items[90002] = { name = "Custom Ring", equipLoc = "INVTYPE_FINGER", stats = {} }; MOCK.advance(1)')
+    assert c.eval('FycoPvEDB.serverScan.vendors["Valor Quartermaster"][90002].cost.gold') == 50000
+    # the setting switches recording off
+    c.run('ns:Set("scan", "vendors", false); MOCK.merchant.items[1].id = 90003; MOCK.fire("MERCHANT_SHOW")')
+    assert c.eval('FycoPvEDB.serverScan.vendors["Valor Quartermaster"][90003]') is None
+    # BiS scan: records this phase's list items once the server has them
+    head = c.eval("ns.BiS.WARLOCK.Affliction.PreRaid.Head[1][1]")
+    c.run("MOCK.items[%d] = { name = 'Guide Hood', equipLoc = 'INVTYPE_HEAD', stats = { ITEM_MOD_SPELL_POWER = 70 } }" % head)
+    c.slash("scan bis")
+    c.run("MOCK.advance(600)")
+    assert c.eval("FycoPvEDB.serverScan.items[%d].stats.ITEM_MOD_SPELL_POWER" % head) == 70
+    assert any("BiS scan done" in strip_colors(m) for m in c.chat())
+    c.slash("scan")
+    c.slash("scan clear")
+    assert c.eval("FycoPvEDB.serverScan") is None
+    no_errors(c)
+
+
+PACK = r'''
+ns:RegisterRealmPack("Frostmourne", { name = "Frostmourne Rebuffed",
+  items = { [90001] = { n = "Custom Hood", q = 4, lvl = 219, inv = 1,
+                        src = { { t = "vendor", who = "Valor Quartermaster", cost = { text = "150 Valor Points" } } } } },
+  lists = { WARLOCK = { Affliction = { PreRaid = { Head = { { 90001, 1 }, { 42553, 1 } } } } } } })
+'''
+
+
+@test
+def realm_pack_on_off_and_auto():
+    for realm, mode, expect in (("Frostmourne", "auto", True), ("Icecrown", "auto", False),
+                                ("Icecrown", "on", True), ("Frostmourne", "off", False)):
+        c = Client(talents=(55, 0, 16),
+                   saved='MOCK.realm = "%s"; FycoPvEDB = { general = { realmPack = "%s" } }' % (realm, mode))
+        orig_first = c.eval("ns.BiS.WARLOCK.Affliction.PreRaid.Head[1][1]")
+        c.run(PACK + "ns:ApplyRealmPacks()")
+        first = c.eval("ns.BiS.WARLOCK.Affliction.PreRaid.Head[1][1]")
+        assert (first == 90001) == expect, (realm, mode, first)
+        assert (c.eval("ns.Items[90001] ~= nil")) == expect
+        assert (c.eval("ns.BiSIndex[90001] ~= nil")) == expect
+        if expect:
+            # switching it off puts the guide's list back exactly
+            c.run('ns:Set("general", "realmPack", "off")')
+            assert c.eval("ns.BiS.WARLOCK.Affliction.PreRaid.Head[1][1]") == orig_first
+            assert c.eval("ns.Items[90001] == nil")
+            c.run('ns:Set("general", "realmPack", "on")')
+            lines = c.eval("ns:SourceLines(90001)")
+            text = strip_colors(" ".join(lines[i] for i in range(1, len(lines) + 1)))
+            assert "150 Valor Points" in text and "Custom Frostmourne Rebuffed item" in text, text
+            c.run("MOCK.inventory[1] = 12345")      # a helm on no list: the custom hood is the upgrade
+            r = rows(c)[1]
+            assert r.upgrade == 90001, r.upgrade
+        no_errors(c)
+
+
+@test
+def realm_pack_merge_rule():
+    sys.path.insert(0, os.path.join(ROOT, "scripts"))
+    import build_realm_pack as rp
+    w = rp.WEIGHTS[("WARLOCK", "Affliction")]
+    stats = {
+        1: {"stats": {"ITEM_MOD_SPELL_POWER": 100}},                       # guide, tier 1
+        2: {"stats": {"ITEM_MOD_SPELL_POWER": 80}},                        # guide, tier 3
+        3: {"stats": {"ITEM_MOD_SPELL_POWER": 60}},                        # guide, tier 4
+        10: {"stats": {"ITEM_MOD_SPELL_POWER": 85, "ITEM_MOD_HIT_RATING": 20}},   # 104 -> above #1
+        11: {"stats": {"ITEM_MOD_SPELL_POWER": 70}},                       # 70  -> between 2 and 3
+        12: {"stats": {"ITEM_MOD_SPELL_POWER": 10}},                       # beats nothing
+        13: {"stats": {"ITEM_MOD_SPELL_POWER": 50, "EMPTY_SOCKET_RED": 2}},  # 50 + 38 = 88 -> above #2
+    }
+    merged, placed = rp.merge([[1, 1], [2, 3], [3, 4]], [10, 11, 12, 13], stats, w)
+    assert [e[0] for e in merged] == [10, 1, 13, 2, 11, 3], merged
+    assert [e[1] for e in merged] == [1, 1, 3, 3, 4, 4], merged
+    assert 12 not in [p[0] for p in placed]
+    # hit counts: 20 hit rating is worth 19 spell power for Affliction
+    assert abs(rp.score(stats[10]["stats"], w) - 104) < 0.01
+    # no guide item has recorded stats -> nothing placed rather than a guess
+    assert rp.merge([[5, 1]], [10], stats, w) == ([[5, 1]], [])
+    # a plate helm is not for a warlock
+    assert not rp.usable_by_warlock({"sub": "Plate"}, "Head") and rp.usable_by_warlock({"sub": "Cloth"}, "Head")
+
+
+@test
 def every_source_formats():
     c = Client()
     bad = c.eval("""(function()

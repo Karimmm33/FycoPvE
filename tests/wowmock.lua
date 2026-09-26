@@ -188,6 +188,37 @@ local function newTooltip(name)
 	end
 	return t
 end
+-- hidden scanning tooltips (GameTooltipTemplate) behave like the real ones
+local baseCreateFrame = CreateFrame
+function CreateFrame(kind, name, parent, template)
+	if kind == "GameTooltip" then
+		local t = newTooltip(name)
+		function t:NumLines() return #self._lines end
+		return t
+	end
+	return baseCreateFrame(kind, name, parent, template)
+end
+
+-- vendors: MOCK.merchant = { npc = name, items = { { id, price, extended, costs = { {name, count, id} }, honor, arena } } }
+function GetRealmName() return MOCK.realm or "TestRealm" end
+function GetMerchantNumItems() return MOCK.merchant and #MOCK.merchant.items or 0 end
+function GetMerchantItemLink(i)
+	local it = MOCK.merchant.items[i]
+	return it and ("|cffa335ee|Hitem:" .. it.id .. ":0:0:0:0:0:0:0:0|h[Item]|h|r")
+end
+function GetMerchantItemInfo(i)
+	local it = MOCK.merchant.items[i]
+	return "Item", "icon", it.price or 0, 1, -1, true, it.extended
+end
+function GetMerchantItemCostInfo(i)
+	local it = MOCK.merchant.items[i]
+	return it.honor or 0, it.arena or 0, #(it.costs or {})
+end
+function GetMerchantItemCostItem(i, j)
+	local c = MOCK.merchant.items[i].costs[j]
+	return "icon", c[2], c[3] and ("|cffffffff|Hitem:" .. c[3] .. ":0:0:0:0:0:0:0:0|h[" .. c[1] .. "]|h|r")
+end
+
 GameTooltip = newTooltip("GameTooltip")
 ItemRefTooltip = newTooltip("ItemRefTooltip")
 ShoppingTooltip1 = newTooltip("ShoppingTooltip1")
@@ -316,7 +347,7 @@ function GetInventoryItemLink(unit, slot)
 end
 function GetItemStats(link)
 	local id = tonumber(link:match("item:(%d+)"))
-	return MOCK.itemStats[id] or {}
+	return MOCK.itemStats[id] or (MOCK.items[id] and MOCK.items[id].stats) or {}
 end
 
 -- auras: MOCK.auras[unit] = { { name, expires (0 = no duration), mine, harmful }, ... }
@@ -368,7 +399,7 @@ function GetItemInfo(id)
 	local it = MOCK.items[id]
 	if not it then return nil end
 	return it.name or ("Item " .. id), "|cffa335ee|Hitem:" .. id .. ":0:0:0:0:0:0:0:0|h[Item]|h|r",
-		4, 200, 80, "Armor", "Cloth", 1, it.equipLoc or "", "Interface\\Icons\\X"
+		it.q or 4, it.ilvl or 200, 80, it.type or "Armor", it.sub or "Cloth", 1, it.equipLoc or "", "Interface\\Icons\\X"
 end
 function GetItemIcon(id) return "Interface\\Icons\\Item" .. tostring(id) end
 --- By ID: any spell, named from MOCK.spellNames. By name: only spells the

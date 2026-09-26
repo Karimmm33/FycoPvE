@@ -293,6 +293,22 @@ search…) instead of buttons along the top.
 | T2 | Below that. | All 11 professions ranked for your role, each with its bonus, and `you have it` next to yours. |
 | T3 | Switch to a melee or tank spec. | The ranking and the bonuses change (e.g. Jewelcrafting first for tanks). |
 
+## U. Server data and custom gear (0.12)
+
+This section is also the **collection run** for the Frostmourne Rebuffed
+pack: after U1–U5, tell me, and I build the pack from what was recorded.
+
+| ID | How | Expected |
+|---|---|---|
+| U1 | Talk to the **Valor Points vendor**. | Chat: `recorded N items from <vendor name>`. If it adds "still loading", wait a few seconds; they're picked up without reopening. |
+| U2 | Do the same for any other custom vendor you know of. | One chat line per vendor. |
+| U3 | On your warlock: `/fpve scan bis all`. | `recording this server's stats for ~600 BiS items (about 120 seconds)...`, then after about 2 minutes `BiS scan done: X of Y items recorded`. Keep playing normally meanwhile. |
+| U4 | `/fpve scan`. | Lists the vendors and item counts recorded. |
+| U5 | `/reload` (this writes the data to disk), then tell me. | — (I then build the pack.) |
+| U6 | Settings → **Server data**. | The *Server packs* dropdown (Auto / Always on / Off), the pack status, *Record every vendor I open*, and the scan buttons. |
+| U7 | *After I've built the pack:* Gear tab as Affliction, Pre-Raid. | Where a Valor item beats the guide's, it appears in the list and as an upgrade. Its Search entry says **Custom Frostmourne Rebuffed item** with the Valor cost. |
+| U8 | *After the pack:* Settings → Server data → *Off*. | The custom items vanish and the lists are exactly Wowhead's again. *Auto* brings them back (because you're on Frostmourne). |
+
 ---
 
 ## Automated tests
@@ -322,6 +338,9 @@ behaves like the mock. That is what the sections above are for.
 | 0.10 | Rotation helper (Affliction) and Rotation page | | S |
 | 0.11 | Professions page | | T |
 | **0.11.0 build** | everything above | **40 / 40 pass** (2026-09-26) | O–T |
+| 0.12 | Vendor and BiS scanner; server packs with an Auto/On/Off switch | **44 / 44 pass** (2026-09-26) | U |
+
+Added for 0.12: a vendor's items are recorded with stats and a Valor cost, and items the server hadn't sent yet are picked up a moment later; the BiS scan records guide items' stats; a pack switches on for its realm in Auto, off elsewhere, and on/off by hand, and Off restores the guide's lists exactly; a custom item shows its Valor cost and becomes the upgrade over a non-listed helm; the merge rule places items by score and takes the tier of the item they displace, skips items that beat nothing, counts gem sockets, and refuses plate for a warlock. A dry run on a synthetic scan placed a cloth Valor hood #1 on the Affliction pre-raid head list, above the Goggles.
 
 Added for 0.8–0.11:
 - **Rotation:** Haunt comes first on a fresh target; with every DoT up and Haunt on a 2.3s cooldown it says Shadow Bolt now, **Haunt in 2.3**; Unstable Affliction is refreshed when it has less than its cast time left, but not while you're already casting it; Drain Soul below 25%; Curse of Agony is skipped when another curse of yours is up; Corruption is never refreshed; Life Tap appears only with its glyph. The panel shows in combat with a hostile target and hides otherwise.

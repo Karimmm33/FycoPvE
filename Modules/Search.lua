@@ -62,6 +62,10 @@ local function BuildIndex()
 	table.sort(index, function(a, b) return a.name < b.name end)
 end
 
+--- Forget the index; it is rebuilt from ns.Items on the next search
+--- (after a server pack adds or removes items).
+function ns:SearchReset() index = nil end
+
 --- Rank on the current spec+phase list, lower is better; nil when absent.
 local function MyRank(id)
 	local entries = ns.BiSIndex[id]

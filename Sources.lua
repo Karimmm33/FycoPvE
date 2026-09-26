@@ -27,6 +27,7 @@ function ns:FormatCost(c)
 	if c.honor then parts[#parts + 1] = c.honor .. " Honor" end
 	if c.arena then parts[#parts + 1] = c.arena .. " Arena points" end
 	if c.gold then parts[#parts + 1] = Money(c.gold) end
+	if c.text then parts[#parts + 1] = c.text end   -- a server's own currency, as the vendor names it
 	local text = table.concat(parts, " + ")
 	if c.rating then text = text .. " (needs " .. c.rating .. " personal rating)" end
 	return text ~= "" and text or nil
@@ -97,6 +98,11 @@ function ns:SourceLines(id)
 	end
 	local rep = ns:RepText(id)
 	if rep then lines[#lines + 1] = "|cffff8040" .. rep .. "|r" end
+	if it.custom then
+		lines[#lines + 1] = "|cffff9020Custom " .. it.custom .. " item.|r " .. GREY .. "Ranked by FycoPvE's stat "
+			.. "weights on this server's stats - an estimate, not a simulation.|r"
+		for _, l in ipairs(it.lines or {}) do lines[#lines + 1] = "|cff20ff20" .. l .. "|r" end
+	end
 	if it.side then lines[#lines + 1] = GREY .. it.side .. " only|r" end
 	local note = ns:GuideNote(id)
 	if note then lines[#lines + 1] = GREY .. "Guide says: " .. note .. "|r" end
