@@ -1,8 +1,9 @@
 # FycoPvE in-game testing sheet
 
-> **Status (0.6.0): every section, A to N, was tested in game on 2026-09-25
-> (Whitemane, Frostmourne Rebuffed) and passed.** For later versions, add
-> new sections and re-run the ones a change touches.
+> **Status:** sections A–N (0.1–0.6) were tested in game on 2026-09-25
+> (Whitemane, Frostmourne Rebuffed) and passed. **To test now: sections O–T**
+> (0.7–0.11: talents, glyphs, overview, gems & enchants, stats & caps,
+> rotation helper, professions).
 
 Work through the sections in order. For each test, do exactly what the **How**
 column says, compare with **Expected**, and report back by ID, for example:
@@ -230,6 +231,68 @@ search…) instead of buttons along the top.
 | O12 | `/fpve talents`, `/fpve talents preview`, `/fpve glyphs`. | They open the pages, or run the preview. |
 | O13 | On a Protection Warrior, if you have one: Talents page. | Painkiller, Unbroken Rage, Blood and Thunder and the other reworked talents have an orange **!**. Their tooltips say they were changed on this realm. |
 
+## P. Overview, the character check-up (0.8)
+
+| ID | How | Expected |
+|---|---|---|
+| P1 | `/fpve`. | The window opens on **Overview**, the first page in the sidebar. |
+| P2 | Read the list. | One line per issue, worst first: red **Fix** (empty slots, missing enchants, empty sockets, caps not reached), then yellow **Improve** (non-BiS gear, weaker enchants, missing glyphs, talents that differ), then grey **Info**, then green **OK**. The summary at the top counts the Fix and Improve lines. |
+| P3 | Click **Open** on a few lines. | Each one jumps to the page that fixes it (Gear, Gems & Enchants, Glyphs, Talents, Stats & caps, Professions). |
+| P4 | Fix something (enchant an item, socket a glyph) and come back. | That line turns to OK or disappears. |
+| P5 | Change Spec or Phase at the top. | The whole list is recomputed. |
+| P6 | `/fpve overview`. | Opens this page. |
+
+## Q. Gems & Enchants (0.8)
+
+| ID | How | Expected |
+|---|---|---|
+| Q1 | Gems & Enchants page. | A row per enchantable slot you wear: **Guide's best for you**, **On your gear** (the real enchant name) and a status: green **Best**, yellow **Listed, not the best**, orange **Not in the guide**, red **Missing**. |
+| Q2 | Look at Back, Wrist, Shoulder. | If you **don't** have Tailoring, Leatherworking or Inscription, it recommends the scroll or reputation enchant, **not** Lightweave, Fur Lining or the Inscription shoulders. If you have the profession, the profession enchant is the best. |
+| Q3 | Rings. | Only listed if you're an Enchanter. |
+| Q4 | Hover a row. | Every option the guide lists for that slot, best first, with profession and phase tags, and the guide's explanation. |
+| Q5 | Gems section. | The guide's gem picks per colour (for warlocks: meta, red, yellow, blue), with phase tags like `P1-2` and `P3`. |
+| Q6 | Sockets section. | "Every socket on your gear has a gem", or a red line per item with empty sockets. |
+| Q7 | Enchant or gem something while the page is open. | It updates. |
+
+## R. Stats & caps (0.9)
+
+| ID | How | Expected |
+|---|---|---|
+| R1 | Stats & caps page, as Affliction. | Left: the guide's stat priority (Hit Rating, Spell Power, Haste…). Right: a **Spell hit** bar `x.xx% / 17%`, with a line saying what it's made of (rating, talents and racials, raid buffs) and how much more rating you need. |
+| R2 | Check the numbers against your character sheet's spell hit. | The "from hit rating" % matches the game's. Suppression (3/3) counts as 3%. |
+| R3 | Tick **+3% spell hit from a Balance Druid or Shadow Priest**. | The bar grows by 3%. Once at 17%, it turns green and says **Capped**, and "Hit Rating" in the priority list gets a `capped` tag. |
+| R4 | On a melee alt, or pick a melee spec. | Melee hit 8% and Expertise 26. |
+| R5 | On a tank alt. | Defense 540 as well. Healers see "no hard caps". |
+| R6 | Swap a piece of gear with hit on it. | The bar updates. |
+
+## S. Rotation helper, Affliction (0.10)
+
+| ID | How | Expected |
+|---|---|---|
+| S1 | As Affliction, target a training dummy or mob and start combat. | A panel appears (centre, a bit below the middle): one **big icon** (cast this now) and **two smaller icons** after it. |
+| S2 | Fresh target, nothing on it. | The big icon goes Haunt → Unstable Affliction → Corruption → Curse of Agony as you cast each. |
+| S3 | Everything up and Haunt on cooldown. | Big icon **Shadow Bolt**. A small **Haunt** icon, greyed, counting down (`2.3`, `2.2`…). When it reaches zero, Haunt becomes the big icon. |
+| S4 | Let Unstable Affliction run low. | It becomes the big icon just before it falls off, early enough to cast it in time. While you're casting it, it isn't suggested again. |
+| S5 | Corruption. | Never suggested again while it's up, because Haunt and Shadow Bolt refresh it through Everlasting Affliction. |
+| S6 | Put Curse of the Elements on instead. | Curse of Agony isn't suggested, since your own curse choice is respected. |
+| S7 | Target below 25% health. | **Drain Soul** replaces Shadow Bolt as the filler. |
+| S8 | With Glyph of Life Tap socketed. | **Life Tap** comes up when the glyph's buff is missing or about to expire (about 3s left). Without the glyph it's never suggested. |
+| S9 | Improved Shadow Bolt talented, no Shadow Mastery on the boss. | **Shadow Bolt** is suggested early to put the debuff up. |
+| S10 | Clear your target, or leave combat. | The panel hides. Settings → Rotation helper → *Show out of combat too* keeps it shown with a hostile target. |
+| S11 | `/fpve rotation unlock`, drag it, `/fpve rotation unlock` again, `/reload`. | It stays where you left it. |
+| S12 | Settings → Rotation helper: *Upcoming spells* 0/1/2, *Spell names*, *Scale*. | Each takes effect. |
+| S13 | Switch to a spec without a helper (e.g. Destruction). | The panel never shows. The **Rotation** page says the helper doesn't cover that spec yet. |
+| S14 | Rotation page. | The guide's spell priority for your spec (spell names in blue with short notes) and the opener. |
+| S15 | **Most important:** follow it for a whole boss fight. | Tell me every time it suggested something you think was wrong, and what it should have been. |
+
+## T. Professions (0.11)
+
+| ID | How | Expected |
+|---|---|---|
+| T1 | Professions page. | **Your professions**, each with its place for your role (e.g. `Tailoring (450) - number 1 of 11 for a caster`) and what it's worth. |
+| T2 | Below that. | All 11 professions ranked for your role, each with its bonus, and `you have it` next to yours. |
+| T3 | Switch to a melee or tank spec. | The ranking and the bonuses change (e.g. Jewelcrafting first for tanks). |
+
 ---
 
 ## Automated tests
@@ -253,6 +316,18 @@ behaves like the mock. That is what the sections above are for.
 | 0.6 | Boss alerts: cast alerts, "on YOU" debuffs, learned timers | | N |
 | **0.6.0 build** | everything above | **31 / 31 pass** (2026-09-25) | **A–N passed** |
 | 0.7 | Sidebar window, Talents page with talent-frame preview, Glyphs page, Rebuffed change detection | **35 / 35 pass** (2026-09-26) | O (and O1 re-checks B, C, G) |
+
+| 0.8 | Overview check-up; Gems & Enchants page | | P, Q |
+| 0.9 | Stats & caps page | | R |
+| 0.10 | Rotation helper (Affliction) and Rotation page | | S |
+| 0.11 | Professions page | | T |
+| **0.11.0 build** | everything above | **40 / 40 pass** (2026-09-26) | O–T |
+
+Added for 0.8–0.11:
+- **Rotation:** Haunt comes first on a fresh target; with every DoT up and Haunt on a 2.3s cooldown it says Shadow Bolt now, **Haunt in 2.3**; Unstable Affliction is refreshed when it has less than its cast time left, but not while you're already casting it; Drain Soul below 25%; Curse of Agony is skipped when another curse of yours is up; Corruption is never refreshed; Life Tap appears only with its glyph. The panel shows in combat with a hostile target and hides otherwise.
+- **Enchants:** exact enchant IDs are compared (best, missing, other); a non-tailor is not told to use Lightweave, but a tailor is; rings only count for enchanters; empty sockets are counted per item.
+- **Caps:** 12% from rating + 3% Suppression = 15% spell hit, **53 rating short**; the +3% buff tick caps it; melee specs get hit and expertise; a tank at 530 defense is 50 rating short.
+- **Overview:** issues sorted worst first. Every guide page opens without error for six different classes.
 
 Added for 0.7: the Affliction build is recognised as a match and a moved point is counted as 1 missing and 1 extra; the preview places all 71 points into the *preview* without learning any, and reports when points are short; the Glyphs page marks Socketed and Missing and lists extra glyphs; all **73 builds of all 30 specs** land on real talents of this realm's trees, within rank limits and 71 points.
 

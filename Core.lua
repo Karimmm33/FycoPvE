@@ -193,6 +193,16 @@ ns.Defaults = {
 		reportChannel = "PARTY",
 		reportLines = 5,
 	},
+	stats = {
+		buffSpellHit = false,  -- +3% spell hit from a Balance Druid / Shadow Priest in the raid
+		buffPresence = false,  -- +1% hit from a Draenei in the party
+	},
+	rotation = {
+		outOfCombat = false,
+		names = false,
+		upcoming = 2,
+		scale = 1.0,
+	},
 	bosses = {
 		casts = true,
 		onYou = true,
@@ -207,7 +217,8 @@ ns.Defaults = {
 
 -- module switches, written one key at a time so a module added later turns
 -- itself on without resetting what has been saved
-local moduleDefaults = { gear = true, tooltip = true, search = true, threat = true, meter = true, bosses = true }
+local moduleDefaults = { gear = true, tooltip = true, search = true, threat = true, meter = true, bosses = true,
+	rotation = true }
 
 function ns:Get(section, key)
 	local s = FycoPvEDB and FycoPvEDB[section]
@@ -260,6 +271,29 @@ end
 function ns:TalentGuide(class, spec)
 	local c = ns.TalentGuides[class or ns:PlayerClass()]
 	return c and c[spec or ns:Spec()]
+end
+
+-- ns.SpecGuides[class][spec] = { role, stats, enchants, gems, priority, opener }
+ns.SpecGuides = {}
+
+function ns:RegisterSpecGuide(class, spec, data)
+	ns.SpecGuides[class] = ns.SpecGuides[class] or {}
+	ns.SpecGuides[class][spec] = data
+end
+
+function ns:SpecGuide(class, spec)
+	local c = ns.SpecGuides[class or ns:PlayerClass()]
+	return c and c[spec or ns:Spec()]
+end
+
+--- The player's professions: { ["Tailoring"] = 450, ... } (English names).
+function ns:PlayerProfessions()
+	local out = {}
+	for i = 1, (GetNumSkillLines and GetNumSkillLines() or 0) do
+		local name, isHeader, _, rank = GetSkillLineInfo(i)
+		if name and not isHeader then out[name] = rank end
+	end
+	return out
 end
 
 --- Guide notes carry {spell:N}; the client supplies the spell's name.
@@ -516,6 +550,28 @@ SlashCmdList.FYCOPVE = function(input)
 	elseif cmd == "glyphs" then
 		ns:OpenWindow("glyphs")
 
+	elseif cmd == "overview" or cmd == "check" then
+		ns:OpenWindow("overview")
+
+	elseif cmd == "enchants" or cmd == "gems" then
+		ns:OpenWindow("enchants")
+
+	elseif cmd == "stats" or cmd == "caps" then
+		ns:OpenWindow("stats")
+
+	elseif cmd == "professions" then
+		ns:OpenWindow("professions")
+
+	elseif cmd == "rotation" then
+		local sub = rest:lower()
+		if sub == "unlock" or sub == "lock" then
+			ns:RotationUnlock()
+		elseif sub == "reset" then
+			ns:RotationResetPosition()
+		else
+			ns:OpenWindow("rotation")
+		end
+
 	elseif cmd == "minimap" then
 		ns:Set("general", "minimap", not ns:Get("general", "minimap"))
 		ns:Print("minimap button " .. (ns:Get("general", "minimap") and "shown" or "hidden"))
@@ -537,6 +593,9 @@ SlashCmdList.FYCOPVE = function(input)
 		ns:Print("  |cffffff00/fpve boss list, forget, test, unlock|r - boss alerts and learned timers")
 		ns:Print("  |cffffff00/fpve talents|r    - the talent guide (|cffffff00talents preview|r fills your talent frame)")
 		ns:Print("  |cffffff00/fpve glyphs|r     - the glyph guide")
+		ns:Print("  |cffffff00/fpve overview|r   - the character check-up")
+		ns:Print("  |cffffff00/fpve enchants, stats, professions|r - those guide pages")
+		ns:Print("  |cffffff00/fpve rotation [unlock, reset]|r - the rotation guide, or move the helper")
 		ns:Print("  |cffffff00/fpve minimap|r    - show or hide the minimap button")
 		ns:Print("  |cffffff00/fpve debug|r      - toggle debug output")
 	end

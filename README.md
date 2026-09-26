@@ -16,6 +16,11 @@ will grow the same way, one module at a time.
 
 | | |
 |---|---|
+| **Overview** | A character check-up: empty slots, missing or weaker enchants, empty sockets, missing glyphs, talents off the build, caps not reached. Worst first, each with a button to the page that fixes it. |
+| **Gems & Enchants** | The guide's best enchant for every slot next to the one actually on your gear (read exactly from the item). Profession-only enchants are only suggested if you have the profession. Also the guide's gems, and your empty sockets. |
+| **Stats & caps** | The guide's stat priority, and live bars for every cap your role has (spell hit 17%, melee hit 8%, expertise 26, defense 540), with how much rating you still need. Talents and racials are counted, and raid buffs can be ticked. |
+| **Rotation helper** | *Affliction for now.* A big icon for the spell to cast now and two after it with countdowns ("Haunt 2.3"). It only suggests. The Rotation page shows the guide's priority and opener for every spec. |
+| **Professions** | Your professions ranked for your role, and all eleven with what each is worth. |
 | **Talents** | The guide's build for your spec, drawn on your own talent trees and compared with your points. **Preview in talent frame** fills it into Blizzard's talent preview, and nothing is learned until you click Learn. Talents your realm changed from the standard game are marked. |
 | **Glyphs** | The guide's major and minor glyphs with why each is picked, marked Socketed or Missing, plus any glyph you run that the guide doesn't list. |
 | **Damage & healing meter** | Damage (with DPS), effective healing (with HPS), overhealing and damage taken for your group. Pets count for their owner. Each fight is saved and named after the main enemy, with an Overall total and history. Click the title to switch mode or fight, Shift-click to report to chat. |
@@ -58,6 +63,9 @@ Everything below is also in the settings UI.
 | `/fpve talents` | the talent guide |
 | `/fpve talents preview` | fill the guide's build into your talent frame's preview |
 | `/fpve glyphs` | the glyph guide |
+| `/fpve overview` | the character check-up |
+| `/fpve enchants`, `stats`, `professions` | those guide pages |
+| `/fpve rotation [unlock, reset]` | the rotation page, or move / re-centre the helper |
 | `/fpve meter report [channel]` | report the meter to party, raid, say or guild |
 | `/fpve meter reset`, `test`, `unlock` | clear the meter, show test data, or move it |
 | `/fpve boss list` | bosses with learned timers |

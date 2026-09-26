@@ -29,6 +29,11 @@ import build_data as bd  # noqa: E402  (shared downloader, SQL reader, markup he
 ROOT = bd.ROOT
 CACHE = os.path.join(ROOT, ".cache", "pages")
 NOTE_MAX = 1400
+FACTIONS = bd.load_ref("factions")
+# Wowhead [currency=N] ids seen in these guides
+CURRENCY = dict(bd.WH_CURRENCY)
+CURRENCY.update({161: "Stone Keeper's Shards", 241: "Champion's Seals", 301: "Emblems of Triumph",
+                 341: "Emblems of Frost", 221: "Emblems of Conquest"})
 
 
 def lua_str(s):
@@ -40,6 +45,9 @@ def prose(markup, item_names):
     """Guide markup -> plain text, keeping paragraphs; spells become {spell:N}
     so the client names them, items are named here."""
     s = markup.replace("\r", "")
+    s = re.sub(r"\[skill=(\d+)[^\]]*\]", lambda m: bd.SKILLS.get(int(m.group(1)), "the profession"), s)
+    s = re.sub(r"\[faction=(\d+)[^\]]*\]", lambda m: FACTIONS.get(int(m.group(1)), "the faction"), s)
+    s = re.sub(r"\[currency=(\d+)[^\]]*\]", lambda m: CURRENCY.get(int(m.group(1)), "emblems"), s)
     s = re.sub(r"\[spell=(\d+)[^\]]*\]", r"{spell:\1}", s)
     s = re.sub(r"\[item=(\d+)[^\]]*\]", lambda m: item_names.get(int(m.group(1)), "an item"), s)
     s = re.sub(r"\[url[^\]]*\](.*?)\[/url\]", r"\1", s, flags=re.S)
@@ -119,6 +127,187 @@ def glyph_rows(body, item_names):
     return out
 
 
+# --- enchants, gems, stats, rotation ------------------------------------------
+
+SKILL_NAMES = {164: "Blacksmithing", 165: "Leatherworking", 171: "Alchemy", 197: "Tailoring",
+               202: "Engineering", 333: "Enchanting", 755: "Jewelcrafting", 773: "Inscription"}
+# enchant heading word -> the addon's slot key (Modules/Enchants.lua maps these to inventory slots)
+ENCHANT_SLOTS = [("head", "Head"), ("helm", "Head"), ("shoulder", "Shoulder"), ("cloak", "Back"),
+                 ("back", "Back"), ("cape", "Back"), ("chest", "Chest"), ("bracer", "Wrist"),
+                 ("wrist", "Wrist"), ("glove", "Hands"), ("hand", "Hands"), ("belt", "Waist"),
+                 ("waist", "Waist"), ("leg", "Legs"), ("pant", "Legs"), ("boot", "Feet"), ("feet", "Feet"),
+                 ("ring", "Ring"), ("shield", "OffHand"), ("off", "OffHand"), ("ranged", "Ranged"),
+                 ("bow", "Ranged"), ("gun", "Ranged"), ("scope", "Ranged"),
+                 ("weapon", "Weapon"), ("staff", "Weapon"), ("two", "Weapon"), ("2h", "Weapon"),
+                 ("main", "Weapon"), ("one", "Weapon"), ("1h", "Weapon")]
+GEM_SLOTS = [("meta", "Meta"), ("red", "Red"), ("yellow", "Yellow"), ("blue", "Blue"),
+             ("prismatic", "Prismatic")]
+
+
+def parse_options(markup, item_names, item_spell, spell_enchant):
+    """'[item=50368] > [spell=61120] ([skill=773]) | [item=44075] (P1-2)' -> options, best first."""
+    out = []
+    for part in re.split(r"&gt;|>|\|", markup):
+        m = re.search(r"\[(item|spell)=(\d+)", part)
+        if not m:
+            continue
+        kind, id_ = m.group(1), int(m.group(2))
+        skill = re.search(r"\[skill=(\d+)", part)
+        tag = re.search(r"\((P[^)]*)\)", bd.plain(part))
+        if kind == "item":
+            spell = item_spell.get(id_)
+            enchant = spell_enchant.get(spell)
+            name = item_names.get(id_, "item %d" % id_)
+        else:
+            enchant = spell_enchant.get(id_)
+            name = None      # the client names spells
+        out.append({"kind": kind, "id": id_, "enchant": enchant, "name": name,
+                    "skill": SKILL_NAMES.get(int(skill.group(1))) if skill else None,
+                    "tag": tag.group(1) if tag else None})
+    return out
+
+
+def parse_gear_guide(text, item_names, item_spell, spell_enchant):
+    """Every '[h5]Head Enchant: A > B[/h5]' / '[h5]Red Socket: A > B[/h5]' block."""
+    enchants, gems = [], []
+    parts = re.split(r"\[h5[^\]]*\](.*?)\[/h5\]", text, flags=re.S)
+    for k in range(1, len(parts), 2):
+        head = parts[k]
+        label = bd.plain(head).split(":")[0].strip().lower()
+        if ":" not in bd.plain(head):
+            continue
+        opts = parse_options(head.split(":", 1)[1], item_names, item_spell, spell_enchant)
+        if not opts:
+            continue
+        note = prose(re.split(r"\[h[2-5]", parts[k + 1])[0], item_names)[:700]
+        if "gem" in label or "socket" in label or "meta" in label:
+            slot = next((v for w, v in GEM_SLOTS if w in label), None)
+            if slot:
+                gems.append({"slot": slot, "options": opts, "note": note})
+        else:
+            slot = next((v for w, v in ENCHANT_SLOTS if w in label), None)
+            if slot and not any(e["slot"] == slot for e in enchants):
+                enchants.append({"slot": slot, "options": opts, "note": note})
+    return enchants, gems
+
+
+def parse_stats(text):
+    """The first numbered list under a 'priority' heading: ['Hit Rating', 'Spell Power', ...]."""
+    for heading, body in split_sections(text):
+        if "priority" in heading.lower():
+            m = re.search(r"\[ol\](.*?)\[/ol\]", body, re.S)
+            if m:
+                return [bd.plain(x) for x in re.findall(r"\[li\](.*?)\[/li\]", m.group(1), re.S) if bd.plain(x)]
+            lis = [bd.plain(x) for x in re.findall(r"\[li\](.*?)(?:\[/li\]|$)", body, re.S) if bd.plain(x)]
+            if lis:
+                return lis[:10]
+            line = bd.plain(body.split("\n\n")[0] if body.strip() else "")
+            if ">" in line:
+                return [x.strip() for x in line.split(">") if x.strip()][:10]
+    return []
+
+
+def parse_rotation(text, item_names):
+    """The guide's spell priority (first spell of each list entry, in order) and its opener."""
+    priority, seen, opener = [], set(), ""
+    for heading, body in split_sections(text):
+        low = heading.lower()
+        if "opener" in low and not opener:
+            opener = prose(body, item_names)[:700]
+        if ("priority" in low or "standard rotation" in low or "single target" in low) and "aoe" not in low:
+            for li in re.findall(r"\[li\](.*?)(?=\[/li\]|\[li\]|\[/ul\]|\[/ol\])", body, re.S):
+                m = re.search(r"\[spell=(\d+)", li)
+                if m and int(m.group(1)) not in seen:
+                    seen.add(int(m.group(1)))
+                    note = prose(li[m.end():].split("]", 1)[-1], item_names)[:160]
+                    priority.append((int(m.group(1)), note))
+    return priority[:14], opener
+
+
+def page_markup(html):
+    """Like build_data.guide_markup, but a stat-priority page may link no
+    items at all, so pick the longest string that looks like guide markup."""
+    chunks = [c for c in re.findall(r'"((?:[^"\\]|\\.){800,})"', html)
+              if "[h2" in c or "[h3" in c or "[li]" in c or "[item=" in c]
+    if not chunks:
+        raise ValueError("no guide markup found")
+    return json.loads('"' + max(chunks, key=len) + '"')
+
+
+def spec_role(url, spec):
+    page = url.rsplit("/", 1)[-1]      # "healer-enchants-gems-pve"
+    if page.startswith("tank-"):
+        return "tank"
+    if page.startswith("healer-"):
+        return "healer"
+    if "/hunter/" in url:
+        return "ranged"
+    if spec in bd.CASTER_DPS or url.endswith("mage/frost/dps-talent-builds-glyphs-pve") or "/mage/" in url:
+        return "caster"
+    return "melee"
+
+
+def build_spec_guides(cfg, item_names, item_spell, spell_enchant):
+    per = {}
+    for kind in ("enchants", "stats", "rotation"):
+        for page in cfg["pages"][kind]:
+            cls, spec = page["class"], page["spec"]
+            path = os.path.join(CACHE, "%s-%s-%s.html" % (kind, cls, spec))
+            bd.fetch("https://web.archive.org/web/%sid_/%s" % (page["snapshot"], page["url"]), path, False)
+            try:
+                text = page_markup(open(path, encoding="utf-8", errors="replace").read())
+            except ValueError:
+                print("  WARNING %s page for %s %s has no guide text" % (kind, cls, spec))
+                continue
+            d = per.setdefault((cls, spec), {"role": spec_role(page["url"], spec)})
+            if kind == "enchants":
+                d["enchants"], d["gems"] = parse_gear_guide(text, item_names, item_spell, spell_enchant)
+            elif kind == "stats":
+                d["stats"] = parse_stats(text)
+            else:
+                d["priority"], d["opener"] = parse_rotation(text, item_names)
+    for (cls, spec), d in sorted(per.items()):
+        print("%-12s %-14s %-7s enchants %2d  gems %d  stats %d  priority %d"
+              % (cls, spec, d["role"], len(d.get("enchants", [])), len(d.get("gems", [])),
+                 len(d.get("stats", [])), len(d.get("priority", []))))
+    return per
+
+
+def write_spec_guides(per):
+    header = ("-- GENERATED by scripts/build_guides.py -- do not edit by hand.\n"
+              "-- Source: Wowhead WotLK enchant/gem, stat priority and rotation guides\n"
+              "-- (see scripts/guides.json).\n")
+
+    def opt(o):
+        fields = ['kind = "%s"' % o["kind"], "id = %d" % o["id"]]
+        if o["enchant"]:
+            fields.append("enchant = %d" % o["enchant"])
+        for k in ("name", "skill", "tag"):
+            if o[k]:
+                fields.append("%s = %s" % (k, lua_str(o[k])))
+        return "{ " + ", ".join(fields) + " }"
+
+    by_class = {}
+    for (cls, spec), d in per.items():
+        by_class.setdefault(cls, []).append((spec, d))
+    for cls, specs in by_class.items():
+        lines = [header, "local _, ns = ...\n"]
+        for spec, d in sorted(specs):
+            lines.append("\nns:RegisterSpecGuide(%s, %s, {\n\trole = %s,\n" % (lua_str(cls), lua_str(spec), lua_str(d["role"])))
+            lines.append("\tstats = { %s },\n" % ", ".join(lua_str(s) for s in d.get("stats", [])))
+            for key in ("enchants", "gems"):
+                lines.append("\t%s = {\n" % key)
+                for e in d.get(key, []):
+                    lines.append("\t\t{ slot = %s, options = { %s },\n\t\t  note = %s },\n"
+                                 % (lua_str(e["slot"]), ", ".join(opt(o) for o in e["options"]), lua_str(e["note"])))
+                lines.append("\t},\n")
+            lines.append("\tpriority = {\n")
+            for sid, note in d.get("priority", []):
+                lines.append("\t\t{ %d, %s },\n" % (sid, lua_str(note)))
+            lines.append("\t},\n\topener = %s,\n})\n" % lua_str(d.get("opener", "")))
+        bd.write(os.path.join(ROOT, "Data", "Specs", cls.capitalize() + ".lua"), "".join(lines))
+
+
 def main():
     cfg = json.load(open(os.path.join(HERE, "guides.json"), encoding="utf-8"))
     trees_all = json.load(open(os.path.join(HERE, "ref", "talents.json"), encoding="utf-8"))
@@ -132,7 +321,23 @@ def main():
                     changed_talents.add(t["id"])
 
     print("reading item names")
-    item_names = {r["entry"]: r["name"] for r in bd.read_table("item_template")}
+    item_names, item_spell = {}, {}
+    for r in bd.read_table("item_template"):
+        item_names[r["entry"]] = r["name"]
+        if r["spellid_1"]:
+            item_spell[r["entry"]] = r["spellid_1"]
+    ench = json.load(open(os.path.join(HERE, "ref", "enchants.json"), encoding="utf-8"))
+    spell_enchant = {int(k): v for k, v in ench["spell_enchant"].items()}
+
+    write_spec_guides(build_spec_guides(cfg, item_names, item_spell, spell_enchant))
+
+    # enchant id -> name, so the addon can say what IS on an item
+    lines = ["-- GENERATED by scripts/build_guides.py from the realm's SpellItemEnchantment.dbc.\n",
+             "local _, ns = ...\n\nns.EnchantNames = {\n"]
+    for eid, name in sorted((int(k), v) for k, v in ench["names"].items()):
+        lines.append("\t[%d] = %s,\n" % (eid, lua_str(name)))
+    lines.append("}\n")
+    bd.write(os.path.join(ROOT, "Data", "Enchants.lua"), "".join(lines))
 
     per_class = {}
     for page in cfg["pages"]["talents"]:

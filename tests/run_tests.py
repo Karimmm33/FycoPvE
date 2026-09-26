@@ -824,6 +824,182 @@ def every_talent_build_fits_the_realm_trees():
     print("    (%d builds checked)" % builds)
 
 
+AFFLICTION = r'''
+MOCK.spellNames[57946] = "Life Tap"; MOCK.spellNames[63321] = "Life Tap"
+MOCK.spellNames[47809] = "Shadow Bolt"; MOCK.spellNames[17800] = "Shadow Mastery"
+MOCK.spellNames[59164] = "Haunt"; MOCK.spellNames[47843] = "Unstable Affliction"
+MOCK.spellNames[47813] = "Corruption"; MOCK.spellNames[47864] = "Curse of Agony"
+MOCK.spellNames[47855] = "Drain Soul"; MOCK.spellNames[47865] = "Curse of the Elements"
+MOCK.known = { ["Life Tap"] = 0, ["Shadow Bolt"] = 2500, ["Haunt"] = 1500, ["Unstable Affliction"] = 1500,
+               ["Corruption"] = 0, ["Curse of Agony"] = 0, ["Drain Soul"] = 0, ["Curse of the Elements"] = 0 }
+MOCK.units.target = { name = "Boss", guid = "0xB9", hostile = true, hp = 100, maxhp = 100 }
+MOCK.combat = true
+'''
+
+
+def queue(c, n=3):
+    q = c.eval("ns:RotationQueue(%d)" % n)
+    return [(q[i].name, round(q[i].wait, 1)) for i in range(1, len(q) + 1)]
+
+
+def all_dots_up(c, left=15):
+    t = "MOCK.time + %d" % left
+    c.run("MOCK.auras.target = { {'Unstable Affliction', %s, true, true}, {'Corruption', %s, true, true}, "
+          "{'Curse of Agony', %s, true, true}, {'Haunt', %s, true, true} }" % (t, t, t, t))
+
+
+@test
+def rotation_affliction_priority():
+    c = Client(talents=(55, 0, 16))
+    c.run(AFFLICTION)
+    # nothing up: Haunt first, then the DoTs
+    q = queue(c)
+    assert q[0][0] == "Haunt", q
+    assert [x[0] for x in q[1:]] == ["Unstable Affliction", "Corruption"], q
+    # Haunt on cooldown 2.3s, every DoT up: Shadow Bolt now, Haunt next in 2.3
+    all_dots_up(c)
+    c.run('MOCK.cd["Haunt"] = { MOCK.time - 5.7, 8 }')
+    q = queue(c)
+    assert q[0][0] == "Shadow Bolt" and q[1] == ("Haunt", 2.3), q
+    # Unstable Affliction about to fall off (1s left, 1.5s cast): refresh it now
+    c.run("MOCK.auras.target[1][2] = MOCK.time + 1")
+    assert queue(c)[0][0] == "Unstable Affliction", queue(c)
+    # ...unless it is already being cast
+    c.run('MOCK.casting = { "Unstable Affliction", MOCK.time + 1.2 }')
+    assert queue(c)[0][0] != "Unstable Affliction", queue(c)
+    c.run("MOCK.casting = nil")
+    # execute range: Drain Soul before the Shadow Bolt filler
+    all_dots_up(c)
+    c.run("MOCK.units.target.hp = 20")
+    assert queue(c)[0][0] == "Drain Soul", queue(c)
+    c.run("MOCK.units.target.hp = 100")
+    # another curse of mine is the player's choice: no Curse of Agony
+    c.run("MOCK.auras.target = { {'Curse of the Elements', MOCK.time + 200, true, true} }")
+    assert "Curse of Agony" not in [x[0] for x in queue(c, 8)], queue(c, 8)
+    # Corruption is never refreshed while it is up (Everlasting Affliction does that)
+    c.run("MOCK.auras.target = { {'Corruption', MOCK.time + 0.5, true, true} }")
+    assert "Corruption" not in [x[0] for x in queue(c, 8)], queue(c, 8)
+    # the Life Tap glyph buff: only with the glyph socketed
+    all_dots_up(c)
+    c.run('MOCK.cd["Haunt"] = { MOCK.time, 8 }')
+    assert "Life Tap" not in [x[0] for x in queue(c, 8)]
+    c.run('MOCK.spellNames[70010] = "Glyph of Life Tap"; MOCK.glyphSockets[1] = {1, 70010}')
+    assert queue(c)[0][0] == "Life Tap", queue(c)
+    no_errors(c)
+
+
+@test
+def rotation_panel():
+    c = Client(talents=(55, 0, 16))
+    c.run(AFFLICTION)
+    all_dots_up(c)
+    c.run('MOCK.cd["Haunt"] = { MOCK.time - 5.7, 8 }')
+    c.run("MOCK.advance(0.2)")
+    assert c.eval("FycoPvERotation:IsShown()")
+    waits = c.eval("(function() local out = {} for _, f in ipairs(MOCK.frames) do "
+                   "if f._kind == 'FontString' and f._parent and f._parent._parent == FycoPvERotation "
+                   "and f._text and f._text:match('^%d') then out[#out + 1] = f._text end end "
+                   "return table.concat(out, ',') end)()")
+    assert "2." in waits, waits           # Haunt counting down, e.g. "2.1"
+    # no target, or out of combat: hidden
+    c.run("MOCK.units.target = nil; MOCK.advance(0.2)")
+    assert not c.eval("FycoPvERotation:IsShown()")
+    c.run(AFFLICTION + "MOCK.combat = false; MOCK.advance(0.2)")
+    assert not c.eval("FycoPvERotation:IsShown()")
+    c.run('ns:Set("rotation", "outOfCombat", true); MOCK.advance(0.2)')
+    assert c.eval("FycoPvERotation:IsShown()")
+    # a spec without a rotation: never shown
+    c.slash("spec demonology")
+    c.run("MOCK.combat = true; MOCK.advance(0.2)")
+    assert not c.eval("FycoPvERotation:IsShown()")
+    c.slash("rotation unlock")
+    c.slash("rotation unlock")
+    c.slash("rotation reset")
+    c.slash("rotation")
+    no_errors(c)
+
+
+@test
+def enchants_and_sockets_audit():
+    c = Client(talents=(55, 0, 16))
+    # head: the guide's best enchant; chest: none; back: a non-tailor gets the scroll
+    head = c.eval('ns.SpecGuides.WARLOCK.Affliction.enchants[1].options[1].enchant')
+    c.run("MOCK.inventory[1] = 40001; MOCK.enchants[1] = %d" % head)
+    c.run("MOCK.inventory[5] = 40005")
+    c.run("MOCK.inventory[15] = 40015; MOCK.enchants[15] = 1")
+    rows = c.eval("ns:AuditEnchants()")
+    st = {rows[i].slot: rows[i].status for i in range(1, len(rows) + 1)}
+    assert st.get("Head") == "best" and st.get("Chest") == "missing" and st.get("Back") == "other", st
+    back = [rows[i] for i in range(1, len(rows) + 1) if rows[i].slot == "Back"][0]
+    assert back.best.skill is None, "a non-tailor should not be told to use Lightweave"
+    # as a tailor, Lightweave becomes the best
+    c.run('MOCK.skills = { {"Professions", true, 0}, {"Tailoring", false, 450} }')
+    rows = c.eval("ns:AuditEnchants()")
+    back = [rows[i] for i in range(1, len(rows) + 1) if rows[i].slot == "Back"][0]
+    assert back.best.skill == "Tailoring", back.best.skill
+    # rings only count for enchanters
+    c.run("MOCK.inventory[11] = 40011")
+    rows = c.eval("ns:AuditEnchants()")
+    assert "Ring 1" not in [rows[i].slot for i in range(1, len(rows) + 1)]
+    # sockets: 2 sockets, 1 gem -> 1 empty
+    c.run("MOCK.itemStats[40001] = { EMPTY_SOCKET_META = 1, EMPTY_SOCKET_RED = 1 }; MOCK.gems[1] = { 41285 }")
+    s = c.eval("ns:AuditSockets()")
+    assert len(s) == 1 and s[1].empty == 1 and s[1].slot == "Head", [(s[i].slot, s[i].empty) for i in range(1, len(s) + 1)]
+    c.run('ns:OpenWindow("enchants")')
+    no_errors(c)
+
+
+@test
+def stats_caps():
+    c = Client(talents=(55, 0, 16))
+    load_tree(c, "WARLOCK")
+    c.run('for _, t in ipairs(MOCK.tree[1]) do if t.tier == 2 and t.col == 2 then t.name = "Suppression"; t.rank = 3 end end')
+    c.run("MOCK.ratingBonus[8] = 12; MOCK.rating[8] = 315")
+    caps = c.eval("(ns:StatCaps())")
+    hit = caps[1]
+    assert hit.key == "spellhit" and abs(hit.have - 15) < 0.01, (hit.key, hit.have)
+    assert hit.missingRating == 53, hit.missingRating        # 2% x 26.232
+    c.run('ns:Set("stats", "buffSpellHit", true)')
+    assert c.eval("(ns:StatCaps())")[1].have >= 17
+    assert len(c.eval("ns:AuditCaps()")) == 0
+    c.run('ns:OpenWindow("stats")')
+    # a melee spec gets hit and expertise
+    w = Client(cls=("Warrior", "WARRIOR"), talents=(0, 51, 20))
+    caps = w.eval("(ns:StatCaps())")
+    keys = [caps[i].key for i in range(1, len(caps) + 1)]
+    assert keys == ["meleehit", "expertise"], keys
+    # a tank adds defense
+    t = Client(cls=("Warrior", "WARRIOR"), talents=(0, 5, 60))
+    t.run("MOCK.defenseMod = 130")
+    caps = t.eval("(ns:StatCaps())")
+    d = [caps[i] for i in range(1, len(caps) + 1) if caps[i].key == "defense"][0]
+    assert d.have == 530 and d.missingRating == 50, (d.have, d.missingRating)
+    no_errors(c)
+
+
+@test
+def professions_and_overview():
+    c = Client(talents=(55, 0, 16))
+    c.run('MOCK.skills = { {"Professions", true, 0}, {"Tailoring", false, 450}, {"Mining", false, 450} }')
+    have = c.eval("(function() local h = ns:ProfessionAdvice() return h end)()")
+    ranks = {have[i].name: have[i].rank for i in range(1, len(have) + 1)}
+    assert ranks["Tailoring"] == 1 and ranks["Mining"] > 5, ranks
+    c.run("MOCK.inventory[5] = 40005")      # an unenchanted chest
+    c.run("MOCK.ratingBonus[8] = 5")        # well under the hit cap
+    items = c.eval("ns:Checkup()")
+    lv = [(items[i].level, items[i].page) for i in range(1, len(items) + 1)]
+    assert ("fix", "enchants") in lv and ("fix", "stats") in lv, lv
+    assert lv[0][0] == "fix", lv            # worst first
+    # every guide page opens without an error, for every class
+    for cls, token in [("Warlock", "WARLOCK"), ("Warrior", "WARRIOR"), ("Druid", "DRUID"), ("Priest", "PRIEST"),
+                       ("Hunter", "HUNTER"), ("Death Knight", "DEATHKNIGHT")]:
+        k = Client(cls=(cls, token), talents=(51, 20, 0))
+        for page in ("overview", "gear", "talents", "glyphs", "enchants", "stats", "rotation", "professions", "search"):
+            k.run('ns:OpenWindow("%s")' % page)
+        no_errors(k)
+    no_errors(c)
+
+
 @test
 def every_source_formats():
     c = Client()

@@ -1,11 +1,11 @@
 ## Interface: 30300
 ## Title: FycoPvE
-## Notes: PvE companion - BiS check for every class and phase, item sources, threat, damage/healing meter, boss alerts
+## Notes: PvE guide and companion - BiS, talents, glyphs, enchants, caps, rotation helper, professions, threat, meter, boss alerts
 ## Author: Karim
-## Version: 0.7.0
+## Version: 0.11.0
 ## SavedVariables: FycoPvEDB
 ## SavedVariablesPerCharacter: FycoPvECharDB
-## X-Modules: Core, Window, Gear, Talents, Glyphs, Tooltip, Search, Threat, Meter, Bosses, Options
+## X-Modules: Core, Window, Overview, Gear, Talents, Glyphs, Enchants, Stats, Rotation, Professions, Tooltip, Search, Threat, Meter, Bosses, Options
 
 Core.lua
 Widgets.lua
@@ -23,6 +23,17 @@ Data\BiS\Shaman.lua
 Data\BiS\Warlock.lua
 Data\BiS\Warrior.lua
 Data\Realm.lua
+Data\Enchants.lua
+Data\Specs\Deathknight.lua
+Data\Specs\Druid.lua
+Data\Specs\Hunter.lua
+Data\Specs\Mage.lua
+Data\Specs\Paladin.lua
+Data\Specs\Priest.lua
+Data\Specs\Rogue.lua
+Data\Specs\Shaman.lua
+Data\Specs\Warlock.lua
+Data\Specs\Warrior.lua
 Data\Guides\Deathknight.lua
 Data\Guides\Druid.lua
 Data\Guides\Hunter.lua
@@ -39,6 +50,11 @@ Modules\Tooltip.lua
 Modules\Search.lua
 Modules\Talents.lua
 Modules\Glyphs.lua
+Modules\Enchants.lua
+Modules\Stats.lua
+Modules\Rotation.lua
+Modules\Professions.lua
+Modules\Overview.lua
 Modules\Threat.lua
 Modules\Meter.lua
 Modules\Bosses.lua

@@ -305,11 +305,62 @@ function GetGlyphSocketInfo(s)
 	return true, g[1], g[2]
 end
 function IsShiftKeyDown() return MOCK.shift end
+-- MOCK.enchants[slot] = enchant id, MOCK.gems[slot] = { gem ids }
+MOCK.enchants, MOCK.gems, MOCK.itemStats = {}, {}, {}
 function GetInventoryItemLink(unit, slot)
 	local id = MOCK.inventory[slot]
 	if not id then return nil end
-	return "|cffa335ee|Hitem:" .. id .. ":0:0:0:0:0:0:0:0|h[Item " .. id .. "]|h|r"
+	local g = MOCK.gems[slot] or {}
+	return string.format("|cffa335ee|Hitem:%d:%d:%d:%d:%d:0:0:0:0|h[Item %d]|h|r", id, MOCK.enchants[slot] or 0,
+		g[1] or 0, g[2] or 0, g[3] or 0, id)
 end
+function GetItemStats(link)
+	local id = tonumber(link:match("item:(%d+)"))
+	return MOCK.itemStats[id] or {}
+end
+
+-- auras: MOCK.auras[unit] = { { name, expires (0 = no duration), mine, harmful }, ... }
+MOCK.auras = {}
+function UnitAura(unit, name, rank, filter)
+	filter = filter or ""
+	for _, a in ipairs(MOCK.auras[unit] or {}) do
+		local harmful = a[4] and true or false
+		if a[1] == name and (harmful == (filter:find("HARMFUL") ~= nil))
+			and (not filter:find("PLAYER") or a[3]) then
+			return a[1], "", "icon", 1, nil, 30, a[2], a[3] and "player" or "other"
+		end
+	end
+end
+function UnitDebuff(unit, name, rank, filter) return UnitAura(unit, name, rank, "HARMFUL|" .. (filter or "")) end
+
+-- spells: MOCK.known[name] = cast time in ms (known spells only); MOCK.cd[name] = { start, duration }
+MOCK.known, MOCK.cd = {}, {}
+function GetSpellCooldown(name)
+	local c = MOCK.cd[name]
+	if not c then return 0, 0, 1 end
+	return c[1], c[2], 1
+end
+function UnitCastingInfo(unit)
+	local c = unit == "player" and MOCK.casting
+	if not c then return nil end
+	return c[1], "", c[1], "icon", MOCK.time * 1000, c[2] * 1000
+end
+function UnitHealth(unit) local u = U(unit); return u and u.hp or 100 end
+function UnitHealthMax(unit) local u = U(unit); return u and u.maxhp or 100 end
+
+-- professions: MOCK.skills = { { name, isHeader, rank }, ... }
+MOCK.skills = {}
+function GetNumSkillLines() return #MOCK.skills end
+function GetSkillLineInfo(i) local s = MOCK.skills[i]; return s[1], s[2], false, s[3] end
+
+-- ratings: MOCK.rating[cr], MOCK.ratingBonus[cr] (percent or points)
+MOCK.rating, MOCK.ratingBonus = {}, {}
+function GetCombatRating(cr) return MOCK.rating[cr] or 0 end
+function GetCombatRatingBonus(cr) return MOCK.ratingBonus[cr] or 0 end
+function GetSpellHitModifier() return MOCK.spellHitMod or 0 end
+function GetHitModifier() return MOCK.hitMod or 0 end
+function GetExpertise() return MOCK.expertise or 0, MOCK.expertise or 0 end
+function UnitDefense() return 400, MOCK.defenseMod or 0 end
 
 -- the client item cache: tests put equipLoc in for items it "has seen"
 function GetItemInfo(id)
@@ -320,7 +371,17 @@ function GetItemInfo(id)
 		4, 200, 80, "Armor", "Cloth", 1, it.equipLoc or "", "Interface\\Icons\\X"
 end
 function GetItemIcon(id) return "Interface\\Icons\\Item" .. tostring(id) end
-function GetSpellInfo(id) return (MOCK.spellNames and MOCK.spellNames[id]) or ("Spell " .. tostring(id)) end
+--- By ID: any spell, named from MOCK.spellNames. By name: only spells the
+--- player knows (MOCK.known), with their cast time -- as the client does.
+function GetSpellInfo(id)
+	if type(id) == "string" then
+		local ms = MOCK.known and MOCK.known[id]
+		if not ms then return nil end
+		return id, "", "Interface\\Icons\\" .. id, 0, false, 0, ms
+	end
+	local name = (MOCK.spellNames and MOCK.spellNames[id]) or ("Spell " .. tostring(id))
+	return name, "", "Interface\\Icons\\" .. name, 0, false, 0, (MOCK.known and MOCK.known[name]) or 0
+end
 function GetCoinTextureString(c) return tostring(math.floor(c / 10000)) .. "g" end
 function HandleModifiedItemClick() return false end
 function GetAddOnMetadata(_, key) return key == "Version" and "0.test" or nil end

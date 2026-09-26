@@ -259,6 +259,7 @@ local function BuildMain()
 		{ "gear",    "Gear - BiS check of what you wear" },
 		{ "tooltip", "Tooltips - BiS lines on items" },
 		{ "search",  "Search - where items come from" },
+		{ "rotation", "Rotation helper - next spell to cast" },
 		{ "threat",  "Threat - meter and pull warning" },
 		{ "meter",   "Meter - damage and healing" },
 		{ "bosses",  "Boss alerts - casts, debuffs, timers" },

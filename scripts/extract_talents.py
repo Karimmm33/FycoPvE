@@ -138,7 +138,26 @@ def main():
         if diff:
             changed_spells[r[0]] = diff
 
+    # --- enchants: which enchant each enchanting spell puts on an item -----
+    # Spell.dbc 71..73 Effect, 110..112 EffectMiscValue; effect 53 is
+    # ENCHANT_ITEM (permanent). The enchant id is what an item link carries
+    # in its second field, so this is how an equipped enchant is recognised.
+    spell_enchant = {}
+    for r in rs:
+        for k in range(3):
+            if r[71 + k] == 53 and r[110 + k]:
+                spell_enchant[r[0]] = r[110 + k]
+    # SpellItemEnchantment.dbc: 0 id, 14 name (enUS/enGB slot)
+    ench, estr = load(realm, "SpellItemEnchantment.dbc")
+    enchant_names = {r[0]: estr(r[14]) for r in ench if estr(r[14])}
+    # GemProperties.dbc: 0 id, 1 enchant id, 4 colour mask (1 meta, 2 red, 4 yellow, 8 blue)
+    gems, _ = load(realm, "GemProperties.dbc")
+    gem_colors = {r[0]: r[4] for r in gems}
+
     os.makedirs(OUT, exist_ok=True)
+    with open(os.path.join(OUT, "enchants.json"), "w", encoding="utf-8") as f:
+        json.dump({"spell_enchant": spell_enchant, "names": enchant_names, "gem_colors": gem_colors},
+                  f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     with open(os.path.join(OUT, "talents.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     with open(os.path.join(OUT, "realm_changes.json"), "w", encoding="utf-8") as f:
