@@ -30,6 +30,8 @@ CLASS_BITS = {1: "WARRIOR", 2: "PALADIN", 3: "HUNTER", 4: "ROGUE", 5: "PRIEST", 
 # Everything else is numeric. String offsets differ between files, so strings
 # are compared as text and only those four; every other field by value.
 SPELL_STRINGS = range(136, 204)
+PROFESSIONS = {164: "Blacksmithing", 165: "Leatherworking", 171: "Alchemy", 197: "Tailoring", 202: "Engineering",
+               333: "Enchanting", 755: "Jewelcrafting", 773: "Inscription", 185: "Cooking", 129: "First Aid"}
 SPELL_TEXT = {136: "name", 153: "rank", 170: "description", 187: "tooltip"}
 
 
@@ -154,7 +156,24 @@ def main():
     gems, _ = load(realm, "GemProperties.dbc")
     gem_colors = {r[0]: r[4] for r in gems}
 
+    # --- crafting: which profession spell makes which item ---------------
+    # Spell.dbc 71..73 Effect (24 = CREATE_ITEM), 107..109 EffectItemType.
+    # SkillLineAbility.dbc: 1 skill line, 2 spell, 7 minimum skill.
+    sla, _ = load(realm, "SkillLineAbility.dbc")
+    spell_skill = {}
+    for r in sla:
+        if r[1] in PROFESSIONS:
+            spell_skill[r[2]] = [PROFESSIONS[r[1]], r[7]]
+    crafted_by = {}
+    for r in rs:
+        if r[0] in spell_skill:
+            for k in range(3):
+                if r[71 + k] == 24 and r[107 + k]:
+                    crafted_by.setdefault(r[107 + k], []).append(r[0])
+
     os.makedirs(OUT, exist_ok=True)
+    with open(os.path.join(OUT, "crafts.json"), "w", encoding="utf-8") as f:
+        json.dump({"spell_skill": spell_skill, "crafted_by": crafted_by}, f, sort_keys=True, separators=(",", ":"))
     with open(os.path.join(OUT, "enchants.json"), "w", encoding="utf-8") as f:
         json.dump({"spell_enchant": spell_enchant, "names": enchant_names, "gem_colors": gem_colors},
                   f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))

@@ -253,6 +253,10 @@ search…) instead of buttons along the top.
 | Q5 | Gems section. | The guide's gem picks per colour (for warlocks: meta, red, yellow, blue), with phase tags like `P1-2` and `P3`. |
 | Q6 | Sockets section. | "Every socket on your gear has a gem", or a red line per item with empty sockets. |
 | Q7 | Enchant or gem something while the page is open. | It updates. |
+| Q8 | Hover the small **icon** next to an enchant (0.12.2). | The game's own tooltip for that scroll or enchant, showing its real stats (e.g. `+63 Spell Power`), then where to get it: e.g. `Vendor: … - Requires Kirin Tor - Revered` for an arcanum, `Crafted: Enchanting - from a player with it, or the Auction House` for a scroll, `Profession perk: Tailoring` for Lightweave. |
+| Q9 | Under each enchant row. | A grey line with the short version of where to get it. |
+| Q10 | Gems: hover each of the up-to-3 gem icons in a row. | Each gem's real stats and its source, e.g. Runed Dragon's Eye: `Crafted: Jewelcrafting - bind on pickup: only someone with Jewelcrafting can use it`. Shift-click links it into chat. |
+| Q11 | Hover a crafted BiS item in the Gear tab or Search (e.g. Visage Liquification Goggles). | Its source now reads `Crafted: Engineering`, instead of only the guide's note. |
 
 ## R. Stats & caps (0.9)
 
@@ -340,6 +344,7 @@ behaves like the mock. That is what the sections above are for.
 | **0.11.0 build** | everything above | **40 / 40 pass** (2026-09-26) | O–T |
 | 0.12 | Vendor and BiS scanner; server packs with an Auto/On/Off switch | **44 / 44 pass** (2026-09-26) | U |
 | 0.12.1 | The Frostmourne Rebuffed pack, built from your scan | **45 / 45 pass** (2026-09-26) | U7, U8 |
+| 0.12.2 | Gems & Enchants: hoverable icons with real stats and where to get each; crafted sources for every item | **46 / 46 pass** (2026-09-26) | Q8–Q11 |
 
 **What the scan showed (0.12.1).** The two vendors (Magister Brasael, Magistrix Lambriesse) sell **standard** WotLK emblem gear, with stats unchanged from the normal game. What's custom is the **currency**: "Valor" is the old Emblem of Valor and "Justice" is the old Emblem of Heroism, with prices in the thousands. The Valor items are item level 213 and count as **Phase 1** gear on Wowhead, so they never appear on its pre-raid lists; on this server you can buy them before raiding. The pack adds the five that beat pre-raid picks for Affliction and Destruction. **14 healer items were left out** (mana per 5, or healing procs such as The Egg of Mortal Essence and Soul Preserver) because their stats score well but their effects do nothing for a warlock.
 

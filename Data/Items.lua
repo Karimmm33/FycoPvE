@@ -5,6 +5,7 @@ local _, ns = ...
 -- currencies named in vendor costs: item ID -> name
 ns.Currency = {
 	[29434] = "Badge of Justice",
+	[29735] = "Holy Dust",
 	[30244] = "Helm of the Vanquished Hero",
 	[30250] = "Pauldrons of the Vanquished Hero",
 	[31091] = "Chestguard of the Forgotten Protector",
@@ -15,6 +16,8 @@ ns.Currency = {
 	[31101] = "Pauldrons of the Forgotten Conqueror",
 	[31102] = "Pauldrons of the Forgotten Vanquisher",
 	[31103] = "Pauldrons of the Forgotten Protector",
+	[34052] = "Dream Shard",
+	[34057] = "Abyss Crystal",
 	[34167] = "Legplates of the Holy Juggernaut",
 	[34170] = "Pantaloons of Calming Strife",
 	[34180] = "Felfury Legplates",
@@ -74,6 +77,7 @@ ns.Currency = {
 	[40639] = "Mantle of the Lost Vanquisher",
 	[40752] = "Emblem of Heroism",
 	[40753] = "Emblem of Valor",
+	[43228] = "Stone Keeper's Shard",
 	[43589] = "Wintergrasp Mark of Honor",
 	[44934] = "Loop of the Kirin Tor",
 	[45624] = "Emblem of Conquest",
@@ -316,9 +320,45 @@ ns.Items = {
 			{ t = "quest", who = "Darkmoon Beast Deck", lvl = -1 },
 		},
 	},
-	[24116] = { n = "Eye of the Night", q = 3, lvl = 114, inv = 2, g = "{spell:31071} - Jewelcrafting (360)", src = {  } },
-	[24121] = { n = "Chain of the Twilight Owl", q = 3, lvl = 115, inv = 2, g = "{spell:31076} - Jewelcrafting (365)", src = {  } },
-	[24262] = { n = "Spellstrike Pants", q = 4, lvl = 105, inv = 7, g = "Tailoring BoE", src = {  } },
+	[22530] = {
+		n = "Formula: Enchant Bracer - Major Defense",
+		q = 2,
+		lvl = 64,
+		inv = 0,
+		src = {
+			{ t = "drop", who = "Ethereum Nullifier", pct = 1.5 },
+		},
+	},
+	[24116] = {
+		n = "Eye of the Night",
+		q = 3,
+		lvl = 114,
+		inv = 2,
+		g = "{spell:31071} - Jewelcrafting (360)",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[24121] = {
+		n = "Chain of the Twilight Owl",
+		q = 3,
+		lvl = 115,
+		inv = 2,
+		g = "{spell:31076} - Jewelcrafting (365)",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[24262] = {
+		n = "Spellstrike Pants",
+		q = 4,
+		lvl = 105,
+		inv = 7,
+		g = "Tailoring BoE",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
 	[25643] = {
 		n = "Harold's Rejuvenating Broach",
 		q = 3,
@@ -369,6 +409,36 @@ ns.Items = {
 			{ t = "drop", who = "Gruul the Dragonkiller", zone = "Gruul's Lair" },
 		},
 	},
+	[28888] = {
+		n = "Greater Inscription of Vengeance",
+		q = 3,
+		lvl = 70,
+		inv = 0,
+		rep = { "The Aldor", "Exalted" },
+		src = {
+			{
+				t = "vendor",
+				who = "Scribe Saalyn",
+				title = "Aldor Inscriptions",
+				cost = { items = { 29735, 8 } },
+			},
+		},
+	},
+	[29192] = {
+		n = "Arcanum of Ferocity",
+		q = 2,
+		lvl = 70,
+		inv = 0,
+		rep = { "Cenarion Expedition", "Revered" },
+		src = {
+			{
+				t = "vendor",
+				who = "Fedryen Swiftspear",
+				title = "Cenarion Expedition Quartermaster",
+				cost = { gold = 1000000 },
+			},
+		},
+	},
 	[29297] = {
 		n = "Band of the Eternal Defender",
 		q = 4,
@@ -410,7 +480,16 @@ ns.Items = {
 			},
 		},
 	},
-	[30038] = { n = "Belt of Blasting", q = 4, lvl = 128, inv = 6, g = "Tailoring BoE", src = {  } },
+	[30038] = {
+		n = "Belt of Blasting",
+		q = 4,
+		lvl = 128,
+		inv = 6,
+		g = "Tailoring BoE",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
 	[30107] = {
 		n = "Vestments of the Sea-Witch",
 		q = 4,
@@ -714,6 +793,15 @@ ns.Items = {
 			{ t = "quest", who = "Vanquish the Raven God", lvl = -1 },
 		},
 	},
+	[32410] = {
+		n = "Thundering Skyfire Diamond",
+		q = 3,
+		lvl = 70,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
 	[32483] = {
 		n = "The Skull of Gul'dan",
 		q = 4,
@@ -764,7 +852,16 @@ ns.Items = {
 			{ t = "world", n = 59 },
 		},
 	},
-	[32586] = { n = "Bracers of Nimble Thought", q = 4, lvl = 141, inv = 9, g = "Tailoring", src = {  } },
+	[32586] = {
+		n = "Bracers of Nimble Thought",
+		q = 4,
+		lvl = 141,
+		inv = 9,
+		g = "Tailoring",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
 	[32837] = {
 		n = "Warglaive of Azzinoth",
 		q = 5,
@@ -1095,6 +1192,15 @@ ns.Items = {
 			{ t = "drop", who = "Entropius", zone = "The Sunwell" },
 		},
 	},
+	[34220] = {
+		n = "Chaotic Skyfire Diamond",
+		q = 3,
+		lvl = 70,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
 	[34230] = {
 		n = "Ring of Omnipotence",
 		q = 4,
@@ -1355,20 +1461,146 @@ ns.Items = {
 			{ t = "world", n = 21 },
 		},
 	},
-	[34353] = { n = "Quad Deathblow X44 Goggles", q = 4, lvl = 159, inv = 1, g = "Sunwell Plateau", src = {  } },
-	[34359] = { n = "Pendant of Sunfire", q = 4, lvl = 159, inv = 2, g = "{spell:46125} / {spell:46126} - Jewelcrafting (365)", src = {  } },
-	[34360] = { n = "Amulet of Flowing Life", q = 4, lvl = 159, inv = 2, g = "Jewelcrafting (365)", src = {  } },
-	[34361] = { n = "Hard Khorium Band", q = 4, lvl = 159, inv = 11, g = "Jewelcrafting", src = {  } },
-	[34362] = { n = "Loop of Forged Power", q = 4, lvl = 159, inv = 11, g = "Jewelcrafting", src = {  } },
-	[34363] = { n = "Ring of Flowing Life", q = 4, lvl = 159, inv = 11, g = "Jewelcrafting", src = {  } },
-	[34364] = { n = "Sunfire Robe", q = 4, lvl = 159, inv = 20, g = "Tailoring BoP", src = {  } },
-	[34365] = { n = "Robe of Eternal Light", q = 4, lvl = 159, inv = 20, g = "{spell:46131} - Tailoring (365)", src = {  } },
-	[34366] = { n = "Sunfire Handwraps", q = 4, lvl = 159, inv = 10, g = "Tailoring BoP", src = {  } },
-	[34369] = { n = "Carapace of Sun and Shadow", q = 4, lvl = 159, inv = 5, g = "Sunwell Plateau", src = {  } },
-	[34370] = { n = "Gloves of Immortal Dusk", q = 4, lvl = 159, inv = 10, g = "Sunwell Plateau", src = {  } },
-	[34372] = { n = "Leather Gauntlets of the Sun", q = 4, lvl = 159, inv = 10, g = "Leatherworking (365)", src = {  } },
-	[34374] = { n = "Fletcher's Gloves of the Phoenix", q = 4, lvl = 159, inv = 10, g = "Leatherworking", src = {  } },
-	[34378] = { n = "Hard Khorium Battlefists", q = 4, lvl = 159, inv = 10, g = "Blacksmithing BoE", src = {  } },
+	[34353] = {
+		n = "Quad Deathblow X44 Goggles",
+		q = 4,
+		lvl = 159,
+		inv = 1,
+		g = "Sunwell Plateau",
+		src = {
+			{ t = "craft", who = "Engineering", bop = true },
+		},
+	},
+	[34359] = {
+		n = "Pendant of Sunfire",
+		q = 4,
+		lvl = 159,
+		inv = 2,
+		g = "{spell:46125} / {spell:46126} - Jewelcrafting (365)",
+		src = {
+			{ t = "craft", who = "Jewelcrafting", bop = true },
+		},
+	},
+	[34360] = {
+		n = "Amulet of Flowing Life",
+		q = 4,
+		lvl = 159,
+		inv = 2,
+		g = "Jewelcrafting (365)",
+		src = {
+			{ t = "craft", who = "Jewelcrafting", bop = true },
+		},
+	},
+	[34361] = {
+		n = "Hard Khorium Band",
+		q = 4,
+		lvl = 159,
+		inv = 11,
+		g = "Jewelcrafting",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[34362] = {
+		n = "Loop of Forged Power",
+		q = 4,
+		lvl = 159,
+		inv = 11,
+		g = "Jewelcrafting",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[34363] = {
+		n = "Ring of Flowing Life",
+		q = 4,
+		lvl = 159,
+		inv = 11,
+		g = "Jewelcrafting",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[34364] = {
+		n = "Sunfire Robe",
+		q = 4,
+		lvl = 159,
+		inv = 20,
+		g = "Tailoring BoP",
+		src = {
+			{ t = "craft", who = "Tailoring", bop = true },
+		},
+	},
+	[34365] = {
+		n = "Robe of Eternal Light",
+		q = 4,
+		lvl = 159,
+		inv = 20,
+		g = "{spell:46131} - Tailoring (365)",
+		src = {
+			{ t = "craft", who = "Tailoring", bop = true },
+		},
+	},
+	[34366] = {
+		n = "Sunfire Handwraps",
+		q = 4,
+		lvl = 159,
+		inv = 10,
+		g = "Tailoring BoP",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[34369] = {
+		n = "Carapace of Sun and Shadow",
+		q = 4,
+		lvl = 159,
+		inv = 5,
+		g = "Sunwell Plateau",
+		src = {
+			{ t = "craft", who = "Leatherworking", bop = true },
+		},
+	},
+	[34370] = {
+		n = "Gloves of Immortal Dusk",
+		q = 4,
+		lvl = 159,
+		inv = 10,
+		g = "Sunwell Plateau",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[34372] = {
+		n = "Leather Gauntlets of the Sun",
+		q = 4,
+		lvl = 159,
+		inv = 10,
+		g = "Leatherworking (365)",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[34374] = {
+		n = "Fletcher's Gloves of the Phoenix",
+		q = 4,
+		lvl = 159,
+		inv = 10,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[34378] = {
+		n = "Hard Khorium Battlefists",
+		q = 4,
+		lvl = 159,
+		inv = 10,
+		g = "Blacksmithing BoE",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
 	[34381] = {
 		n = "Felstrength Legplates",
 		q = 4,
@@ -3147,6 +3379,21 @@ ns.Items = {
 			{ t = "chest", who = "Cache of Eregos", zone = "The Oculus", mode = "Heroic" },
 		},
 	},
+	[37347] = {
+		n = "Formula: Enchant Cloak - Titanweave",
+		q = 2,
+		lvl = 85,
+		inv = 0,
+		src = {
+			{
+				t = "vendor",
+				who = "Vanessa Sellers",
+				title = "Shard Trader",
+				zone = "Dalaran",
+				cost = { items = { 34052, 4 } },
+			},
+		},
+	},
 	[37360] = {
 		n = "Staff of Draconic Combat",
 		q = 4,
@@ -4710,7 +4957,16 @@ ns.Items = {
 			{ t = "quest", who = "My Old Enemy", zone = "Dragonblight", lvl = 73, side = "Alliance", choice = true },
 		},
 	},
-	[38322] = { n = "Iron-bound Tome", q = 4, lvl = 200, inv = 23, g = "Inscription BoE", src = {  } },
+	[38322] = {
+		n = "Iron-bound Tome",
+		q = 4,
+		lvl = 200,
+		inv = 23,
+		g = "Inscription BoE",
+		src = {
+			{ t = "craft", who = "Inscription" },
+		},
+	},
 	[38360] = {
 		n = "Idol of Arcane Terror",
 		q = 3,
@@ -4795,6 +5051,51 @@ ns.Items = {
 			},
 		},
 	},
+	[38371] = {
+		n = "Jormungar Leg Armor",
+		q = 3,
+		lvl = 77,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[38372] = {
+		n = "Nerubian Leg Armor",
+		q = 3,
+		lvl = 77,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[38373] = {
+		n = "Frosthide Leg Armor",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[38374] = {
+		n = "Icescale Leg Armor",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[38376] = {
+		n = "Heavy Borean Armor Kit",
+		q = 2,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
 	[38614] = {
 		n = "Embrace of Sorrow",
 		q = 3,
@@ -4823,6 +5124,42 @@ ns.Items = {
 		g = "Dragonblight",
 		src = {
 			{ t = "quest", who = "Mystery of the Infinite, Redux", zone = "Dragonblight", lvl = 80, choice = true },
+		},
+	},
+	[38928] = {
+		n = "Scroll of Enchant Chest - Major Spirit",
+		q = 1,
+		lvl = 64,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Enchanting" },
+		},
+	},
+	[38979] = {
+		n = "Scroll of Enchant Gloves - Exceptional Spellpower",
+		q = 1,
+		lvl = 85,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Enchanting" },
+		},
+	},
+	[39003] = {
+		n = "Scroll of Enchant Cloak - Greater Speed",
+		q = 1,
+		lvl = 85,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Enchanting" },
+		},
+	},
+	[39006] = {
+		n = "Scroll of Enchant Boots - Tuskarr's Vitality",
+		q = 1,
+		lvl = 85,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Enchanting" },
 		},
 	},
 	[39140] = {
@@ -7525,6 +7862,123 @@ ns.Items = {
 			{ t = "quest", who = "Clipping Their Wings", zone = "Zul'Drak", lvl = 76, choice = true },
 		},
 	},
+	[39998] = {
+		n = "Runed Scarlet Ruby",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40003] = {
+		n = "Precise Scarlet Ruby",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40008] = {
+		n = "Solid Sky Sapphire",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40012] = {
+		n = "Brilliant Autumn's Glow",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40014] = {
+		n = "Rigid Autumn's Glow",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40015] = {
+		n = "Thick Autumn's Glow",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40017] = {
+		n = "Quick Autumn's Glow",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40022] = {
+		n = "Sovereign Twilight Opal",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40023] = {
+		n = "Shifting Twilight Opal",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40026] = {
+		n = "Purified Twilight Opal",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40031] = {
+		n = "Regal Twilight Opal",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40034] = {
+		n = "Guardian's Twilight Opal",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40051] = {
+		n = "Reckless Monarch Topaz",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
 	[40060] = {
 		n = "Distorted Limbs",
 		q = 4,
@@ -7667,6 +8121,24 @@ ns.Items = {
 			{ t = "drop", who = "Anub'Rekhan", zone = "Naxxramas", mode = "25" },
 		},
 	},
+	[40088] = {
+		n = "Vivid Forest Emerald",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40089] = {
+		n = "Enduring Forest Emerald",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
 	[40107] = {
 		n = "Sand-Worn Band",
 		q = 4,
@@ -7693,6 +8165,105 @@ ns.Items = {
 			{ t = "drop", who = "Patchwerk", zone = "Naxxramas", mode = "25" },
 			{ t = "drop", who = "Grand Widow Faerlina", zone = "Naxxramas", mode = "25" },
 			{ t = "drop", who = "Anub'Rekhan", zone = "Naxxramas", mode = "25" },
+		},
+	},
+	[40113] = {
+		n = "Runed Cardinal Ruby",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40119] = {
+		n = "Solid Majestic Zircon",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40123] = {
+		n = "Brilliant King's Amber",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40125] = {
+		n = "Rigid King's Amber",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40128] = {
+		n = "Quick King's Amber",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40130] = {
+		n = "Shifting Dreadstone",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40133] = {
+		n = "Purified Dreadstone",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40138] = {
+		n = "Regal Dreadstone",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40141] = {
+		n = "Guardian's Dreadstone",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40155] = {
+		n = "Reckless Ametrine",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[40167] = {
+		n = "Enduring Eye of Zul",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
 		},
 	},
 	[40184] = {
@@ -11510,8 +12081,26 @@ ns.Items = {
 			{ t = "drop", who = "Gluth", zone = "Naxxramas", mode = "25" },
 		},
 	},
-	[40673] = { n = "Tempered Saronite Helm", q = 3, lvl = 171, inv = 1, g = "Blacksmithing", src = {  } },
-	[40675] = { n = "Tempered Saronite Shoulders", q = 3, lvl = 171, inv = 3, g = "Blacksmithing", src = {  } },
+	[40673] = {
+		n = "Tempered Saronite Helm",
+		q = 3,
+		lvl = 171,
+		inv = 1,
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[40675] = {
+		n = "Tempered Saronite Shoulders",
+		q = 3,
+		lvl = 171,
+		inv = 3,
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
 	[40678] = {
 		n = "Pendant of the Outcast Hero",
 		q = 4,
@@ -13256,7 +13845,16 @@ ns.Items = {
 			},
 		},
 	},
-	[40767] = { n = "Sonic Booster", q = 3, lvl = 167, inv = 12, g = "Made by {spell:51306}", src = {  } },
+	[40767] = {
+		n = "Sonic Booster",
+		q = 3,
+		lvl = 167,
+		inv = 12,
+		g = "Made by {spell:51306}",
+		src = {
+			{ t = "craft", who = "Engineering" },
+		},
+	},
 	[40822] = {
 		n = "Sigil of the Frozen Conscience",
 		q = 3,
@@ -13354,21 +13952,275 @@ ns.Items = {
 			},
 		},
 	},
-	[41113] = { n = "Saronite Bulwark", q = 3, lvl = 175, inv = 14, g = "Blacksmithing", src = {  } },
-	[41168] = { n = "Armor Plated Combat Shotgun", q = 4, lvl = 200, inv = 26, g = "{spell:56479}", src = {  } },
-	[41257] = { n = "Titansteel Destroyer", q = 4, lvl = 200, inv = 17, g = "Made by {spell:51300}", src = {  } },
-	[41355] = { n = "Vengeance Bindings", q = 3, lvl = 187, inv = 9, g = "Blacksmithing BoE", src = {  } },
-	[41357] = { n = "Daunting Handguards", q = 3, lvl = 187, inv = 10, g = "Blacksmithing", src = {  } },
-	[41383] = { n = "Titansteel Bonecrusher", q = 4, lvl = 200, inv = 21, g = "Made by {spell:51300}", src = {  } },
-	[41384] = { n = "Titansteel Guardian", q = 4, lvl = 200, inv = 21, g = "Blacksmithing (450)", src = {  } },
-	[41386] = { n = "Spiked Titansteel Helm", q = 4, lvl = 200, inv = 1, g = "Blacksmithing BoE", src = {  } },
-	[41387] = { n = "Tempered Titansteel Helm", q = 4, lvl = 200, inv = 1, g = "Made by {spell:51300}", src = {  } },
-	[41392] = { n = "Tempered Titansteel Treads", q = 4, lvl = 200, inv = 8, g = "Made by {spell:51300}", src = {  } },
-	[41550] = { n = "Duskweave Shoulders", q = 2, lvl = 162, inv = 3, g = "Tailoring (420)", src = {  } },
-	[41553] = { n = "Black Duskweave Leggings", q = 3, lvl = 187, inv = 7, g = "Tailoring (425)", src = {  } },
-	[41555] = { n = "Black Duskweave Wristwraps", q = 3, lvl = 187, inv = 9, g = "Tailoring (425)", src = {  } },
-	[41609] = { n = "Wispcloak", q = 4, lvl = 200, inv = 16, g = "Tailoring (415)", src = {  } },
-	[41610] = { n = "Deathchill Cloak", q = 4, lvl = 200, inv = 16, g = "Tailoring (420)", src = {  } },
+	[41111] = { n = "Flexweave Underlay", q = 1, lvl = 75, inv = 0, src = {  } },
+	[41113] = {
+		n = "Saronite Bulwark",
+		q = 3,
+		lvl = 175,
+		inv = 14,
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[41118] = { n = "Nitro Boosts", q = 1, lvl = 75, inv = 0, src = {  } },
+	[41167] = {
+		n = "Heartseeker Scope",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Engineering" },
+		},
+	},
+	[41168] = {
+		n = "Armor Plated Combat Shotgun",
+		q = 4,
+		lvl = 200,
+		inv = 26,
+		g = "{spell:56479}",
+		src = {
+			{ t = "craft", who = "Engineering" },
+		},
+	},
+	[41257] = {
+		n = "Titansteel Destroyer",
+		q = 4,
+		lvl = 200,
+		inv = 17,
+		g = "Made by {spell:51300}",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[41285] = {
+		n = "Chaotic Skyflare Diamond",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[41355] = {
+		n = "Vengeance Bindings",
+		q = 3,
+		lvl = 187,
+		inv = 9,
+		g = "Blacksmithing BoE",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[41357] = {
+		n = "Daunting Handguards",
+		q = 3,
+		lvl = 187,
+		inv = 10,
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[41377] = {
+		n = "Effulgent Skyflare Diamond",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[41380] = {
+		n = "Austere Earthsiege Diamond",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[41383] = {
+		n = "Titansteel Bonecrusher",
+		q = 4,
+		lvl = 200,
+		inv = 21,
+		g = "Made by {spell:51300}",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[41384] = {
+		n = "Titansteel Guardian",
+		q = 4,
+		lvl = 200,
+		inv = 21,
+		g = "Blacksmithing (450)",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[41386] = {
+		n = "Spiked Titansteel Helm",
+		q = 4,
+		lvl = 200,
+		inv = 1,
+		g = "Blacksmithing BoE",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[41387] = {
+		n = "Tempered Titansteel Helm",
+		q = 4,
+		lvl = 200,
+		inv = 1,
+		g = "Made by {spell:51300}",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[41392] = {
+		n = "Tempered Titansteel Treads",
+		q = 4,
+		lvl = 200,
+		inv = 8,
+		g = "Made by {spell:51300}",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[41397] = {
+		n = "Powerful Earthsiege Diamond",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[41398] = {
+		n = "Relentless Earthsiege Diamond",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[41400] = {
+		n = "Thundering Skyflare Diamond",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[41401] = {
+		n = "Insightful Earthsiege Diamond",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[41550] = {
+		n = "Duskweave Shoulders",
+		q = 2,
+		lvl = 162,
+		inv = 3,
+		g = "Tailoring (420)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[41553] = {
+		n = "Black Duskweave Leggings",
+		q = 3,
+		lvl = 187,
+		inv = 7,
+		g = "Tailoring (425)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[41555] = {
+		n = "Black Duskweave Wristwraps",
+		q = 3,
+		lvl = 187,
+		inv = 9,
+		g = "Tailoring (425)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[41601] = {
+		n = "Shining Spellthread",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[41602] = {
+		n = "Brilliant Spellthread",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[41603] = {
+		n = "Azure Spellthread",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[41604] = {
+		n = "Sapphire Spellthread",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[41609] = {
+		n = "Wispcloak",
+		q = 4,
+		lvl = 200,
+		inv = 16,
+		g = "Tailoring (415)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[41610] = {
+		n = "Deathchill Cloak",
+		q = 4,
+		lvl = 200,
+		inv = 16,
+		g = "Tailoring (420)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[41611] = {
+		n = "Eternal Belt Buckle",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
 	[41658] = {
 		n = "Savage Gladiator's Dragonhide Robes",
 		q = 3,
@@ -14862,9 +15714,36 @@ ns.Items = {
 			},
 		},
 	},
-	[41984] = { n = "Hat of Wintry Doom", q = 3, lvl = 187, inv = 1, g = "Tailoring (425)", src = {  } },
-	[41985] = { n = "Silky Iceshard Boots", q = 3, lvl = 187, inv = 8, g = "Tailoring BoE", src = {  } },
-	[41986] = { n = "Deep Frozen Cord", q = 3, lvl = 187, inv = 6, g = "Tailoring BoE", src = {  } },
+	[41984] = {
+		n = "Hat of Wintry Doom",
+		q = 3,
+		lvl = 187,
+		inv = 1,
+		g = "Tailoring (425)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[41985] = {
+		n = "Silky Iceshard Boots",
+		q = 3,
+		lvl = 187,
+		inv = 8,
+		g = "Tailoring BoE",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[41986] = {
+		n = "Deep Frozen Cord",
+		q = 3,
+		lvl = 187,
+		inv = 6,
+		g = "Tailoring BoE",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
 	[41990] = {
 		n = "Savage Gladiator's Felweave Cowl",
 		q = 3,
@@ -15796,10 +16675,46 @@ ns.Items = {
 			},
 		},
 	},
-	[42100] = { n = "Moonshroud Robe", q = 4, lvl = 200, inv = 20, g = "{spell:56024} - Tailoring (440)", src = {  } },
-	[42101] = { n = "Ebonweave Robe", q = 4, lvl = 200, inv = 20, g = "Tailoring (440)", src = {  } },
-	[42102] = { n = "Spellweave Robe", q = 4, lvl = 200, inv = 20, g = "Tailoring (450)", src = {  } },
-	[42103] = { n = "Moonshroud Gloves", q = 4, lvl = 200, inv = 10, g = "{spell:56025} - Tailoring (435)", src = {  } },
+	[42100] = {
+		n = "Moonshroud Robe",
+		q = 4,
+		lvl = 200,
+		inv = 20,
+		g = "{spell:56024} - Tailoring (440)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[42101] = {
+		n = "Ebonweave Robe",
+		q = 4,
+		lvl = 200,
+		inv = 20,
+		g = "Tailoring (440)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[42102] = {
+		n = "Spellweave Robe",
+		q = 4,
+		lvl = 200,
+		inv = 20,
+		g = "Tailoring (450)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[42103] = {
+		n = "Moonshroud Gloves",
+		q = 4,
+		lvl = 200,
+		inv = 10,
+		g = "{spell:56025} - Tailoring (435)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
 	[42110] = {
 		n = "Hateful Gladiator's Band of Dominance",
 		q = 4,
@@ -15833,8 +16748,26 @@ ns.Items = {
 			},
 		},
 	},
-	[42111] = { n = "Ebonweave Gloves", q = 4, lvl = 200, inv = 10, g = "Tailoring (435)", src = {  } },
-	[42113] = { n = "Spellweave Gloves", q = 4, lvl = 200, inv = 10, g = "Tailoring (440)", src = {  } },
+	[42111] = {
+		n = "Ebonweave Gloves",
+		q = 4,
+		lvl = 200,
+		inv = 10,
+		g = "Tailoring (435)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[42113] = {
+		n = "Spellweave Gloves",
+		q = 4,
+		lvl = 200,
+		inv = 10,
+		g = "Tailoring (440)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
 	[42114] = {
 		n = "Deadly Gladiator's Band of Ascendancy",
 		q = 4,
@@ -15934,6 +16867,24 @@ ns.Items = {
 				title = "Apprentice Armor Quartermaster",
 				cost = { honor = 49600 },
 			},
+		},
+	},
+	[42142] = {
+		n = "Bold Dragon's Eye",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting", bop = true },
+		},
+	},
+	[42144] = {
+		n = "Runed Dragon's Eye",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting", bop = true },
 		},
 	},
 	[42208] = {
@@ -16214,8 +17165,26 @@ ns.Items = {
 			},
 		},
 	},
-	[42339] = { n = "Blood Sun Necklace", q = 3, lvl = 175, inv = 2, g = "Jewelcrafting (400)", src = {  } },
-	[42341] = { n = "Figurine - Ruby Hare", q = 3, lvl = 200, inv = 12, g = "{spell:51311}", src = {  } },
+	[42339] = {
+		n = "Blood Sun Necklace",
+		q = 3,
+		lvl = 175,
+		inv = 2,
+		g = "Jewelcrafting (400)",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[42341] = {
+		n = "Figurine - Ruby Hare",
+		q = 3,
+		lvl = 200,
+		inv = 12,
+		g = "{spell:51311}",
+		src = {
+			{ t = "craft", who = "Jewelcrafting", bop = true },
+		},
+	},
 	[42346] = {
 		n = "Deadly Gladiator's Spellblade",
 		q = 4,
@@ -16322,10 +17291,45 @@ ns.Items = {
 			},
 		},
 	},
-	[42395] = { n = "Figurine - Twilight Serpent", q = 3, lvl = 200, inv = 12, g = "Jewelcrafting (400)", src = {  } },
-	[42413] = { n = "Figurine - Sapphire Owl", q = 3, lvl = 200, inv = 12, g = "{spell:56202} - Jewelcrafting (400)", src = {  } },
-	[42418] = { n = "Figurine - Emerald Boar", q = 3, lvl = 200, inv = 12, g = "Jewelcrafting Trainer", src = {  } },
-	[42435] = { n = "Titansteel Shanker", q = 4, lvl = 200, inv = 13, src = {  } },
+	[42395] = {
+		n = "Figurine - Twilight Serpent",
+		q = 3,
+		lvl = 200,
+		inv = 12,
+		g = "Jewelcrafting (400)",
+		src = {
+			{ t = "craft", who = "Jewelcrafting", bop = true },
+		},
+	},
+	[42413] = {
+		n = "Figurine - Sapphire Owl",
+		q = 3,
+		lvl = 200,
+		inv = 12,
+		g = "{spell:56202} - Jewelcrafting (400)",
+		src = {
+			{ t = "craft", who = "Jewelcrafting", bop = true },
+		},
+	},
+	[42418] = {
+		n = "Figurine - Emerald Boar",
+		q = 3,
+		lvl = 200,
+		inv = 12,
+		g = "Jewelcrafting Trainer",
+		src = {
+			{ t = "craft", who = "Jewelcrafting", bop = true },
+		},
+	},
+	[42435] = {
+		n = "Titansteel Shanker",
+		q = 4,
+		lvl = 200,
+		inv = 13,
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
 	[42502] = {
 		n = "Deadly Gladiator's Touch of Defeat",
 		q = 4,
@@ -16354,7 +17358,16 @@ ns.Items = {
 			},
 		},
 	},
-	[42508] = { n = "Titansteel Shield Wall", q = 4, lvl = 200, inv = 14, g = "Blacksmithing", src = {  } },
+	[42508] = {
+		n = "Titansteel Shield Wall",
+		q = 4,
+		lvl = 200,
+		inv = 14,
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
 	[42513] = {
 		n = "Deadly Gladiator's Baton of Light",
 		q = 4,
@@ -16440,13 +17453,76 @@ ns.Items = {
 			},
 		},
 	},
-	[42549] = { n = "Armored Titanium Goggles", q = 4, lvl = 200, inv = 1, g = "{spell:51306}", src = {  } },
-	[42550] = { n = "Weakness Spectralizers", q = 4, lvl = 200, inv = 1, g = "Engineering", src = {  } },
-	[42551] = { n = "Truesight Ice Blinders", q = 4, lvl = 200, inv = 1, g = "Dalaran", src = {  } },
-	[42552] = { n = "Charged Titanium Specs", q = 4, lvl = 200, inv = 1, g = "Engineering BoP", src = {  } },
-	[42553] = { n = "Visage Liquification Goggles", q = 4, lvl = 200, inv = 1, g = "Engineering", src = {  } },
-	[42554] = { n = "Greensight Gogs", q = 4, lvl = 200, inv = 1, g = "Engineering (450)", src = {  } },
-	[42555] = { n = "Electroflux Sight Enhancers", q = 4, lvl = 200, inv = 1, g = "Engineering", src = {  } },
+	[42549] = {
+		n = "Armored Titanium Goggles",
+		q = 4,
+		lvl = 200,
+		inv = 1,
+		g = "{spell:51306}",
+		src = {
+			{ t = "craft", who = "Engineering", bop = true },
+		},
+	},
+	[42550] = {
+		n = "Weakness Spectralizers",
+		q = 4,
+		lvl = 200,
+		inv = 1,
+		g = "Engineering",
+		src = {
+			{ t = "craft", who = "Engineering", bop = true },
+		},
+	},
+	[42551] = {
+		n = "Truesight Ice Blinders",
+		q = 4,
+		lvl = 200,
+		inv = 1,
+		g = "Dalaran",
+		src = {
+			{ t = "craft", who = "Engineering", bop = true },
+		},
+	},
+	[42552] = {
+		n = "Charged Titanium Specs",
+		q = 4,
+		lvl = 200,
+		inv = 1,
+		g = "Engineering BoP",
+		src = {
+			{ t = "craft", who = "Engineering", bop = true },
+		},
+	},
+	[42553] = {
+		n = "Visage Liquification Goggles",
+		q = 4,
+		lvl = 200,
+		inv = 1,
+		g = "Engineering",
+		src = {
+			{ t = "craft", who = "Engineering", bop = true },
+		},
+	},
+	[42554] = {
+		n = "Greensight Gogs",
+		q = 4,
+		lvl = 200,
+		inv = 1,
+		g = "Engineering (450)",
+		src = {
+			{ t = "craft", who = "Engineering", bop = true },
+		},
+	},
+	[42555] = {
+		n = "Electroflux Sight Enhancers",
+		q = 4,
+		lvl = 200,
+		inv = 1,
+		g = "Engineering",
+		src = {
+			{ t = "craft", who = "Engineering", bop = true },
+		},
+	},
 	[42608] = {
 		n = "Furious Gladiator's Totem of Indomitability",
 		q = 4,
@@ -16555,12 +17631,75 @@ ns.Items = {
 			{ t = "more", n = 7 },
 		},
 	},
-	[42642] = { n = "Titanium Impact Band", q = 4, lvl = 200, inv = 11, g = "Jewelcrafting BoE", src = {  } },
-	[42643] = { n = "Titanium Earthguard Ring", q = 4, lvl = 200, inv = 11, g = "Made by {spell:51311}", src = {  } },
-	[42644] = { n = "Titanium Spellshock Ring", q = 4, lvl = 200, inv = 11, g = "Jewelcrafting (430)", src = {  } },
-	[42645] = { n = "Titanium Impact Choker", q = 4, lvl = 200, inv = 2, g = "Jewelcrafting BoE", src = {  } },
-	[42646] = { n = "Titanium Earthguard Chain", q = 4, lvl = 200, inv = 2, g = "Made by {spell:51311}", src = {  } },
-	[42647] = { n = "Titanium Spellshock Necklace", q = 4, lvl = 200, inv = 2, g = "Jewelcrafting (440)", src = {  } },
+	[42642] = {
+		n = "Titanium Impact Band",
+		q = 4,
+		lvl = 200,
+		inv = 11,
+		g = "Jewelcrafting BoE",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[42643] = {
+		n = "Titanium Earthguard Ring",
+		q = 4,
+		lvl = 200,
+		inv = 11,
+		g = "Made by {spell:51311}",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[42644] = {
+		n = "Titanium Spellshock Ring",
+		q = 4,
+		lvl = 200,
+		inv = 11,
+		g = "Jewelcrafting (430)",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[42645] = {
+		n = "Titanium Impact Choker",
+		q = 4,
+		lvl = 200,
+		inv = 2,
+		g = "Jewelcrafting BoE",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[42646] = {
+		n = "Titanium Earthguard Chain",
+		q = 4,
+		lvl = 200,
+		inv = 2,
+		g = "Made by {spell:51311}",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[42647] = {
+		n = "Titanium Spellshock Necklace",
+		q = 4,
+		lvl = 200,
+		inv = 2,
+		g = "Jewelcrafting (440)",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[42702] = {
+		n = "Enchanted Tear",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
 	[42790] = {
 		n = "K3 Surgeon's Gloves",
 		q = 2,
@@ -16757,7 +17896,17 @@ ns.Items = {
 			{ t = "chest", who = "Dark Runed Chest" },
 		},
 	},
-	[43131] = { n = "Eaglebane Bracers", q = 3, lvl = 187, inv = 9, g = "Dalaran", src = {  } },
+	[43097] = { n = "Fur Lining - Attack Power", q = 1, lvl = 85, inv = 0, src = {  } },
+	[43131] = {
+		n = "Eaglebane Bracers",
+		q = 3,
+		lvl = 187,
+		inv = 9,
+		g = "Dalaran",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
 	[43171] = {
 		n = "Fur-lined Moccasins",
 		q = 3,
@@ -16810,9 +17959,36 @@ ns.Items = {
 			{ t = "quest", who = "The Reckoning", zone = "The Storm Peaks", lvl = 80, choice = true },
 		},
 	},
-	[43251] = { n = "Ring of Scarlet Shadows", q = 3, lvl = 187, inv = 11, g = "Jewelcrafting BoE", src = {  } },
-	[43253] = { n = "Ring of Northern Tears", q = 3, lvl = 187, inv = 11, g = "Jewelcrafting (420)", src = {  } },
-	[43258] = { n = "Purehorn Spaulders", q = 3, lvl = 187, inv = 3, g = "Leatherworking (425)", src = {  } },
+	[43251] = {
+		n = "Ring of Scarlet Shadows",
+		q = 3,
+		lvl = 187,
+		inv = 11,
+		g = "Jewelcrafting BoE",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[43253] = {
+		n = "Ring of Northern Tears",
+		q = 3,
+		lvl = 187,
+		inv = 11,
+		g = "Jewelcrafting (420)",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[43258] = {
+		n = "Purehorn Spaulders",
+		q = 3,
+		lvl = 187,
+		inv = 3,
+		g = "Leatherworking (425)",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
 	[43281] = {
 		n = "Edge of Oblivion",
 		q = 3,
@@ -17033,12 +18209,66 @@ ns.Items = {
 			{ t = "drop", who = "Moragg", zone = "Violet Hold", mode = "Heroic" },
 		},
 	},
-	[43458] = { n = "Giantmaim Legguards", q = 4, lvl = 200, inv = 7, g = "Dalaran", src = {  } },
-	[43461] = { n = "Revenant's Breastplate", q = 4, lvl = 200, inv = 5, g = "{spell:60756} - Leatherworking", src = {  } },
-	[43469] = { n = "Revenant's Treads", q = 4, lvl = 200, inv = 8, g = "{spell:60757} - Leatherworking", src = {  } },
-	[43481] = { n = "Trollwoven Spaulders", q = 4, lvl = 200, inv = 3, g = "Leatherworking", src = {  } },
-	[43484] = { n = "Trollwoven Girdle", q = 4, lvl = 200, inv = 6, g = "Leatherworking", src = {  } },
-	[43495] = { n = "Earthgiving Legguards", q = 4, lvl = 200, inv = 7, g = "Leatherworking (440)", src = {  } },
+	[43458] = {
+		n = "Giantmaim Legguards",
+		q = 4,
+		lvl = 200,
+		inv = 7,
+		g = "Dalaran",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[43461] = {
+		n = "Revenant's Breastplate",
+		q = 4,
+		lvl = 200,
+		inv = 5,
+		g = "{spell:60756} - Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[43469] = {
+		n = "Revenant's Treads",
+		q = 4,
+		lvl = 200,
+		inv = 8,
+		g = "{spell:60757} - Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[43481] = {
+		n = "Trollwoven Spaulders",
+		q = 4,
+		lvl = 200,
+		inv = 3,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[43484] = {
+		n = "Trollwoven Girdle",
+		q = 4,
+		lvl = 200,
+		inv = 6,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[43495] = {
+		n = "Earthgiving Legguards",
+		q = 4,
+		lvl = 200,
+		inv = 7,
+		g = "Leatherworking (440)",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
 	[43500] = {
 		n = "Bolstered Legplates",
 		q = 4,
@@ -17049,9 +18279,36 @@ ns.Items = {
 			{ t = "drop", who = "Cyanigosa", zone = "Violet Hold", mode = "Heroic" },
 		},
 	},
-	[43502] = { n = "Earthgiving Boots", q = 4, lvl = 200, inv = 8, g = "Leatherworking (440)", src = {  } },
-	[43565] = { n = "Durable Nerubhide Cape", q = 4, lvl = 200, inv = 16, g = "Made by {spell:51302}", src = {  } },
-	[43566] = { n = "Ice Striker's Cloak", q = 4, lvl = 200, inv = 16, g = "Leatherworking", src = {  } },
+	[43502] = {
+		n = "Earthgiving Boots",
+		q = 4,
+		lvl = 200,
+		inv = 8,
+		g = "Leatherworking (440)",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[43565] = {
+		n = "Durable Nerubhide Cape",
+		q = 4,
+		lvl = 200,
+		inv = 16,
+		g = "Made by {spell:51302}",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[43566] = {
+		n = "Ice Striker's Cloak",
+		q = 4,
+		lvl = 200,
+		inv = 16,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
 	[43573] = {
 		n = "Tears of Bitter Anguish",
 		q = 4,
@@ -17062,13 +18319,76 @@ ns.Items = {
 			{ t = "world", n = 295 },
 		},
 	},
-	[43582] = { n = "Titanium Frostguard Ring", q = 4, lvl = 213, inv = 11, g = "Jewelcrafting", src = {  } },
-	[43586] = { n = "Icebane Chestguard", q = 4, lvl = 213, inv = 5, g = "Blacksmithing", src = {  } },
-	[43587] = { n = "Icebane Girdle", q = 4, lvl = 213, inv = 6, g = "Blacksmithing", src = {  } },
-	[43588] = { n = "Icebane Treads", q = 4, lvl = 213, inv = 8, g = "Blacksmithing", src = {  } },
-	[43590] = { n = "Polar Vest", q = 4, lvl = 213, inv = 5, g = "Leatherworking", src = {  } },
-	[43591] = { n = "Polar Cord", q = 4, lvl = 213, inv = 6, g = "Leatherworking", src = {  } },
-	[43592] = { n = "Polar Boots", q = 4, lvl = 213, inv = 8, g = "Leatherworking", src = {  } },
+	[43582] = {
+		n = "Titanium Frostguard Ring",
+		q = 4,
+		lvl = 213,
+		inv = 11,
+		g = "Jewelcrafting",
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
+	[43586] = {
+		n = "Icebane Chestguard",
+		q = 4,
+		lvl = 213,
+		inv = 5,
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[43587] = {
+		n = "Icebane Girdle",
+		q = 4,
+		lvl = 213,
+		inv = 6,
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[43588] = {
+		n = "Icebane Treads",
+		q = 4,
+		lvl = 213,
+		inv = 8,
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[43590] = {
+		n = "Polar Vest",
+		q = 4,
+		lvl = 213,
+		inv = 5,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[43591] = {
+		n = "Polar Cord",
+		q = 4,
+		lvl = 213,
+		inv = 6,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[43592] = {
+		n = "Polar Boots",
+		q = 4,
+		lvl = 213,
+		inv = 8,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
 	[43611] = { n = "Krol Cleaver", q = 4, lvl = 200, inv = 13, src = {  } },
 	[43612] = { n = "Spineslicer", q = 4, lvl = 200, inv = 25, src = {  } },
 	[43839] = {
@@ -17081,7 +18401,16 @@ ns.Items = {
 			{ t = "quest", who = "The Air Stands Still", zone = "Icecrown", lvl = 79, choice = true },
 		},
 	},
-	[43973] = { n = "Frostsavage Shoulders", q = 3, lvl = 187, inv = 3, g = "Tailoring BoE", src = {  } },
+	[43973] = {
+		n = "Frostsavage Shoulders",
+		q = 3,
+		lvl = 187,
+		inv = 3,
+		g = "Tailoring BoE",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
 	[43988] = {
 		n = "Gale-Proof Cloak",
 		q = 4,
@@ -17342,7 +18671,48 @@ ns.Items = {
 			},
 		},
 	},
-	[44063] = { n = "Figurine - Monarch Crab", q = 3, lvl = 200, inv = 12, g = "{spell:51311}", src = {  } },
+	[44063] = {
+		n = "Figurine - Monarch Crab",
+		q = 3,
+		lvl = 200,
+		inv = 12,
+		g = "{spell:51311}",
+		src = {
+			{ t = "craft", who = "Jewelcrafting", bop = true },
+		},
+	},
+	[44075] = {
+		n = "Arcanum of Dominance",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{
+				t = "vendor",
+				who = "Sorceress Kaylana",
+				title = "Enchantress",
+				cost = { items = { 43228, 40 } },
+			},
+			{
+				t = "vendor",
+				who = "Hoodoo Master Fu'jin",
+				title = "Master Hexxer",
+				cost = { items = { 43228, 40 } },
+			},
+			{
+				t = "vendor",
+				who = "Knight Dameron",
+				title = "Wintergrasp Quartermaster",
+				cost = { items = { 43228, 40 } },
+			},
+			{
+				t = "vendor",
+				who = "Stone Guard Mukar",
+				title = "Wintergrasp Quartermaster",
+				cost = { items = { 43228, 40 } },
+			},
+		},
+	},
 	[44104] = {
 		n = "Fishy Cinch",
 		q = 3,
@@ -17404,6 +18774,64 @@ ns.Items = {
 				who = "Tanak",
 				title = "Frenzyheart Quartermaster",
 				cost = { gold = 138516 },
+			},
+		},
+	},
+	[44129] = {
+		n = "Lesser Inscription of the Storm ",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		rep = { "The Sons of Hodir", "Honored" },
+		src = {
+			{
+				t = "vendor",
+				who = "Lillehoff",
+				title = "The Sons of Hodir Quartermaster",
+				cost = { gold = 750000 },
+			},
+		},
+	},
+	[44131] = {
+		n = "Lesser Inscription of the Axe",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		rep = { "The Sons of Hodir", "Honored" },
+		src = {
+			{
+				t = "vendor",
+				who = "Lillehoff",
+				title = "The Sons of Hodir Quartermaster",
+				cost = { gold = 750000 },
+			},
+		},
+	},
+	[44133] = {
+		n = "Greater Inscription of the Axe",
+		q = 7,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{
+				t = "vendor",
+				who = "Lillehoff",
+				title = "The Sons of Hodir Quartermaster",
+				cost = { gold = 1000000 },
+			},
+		},
+	},
+	[44149] = {
+		n = "Arcanum of Torment",
+		q = 7,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{
+				t = "vendor",
+				who = "Duchess Mynx",
+				title = "Ebon Blade Quartermaster",
+				cost = { gold = 1500000 },
 			},
 		},
 	},
@@ -17799,7 +19227,16 @@ ns.Items = {
 			},
 		},
 	},
-	[44210] = { n = "Faces of Doom", q = 4, lvl = 200, inv = 23, g = "Inscription (425)", src = {  } },
+	[44210] = {
+		n = "Faces of Doom",
+		q = 4,
+		lvl = 200,
+		inv = 23,
+		g = "Inscription (425)",
+		src = {
+			{ t = "craft", who = "Inscription" },
+		},
+	},
 	[44216] = {
 		n = "Cloak of Holy Extermination",
 		q = 3,
@@ -18166,8 +19603,26 @@ ns.Items = {
 			{ t = "world", n = 353 },
 		},
 	},
-	[44322] = { n = "Mercurial Alchemist Stone", q = 3, lvl = 200, inv = 12, g = "Alchemy (400)", src = {  } },
-	[44323] = { n = "Indestructible Alchemist's Stone", q = 3, lvl = 200, inv = 12, g = "Alchemy", src = {  } },
+	[44322] = {
+		n = "Mercurial Alchemist Stone",
+		q = 3,
+		lvl = 200,
+		inv = 12,
+		g = "Alchemy (400)",
+		src = {
+			{ t = "craft", who = "Alchemy", bop = true },
+		},
+	},
+	[44323] = {
+		n = "Indestructible Alchemist's Stone",
+		q = 3,
+		lvl = 200,
+		inv = 12,
+		g = "Alchemy",
+		src = {
+			{ t = "craft", who = "Alchemy", bop = true },
+		},
+	},
 	[44337] = {
 		n = "Staunch Signet",
 		q = 3,
@@ -18322,7 +19777,73 @@ ns.Items = {
 			},
 		},
 	},
-	[44504] = { n = "Nesingwary 4000", q = 4, lvl = 200, inv = 26, g = "Dalaran", src = {  } },
+	[44465] = {
+		n = "Scroll of Enchant Chest - Powerful Stats",
+		q = 1,
+		lvl = 79,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Enchanting" },
+		},
+	},
+	[44467] = {
+		n = "Scroll of Enchant Weapon - Mighty Spellpower",
+		q = 3,
+		lvl = 85,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Enchanting" },
+		},
+	},
+	[44470] = {
+		n = "Scroll of Enchant Bracer - Superior Spellpower",
+		q = 1,
+		lvl = 71,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Enchanting" },
+		},
+	},
+	[44471] = {
+		n = "Formula: Enchant Cloak - Mighty Armor",
+		q = 2,
+		lvl = 70,
+		inv = 0,
+		src = {
+			{
+				t = "vendor",
+				who = "Vanessa Sellers",
+				title = "Shard Trader",
+				zone = "Dalaran",
+				cost = { items = { 34052, 4 } },
+			},
+		},
+	},
+	[44489] = {
+		n = "Formula: Enchant Chest - Powerful Stats",
+		q = 2,
+		lvl = 85,
+		inv = 0,
+		src = {
+			{
+				t = "vendor",
+				who = "Vanessa Sellers",
+				title = "Shard Trader",
+				zone = "Dalaran",
+				cost = { items = { 34052, 4 } },
+			},
+		},
+	},
+	[44504] = {
+		n = "Nesingwary 4000",
+		q = 4,
+		lvl = 200,
+		inv = 26,
+		g = "Dalaran",
+		src = {
+			{ t = "craft", who = "Engineering" },
+		},
+	},
 	[44657] = {
 		n = "Torque of the Red Dragonflight",
 		q = 4,
@@ -18443,6 +19964,12 @@ ns.Items = {
 			{ t = "quest", who = "Tirion's Gambit", zone = "Icecrown", lvl = 80, side = "Alliance", choice = true },
 		},
 	},
+	[44871] = { n = "Greater Inscription of the Axe", q = 4, lvl = 80, inv = 0, src = {  } },
+	[44875] = { n = "Arcanum of the Savage Gladiator", q = 3, lvl = 80, inv = 0, src = {  } },
+	[44876] = { n = "Arcanum of Blissful Mending", q = 3, lvl = 80, inv = 0, src = {  } },
+	[44877] = { n = "Arcanum of Burning Mysteries", q = 3, lvl = 80, inv = 0, src = {  } },
+	[44878] = { n = "Arcanum of the Stalwart Protector", q = 3, lvl = 80, inv = 0, src = {  } },
+	[44879] = { n = "Arcanum of Torment", q = 3, lvl = 80, inv = 0, src = {  } },
 	[44893] = {
 		n = "Titan-Forged Boots of Triumph",
 		q = 4,
@@ -18611,8 +20138,26 @@ ns.Items = {
 			},
 		},
 	},
-	[44930] = { n = "Windripper Boots", q = 4, lvl = 200, inv = 8, g = "Leatherworking (440)", src = {  } },
-	[44931] = { n = "Windripper Leggings", q = 4, lvl = 200, inv = 7, g = "Leatherworking (440)", src = {  } },
+	[44930] = {
+		n = "Windripper Boots",
+		q = 4,
+		lvl = 200,
+		inv = 8,
+		g = "Leatherworking (440)",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[44931] = {
+		n = "Windripper Leggings",
+		q = 4,
+		lvl = 200,
+		inv = 7,
+		g = "Leatherworking (440)",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
 	[44934] = {
 		n = "Loop of the Kirin Tor",
 		q = 4,
@@ -18645,8 +20190,79 @@ ns.Items = {
 			},
 		},
 	},
-	[44949] = { n = "Unbreakable Healing Amplifiers", q = 4, lvl = 200, inv = 1, g = "{spell:62271} - Engineering (440)", src = {  } },
-	[45085] = { n = "Titansteel Spellblade", q = 4, lvl = 200, inv = 21, g = "Blacksmithing (450)", src = {  } },
+	[44936] = {
+		n = "Titanium Plating",
+		q = 3,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[44944] = {
+		n = "Formula: Enchant Bracer - Major Stamina",
+		q = 3,
+		lvl = 85,
+		inv = 0,
+		src = {
+			{
+				t = "vendor",
+				who = "Vanessa Sellers",
+				title = "Shard Trader",
+				zone = "Dalaran",
+				cost = { items = { 34057, 5 } },
+			},
+		},
+	},
+	[44949] = {
+		n = "Unbreakable Healing Amplifiers",
+		q = 4,
+		lvl = 200,
+		inv = 1,
+		g = "{spell:62271} - Engineering (440)",
+		src = {
+			{ t = "craft", who = "Engineering", bop = true },
+		},
+	},
+	[44957] = {
+		n = "Greater Inscription of the Gladiator",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{
+				t = "vendor",
+				who = "Master Sergeant Biggins",
+				title = "Accessories Quartermaster",
+				cost = { honor = 10000 },
+			},
+			{
+				t = "vendor",
+				who = "Brave Stonehide",
+				title = "Accessories Quartermaster",
+				cost = { honor = 10000 },
+			},
+		},
+	},
+	[45056] = {
+		n = "Scroll of Enchant Staff - Greater Spellpower",
+		q = 3,
+		lvl = 85,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Enchanting" },
+		},
+	},
+	[45085] = {
+		n = "Titansteel Spellblade",
+		q = 4,
+		lvl = 200,
+		inv = 21,
+		g = "Blacksmithing (450)",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
 	[45086] = {
 		n = "Rising Sun",
 		q = 4,
@@ -22142,24 +23758,185 @@ ns.Items = {
 			{ t = "world", n = 37 },
 		},
 	},
-	[45550] = { n = "Belt of the Titans", q = 4, lvl = 226, inv = 6, g = "Blacksmithing BoE", src = {  } },
-	[45551] = { n = "Indestructible Plate Girdle", q = 4, lvl = 226, inv = 6, g = "Crafted by {spell:51300}", src = {  } },
-	[45552] = { n = "Plate Girdle of Righteousness", q = 4, lvl = 226, inv = 6, g = "Blacksmithing", src = {  } },
-	[45553] = { n = "Belt of Dragons", q = 4, lvl = 226, inv = 6, g = "Ulduar (25)", src = {  } },
-	[45554] = { n = "Blue Belt of Chaos", q = 4, lvl = 226, inv = 6, g = "Leatherworking", src = {  } },
-	[45555] = { n = "Death-warmed Belt", q = 4, lvl = 226, inv = 6, g = "Leatherworking", src = {  } },
-	[45556] = { n = "Belt of Arctic Life", q = 4, lvl = 226, inv = 6, g = "Leatherworking (450)", src = {  } },
-	[45557] = { n = "Sash of Ancient Power", q = 4, lvl = 226, inv = 6, g = "Tailoring (450)", src = {  } },
-	[45558] = { n = "Cord of the White Dawn", q = 4, lvl = 226, inv = 6, g = "Tailoring (450)", src = {  } },
-	[45559] = { n = "Battlelord's Plate Boots", q = 4, lvl = 226, inv = 8, g = "Blacksmithing BoE", src = {  } },
-	[45560] = { n = "Spiked Deathdealers", q = 4, lvl = 226, inv = 8, g = "Crafted by {spell:51300}", src = {  } },
-	[45561] = { n = "Treads of Destiny", q = 4, lvl = 226, inv = 8, src = {  } },
-	[45562] = { n = "Boots of Living Scale", q = 4, lvl = 226, inv = 8, g = "Ulduar (25)", src = {  } },
-	[45563] = { n = "Lightning Grounded Boots", q = 4, lvl = 226, inv = 8, g = "Leatherworking", src = {  } },
-	[45564] = { n = "Footpads of Silence", q = 4, lvl = 226, inv = 8, g = "Leatherworking", src = {  } },
-	[45565] = { n = "Boots of Wintry Endurance", q = 4, lvl = 226, inv = 8, g = "Leatherworking (450)", src = {  } },
-	[45566] = { n = "Spellslinger's Slippers", q = 4, lvl = 226, inv = 8, g = "Tailoring (450)", src = {  } },
-	[45567] = { n = "Savior's Slippers", q = 4, lvl = 226, inv = 8, g = "Ulduar", src = {  } },
+	[45550] = {
+		n = "Belt of the Titans",
+		q = 4,
+		lvl = 226,
+		inv = 6,
+		g = "Blacksmithing BoE",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[45551] = {
+		n = "Indestructible Plate Girdle",
+		q = 4,
+		lvl = 226,
+		inv = 6,
+		g = "Crafted by {spell:51300}",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[45552] = {
+		n = "Plate Girdle of Righteousness",
+		q = 4,
+		lvl = 226,
+		inv = 6,
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[45553] = {
+		n = "Belt of Dragons",
+		q = 4,
+		lvl = 226,
+		inv = 6,
+		g = "Ulduar (25)",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[45554] = {
+		n = "Blue Belt of Chaos",
+		q = 4,
+		lvl = 226,
+		inv = 6,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[45555] = {
+		n = "Death-warmed Belt",
+		q = 4,
+		lvl = 226,
+		inv = 6,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[45556] = {
+		n = "Belt of Arctic Life",
+		q = 4,
+		lvl = 226,
+		inv = 6,
+		g = "Leatherworking (450)",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[45557] = {
+		n = "Sash of Ancient Power",
+		q = 4,
+		lvl = 226,
+		inv = 6,
+		g = "Tailoring (450)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[45558] = {
+		n = "Cord of the White Dawn",
+		q = 4,
+		lvl = 226,
+		inv = 6,
+		g = "Tailoring (450)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[45559] = {
+		n = "Battlelord's Plate Boots",
+		q = 4,
+		lvl = 226,
+		inv = 8,
+		g = "Blacksmithing BoE",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[45560] = {
+		n = "Spiked Deathdealers",
+		q = 4,
+		lvl = 226,
+		inv = 8,
+		g = "Crafted by {spell:51300}",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[45561] = {
+		n = "Treads of Destiny",
+		q = 4,
+		lvl = 226,
+		inv = 8,
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[45562] = {
+		n = "Boots of Living Scale",
+		q = 4,
+		lvl = 226,
+		inv = 8,
+		g = "Ulduar (25)",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[45563] = {
+		n = "Lightning Grounded Boots",
+		q = 4,
+		lvl = 226,
+		inv = 8,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[45564] = {
+		n = "Footpads of Silence",
+		q = 4,
+		lvl = 226,
+		inv = 8,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[45565] = {
+		n = "Boots of Wintry Endurance",
+		q = 4,
+		lvl = 226,
+		inv = 8,
+		g = "Leatherworking (450)",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[45566] = {
+		n = "Spellslinger's Slippers",
+		q = 4,
+		lvl = 226,
+		inv = 8,
+		g = "Tailoring (450)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[45567] = {
+		n = "Savior's Slippers",
+		q = 4,
+		lvl = 226,
+		inv = 8,
+		g = "Ulduar",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
 	[45570] = {
 		n = "Skyforge Crossbow",
 		q = 4,
@@ -22567,7 +24344,16 @@ ns.Items = {
 			{ t = "drop", who = "Auriaya", zone = "Ulduar", mode = "10" },
 		},
 	},
-	[45810] = { n = "Cloak of Crimson Snow", q = 3, lvl = 200, inv = 16, g = "Tailoring BoE", src = {  } },
+	[45810] = {
+		n = "Cloak of Crimson Snow",
+		q = 3,
+		lvl = 200,
+		inv = 16,
+		g = "Tailoring BoE",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
 	[45819] = {
 		n = "Spiked Battleguard Choker",
 		q = 4,
@@ -29515,27 +31301,237 @@ ns.Items = {
 			{ t = "chest", who = "Argent Crusade Tribute Chest" },
 		},
 	},
-	[47570] = { n = "Saronite Swordbreakers", q = 4, lvl = 245, inv = 9, side = "Alliance", g = "8xTitansteel Bar, 20x Saronite Bar, 4x Crusader Orb", src = {  } },
-	[47571] = { n = "Saronite Swordbreakers", q = 4, lvl = 245, inv = 9, side = "Horde", g = "8xTitansteel Bar, 20x Saronite Bar, 4x Crusader Orb", src = {  } },
-	[47573] = { n = "Titanium Spikeguards", q = 4, lvl = 245, inv = 9, side = "Horde", g = "Blacksmithing BoE", src = {  } },
-	[47576] = { n = "Crusader's Dragonscale Bracers", q = 4, lvl = 245, inv = 9, side = "Alliance", g = "Leatherworking", src = {  } },
-	[47577] = { n = "Crusader's Dragonscale Bracers", q = 4, lvl = 245, inv = 9, side = "Horde", g = "Leatherworking", src = {  } },
-	[47579] = { n = "Black Chitin Bracers", q = 4, lvl = 245, inv = 9, side = "Alliance", g = "Leatherworking", src = {  } },
-	[47580] = { n = "Black Chitin Bracers", q = 4, lvl = 245, inv = 9, side = "Horde", g = "Leatherworking", src = {  } },
-	[47581] = { n = "Bracers of Swift Death", q = 4, lvl = 245, inv = 9, side = "Alliance", g = "Leatherworking", src = {  } },
-	[47582] = { n = "Bracers of Swift Death", q = 4, lvl = 245, inv = 9, side = "Horde", g = "Leatherworking", src = {  } },
-	[47585] = { n = "Bejeweled Wizard's Bracers", q = 4, lvl = 245, inv = 9, side = "Alliance", g = "Tailoring (450)", src = {  } },
-	[47586] = { n = "Bejeweled Wizard's Bracers", q = 4, lvl = 245, inv = 9, side = "Horde", g = "Tailoring (450)", src = {  } },
-	[47587] = { n = "Royal Moonshroud Bracers", q = 4, lvl = 245, inv = 9, side = "Alliance", g = "Trial of the Crusader", src = {  } },
-	[47588] = { n = "Royal Moonshroud Bracers", q = 4, lvl = 245, inv = 9, side = "Horde", g = "Trial of the Crusader", src = {  } },
-	[47591] = { n = "Breastplate of the White Knight", q = 4, lvl = 245, inv = 5, side = "Alliance", g = "Blacksmithing", src = {  } },
-	[47592] = { n = "Breastplate of the White Knight", q = 4, lvl = 245, inv = 5, side = "Horde", g = "Blacksmithing", src = {  } },
-	[47599] = { n = "Knightbane Carapace", q = 4, lvl = 245, inv = 5, side = "Alliance", g = "Leatherworking", src = {  } },
-	[47600] = { n = "Knightbane Carapace", q = 4, lvl = 245, inv = 5, side = "Horde", g = "Leatherworking", src = {  } },
-	[47603] = { n = "Merlin's Robe", q = 4, lvl = 245, inv = 20, side = "Alliance", g = "Trial of the Crusader (10/25)", src = {  } },
-	[47604] = { n = "Merlin's Robe", q = 4, lvl = 245, inv = 20, side = "Horde", g = "Trial of the Crusader (10/25)", src = {  } },
-	[47605] = { n = "Royal Moonshroud Robe", q = 4, lvl = 245, inv = 20, side = "Alliance", g = "Trial of the Crusader", src = {  } },
-	[47606] = { n = "Royal Moonshroud Robe", q = 4, lvl = 245, inv = 20, side = "Horde", g = "Trial of the Crusader", src = {  } },
+	[47570] = {
+		n = "Saronite Swordbreakers",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Alliance",
+		g = "8xTitansteel Bar, 20x Saronite Bar, 4x Crusader Orb",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[47571] = {
+		n = "Saronite Swordbreakers",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Horde",
+		g = "8xTitansteel Bar, 20x Saronite Bar, 4x Crusader Orb",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[47573] = {
+		n = "Titanium Spikeguards",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Horde",
+		g = "Blacksmithing BoE",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[47576] = {
+		n = "Crusader's Dragonscale Bracers",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Alliance",
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[47577] = {
+		n = "Crusader's Dragonscale Bracers",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Horde",
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[47579] = {
+		n = "Black Chitin Bracers",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Alliance",
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[47580] = {
+		n = "Black Chitin Bracers",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Horde",
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[47581] = {
+		n = "Bracers of Swift Death",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Alliance",
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[47582] = {
+		n = "Bracers of Swift Death",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Horde",
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[47585] = {
+		n = "Bejeweled Wizard's Bracers",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Alliance",
+		g = "Tailoring (450)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[47586] = {
+		n = "Bejeweled Wizard's Bracers",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Horde",
+		g = "Tailoring (450)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[47587] = {
+		n = "Royal Moonshroud Bracers",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Alliance",
+		g = "Trial of the Crusader",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[47588] = {
+		n = "Royal Moonshroud Bracers",
+		q = 4,
+		lvl = 245,
+		inv = 9,
+		side = "Horde",
+		g = "Trial of the Crusader",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[47591] = {
+		n = "Breastplate of the White Knight",
+		q = 4,
+		lvl = 245,
+		inv = 5,
+		side = "Alliance",
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[47592] = {
+		n = "Breastplate of the White Knight",
+		q = 4,
+		lvl = 245,
+		inv = 5,
+		side = "Horde",
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[47599] = {
+		n = "Knightbane Carapace",
+		q = 4,
+		lvl = 245,
+		inv = 5,
+		side = "Alliance",
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[47600] = {
+		n = "Knightbane Carapace",
+		q = 4,
+		lvl = 245,
+		inv = 5,
+		side = "Horde",
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[47603] = {
+		n = "Merlin's Robe",
+		q = 4,
+		lvl = 245,
+		inv = 20,
+		side = "Alliance",
+		g = "Trial of the Crusader (10/25)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[47604] = {
+		n = "Merlin's Robe",
+		q = 4,
+		lvl = 245,
+		inv = 20,
+		side = "Horde",
+		g = "Trial of the Crusader (10/25)",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[47605] = {
+		n = "Royal Moonshroud Robe",
+		q = 4,
+		lvl = 245,
+		inv = 20,
+		side = "Alliance",
+		g = "Trial of the Crusader",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[47606] = {
+		n = "Royal Moonshroud Robe",
+		q = 4,
+		lvl = 245,
+		inv = 20,
+		side = "Horde",
+		g = "Trial of the Crusader",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
 	[47607] = {
 		n = "Collar of Ceaseless Torment",
 		q = 4,
@@ -40181,6 +42177,15 @@ ns.Items = {
 			{ t = "drop", who = "Coren Direbrew", zone = "Blackrock Depths" },
 		},
 	},
+	[49110] = {
+		n = "Nightmare Tear",
+		q = 4,
+		lvl = 80,
+		inv = 0,
+		src = {
+			{ t = "craft", who = "Jewelcrafting" },
+		},
+	},
 	[49116] = {
 		n = "Bitter Balebrew Charm",
 		q = 4,
@@ -40649,21 +42654,155 @@ ns.Items = {
 			{ t = "quest", who = "Shadow's Edge", zone = "Icecrown Citadel", lvl = 80 },
 		},
 	},
-	[49890] = { n = "Deathfrost Boots", q = 4, lvl = 264, inv = 8, g = "Tailoring 450", src = {  } },
-	[49891] = { n = "Leggings of Woven Death", q = 4, lvl = 264, inv = 7, g = "Crafted from {spell:70550}", src = {  } },
-	[49892] = { n = "Lightweave Leggings", q = 4, lvl = 264, inv = 7, g = "Icecrown Citadel", src = {  } },
-	[49893] = { n = "Sandals of Consecration", q = 4, lvl = 264, inv = 8, g = "Crafted from {spell:70553}", src = {  } },
-	[49894] = { n = "Blessed Cenarion Boots", q = 4, lvl = 264, inv = 8, src = {  } },
-	[49895] = { n = "Footpads of Impending Death", q = 4, lvl = 264, inv = 8, g = "Leatherworking", src = {  } },
-	[49896] = { n = "Earthsoul Boots", q = 4, lvl = 264, inv = 8, g = "Leatherworking", src = {  } },
-	[49897] = { n = "Rock-Steady Treads", q = 4, lvl = 264, inv = 8, g = "Icecrown Citadel", src = {  } },
-	[49899] = { n = "Bladeborn Leggings", q = 4, lvl = 264, inv = 7, g = "Leatherworking", src = {  } },
-	[49900] = { n = "Lightning-Infused Leggings", q = 4, lvl = 264, inv = 7, g = "Leatherworking", src = {  } },
-	[49901] = { n = "Draconic Bonesplinter Legguards", q = 4, lvl = 264, inv = 7, g = "Dalaran", src = {  } },
-	[49903] = { n = "Legplates of Painful Death", q = 4, lvl = 264, inv = 7, g = "Blacksmithing", src = {  } },
-	[49904] = { n = "Pillars of Might", q = 4, lvl = 264, inv = 7, g = "Crafted by {spell:51300}", src = {  } },
-	[49906] = { n = "Hellfrozen Bonegrinders", q = 4, lvl = 264, inv = 8, g = "Crafted by {spell:51300}", src = {  } },
-	[49907] = { n = "Boots of Kingly Upheaval", q = 4, lvl = 264, inv = 8, g = "Crafted by {spell:51300}", src = {  } },
+	[49890] = {
+		n = "Deathfrost Boots",
+		q = 4,
+		lvl = 264,
+		inv = 8,
+		g = "Tailoring 450",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[49891] = {
+		n = "Leggings of Woven Death",
+		q = 4,
+		lvl = 264,
+		inv = 7,
+		g = "Crafted from {spell:70550}",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[49892] = {
+		n = "Lightweave Leggings",
+		q = 4,
+		lvl = 264,
+		inv = 7,
+		g = "Icecrown Citadel",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[49893] = {
+		n = "Sandals of Consecration",
+		q = 4,
+		lvl = 264,
+		inv = 8,
+		g = "Crafted from {spell:70553}",
+		src = {
+			{ t = "craft", who = "Tailoring" },
+		},
+	},
+	[49894] = {
+		n = "Blessed Cenarion Boots",
+		q = 4,
+		lvl = 264,
+		inv = 8,
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[49895] = {
+		n = "Footpads of Impending Death",
+		q = 4,
+		lvl = 264,
+		inv = 8,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[49896] = {
+		n = "Earthsoul Boots",
+		q = 4,
+		lvl = 264,
+		inv = 8,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[49897] = {
+		n = "Rock-Steady Treads",
+		q = 4,
+		lvl = 264,
+		inv = 8,
+		g = "Icecrown Citadel",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[49899] = {
+		n = "Bladeborn Leggings",
+		q = 4,
+		lvl = 264,
+		inv = 7,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[49900] = {
+		n = "Lightning-Infused Leggings",
+		q = 4,
+		lvl = 264,
+		inv = 7,
+		g = "Leatherworking",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[49901] = {
+		n = "Draconic Bonesplinter Legguards",
+		q = 4,
+		lvl = 264,
+		inv = 7,
+		g = "Dalaran",
+		src = {
+			{ t = "craft", who = "Leatherworking" },
+		},
+	},
+	[49903] = {
+		n = "Legplates of Painful Death",
+		q = 4,
+		lvl = 264,
+		inv = 7,
+		g = "Blacksmithing",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[49904] = {
+		n = "Pillars of Might",
+		q = 4,
+		lvl = 264,
+		inv = 7,
+		g = "Crafted by {spell:51300}",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[49906] = {
+		n = "Hellfrozen Bonegrinders",
+		q = 4,
+		lvl = 264,
+		inv = 8,
+		g = "Crafted by {spell:51300}",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
+	[49907] = {
+		n = "Boots of Kingly Upheaval",
+		q = 4,
+		lvl = 264,
+		inv = 8,
+		g = "Crafted by {spell:51300}",
+		src = {
+			{ t = "craft", who = "Blacksmithing" },
+		},
+	},
 	[49919] = {
 		n = "Cryptmaker",
 		q = 4,
@@ -42279,6 +44418,66 @@ ns.Items = {
 			{ t = "chest", who = "Deathbringer's Cache", zone = "Icecrown Citadel", mode = "25" },
 		},
 	},
+	[50335] = {
+		n = "Greater Inscription of the Axe",
+		q = 7,
+		lvl = 80,
+		inv = 0,
+		rep = { "The Sons of Hodir", "Exalted" },
+		src = {
+			{
+				t = "vendor",
+				who = "Lillehoff",
+				title = "The Sons of Hodir Quartermaster",
+				cost = { gold = 1000000 },
+			},
+		},
+	},
+	[50336] = {
+		n = "Greater Inscription of the Crag",
+		q = 7,
+		lvl = 80,
+		inv = 0,
+		rep = { "The Sons of Hodir", "Exalted" },
+		src = {
+			{
+				t = "vendor",
+				who = "Lillehoff",
+				title = "The Sons of Hodir Quartermaster",
+				cost = { gold = 1000000 },
+			},
+		},
+	},
+	[50337] = {
+		n = "Greater Inscription of the Pinnacle",
+		q = 7,
+		lvl = 80,
+		inv = 0,
+		rep = { "The Sons of Hodir", "Exalted" },
+		src = {
+			{
+				t = "vendor",
+				who = "Lillehoff",
+				title = "The Sons of Hodir Quartermaster",
+				cost = { gold = 1000000 },
+			},
+		},
+	},
+	[50338] = {
+		n = "Greater Inscription of the Storm ",
+		q = 7,
+		lvl = 80,
+		inv = 0,
+		rep = { "The Sons of Hodir", "Exalted" },
+		src = {
+			{
+				t = "vendor",
+				who = "Lillehoff",
+				title = "The Sons of Hodir Quartermaster",
+				cost = { gold = 1000000 },
+			},
+		},
+	},
 	[50339] = {
 		n = "Sliver of Pure Ice",
 		q = 4,
@@ -42567,6 +44766,67 @@ ns.Items = {
 		g = "Icecrown Citadel (25H)",
 		src = {
 			{ t = "chest", who = "Gunship Armory" },
+		},
+	},
+	[50367] = {
+		n = "Arcanum of Torment",
+		q = 7,
+		lvl = 80,
+		inv = 0,
+		rep = { "Knights of the Ebon Blade", "Revered" },
+		src = {
+			{
+				t = "vendor",
+				who = "Duchess Mynx",
+				title = "Ebon Blade Quartermaster",
+				cost = { gold = 1500000 },
+			},
+		},
+	},
+	[50368] = {
+		n = "Arcanum of Burning Mysteries",
+		q = 7,
+		lvl = 80,
+		inv = 0,
+		rep = { "Kirin Tor", "Revered" },
+		src = {
+			{
+				t = "vendor",
+				who = "Archmage Alvareaux",
+				title = "Kirin Tor Quartermaster",
+				zone = "Dalaran",
+				cost = { gold = 1500000 },
+			},
+		},
+	},
+	[50369] = {
+		n = "Arcanum of the Stalwart Protector",
+		q = 7,
+		lvl = 80,
+		inv = 0,
+		rep = { "Argent Crusade", "Revered" },
+		src = {
+			{
+				t = "vendor",
+				who = "Veteran Crusader Aliocha Segard",
+				title = "Argent Crusade Quartermaster",
+				cost = { gold = 1500000 },
+			},
+		},
+	},
+	[50370] = {
+		n = "Arcanum of Blissful Mending",
+		q = 7,
+		lvl = 80,
+		inv = 0,
+		rep = { "The Wyrmrest Accord", "Revered" },
+		src = {
+			{
+				t = "vendor",
+				who = "Cielstrasza",
+				title = "Wyrmrest Accord Quartermaster",
+				cost = { gold = 1500000 },
+			},
 		},
 	},
 	[50377] = {

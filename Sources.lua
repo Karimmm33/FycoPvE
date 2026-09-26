@@ -62,6 +62,13 @@ function ns:FormatSource(s, short)
 		if s.side then extra = extra .. " [" .. s.side .. "]" end
 		if s.choice and not short then extra = extra .. GREY .. " (choice of reward)|r" end
 		return GOLD .. "Quest:|r " .. WHITE .. s.who .. "|r" .. (s.zone and (" - " .. s.zone) or "") .. extra
+	elseif s.t == "craft" then
+		if s.bop then
+			return GOLD .. "Crafted:|r " .. WHITE .. s.who .. "|r" .. (short and "" or (GREY
+				.. " - bind on pickup: only someone with " .. s.who .. " can use it|r"))
+		end
+		return GOLD .. "Crafted:|r " .. WHITE .. s.who .. "|r" .. (short and "" or (GREY
+			.. " - from a player with it, or the Auction House|r"))
 	elseif s.t == "world" then
 		return GOLD .. "World drop:|r Bind on Equip, from " .. s.n .. " kinds of creature - check the Auction House"
 	elseif s.t == "more" then

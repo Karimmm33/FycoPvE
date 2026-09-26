@@ -112,27 +112,104 @@ local STATUS = {
 local pane
 local rows = {}
 
+--- Where an option comes from, as full lines (for its tooltip).
+local function OptionSourceLines(o)
+	local lines = {}
+	if o.kind == "item" then
+		if ns.Items[o.id] then
+			lines = ns:SourceLines(o.id)
+		else
+			lines[1] = "|cff808080No source known - try the Auction House.|r"
+		end
+	elseif o.skill then
+		lines[1] = "|cffffd200Profession perk:|r |cffffffff" .. o.skill .. "|r - you apply it yourself, only with "
+			.. o.skill .. "."
+	elseif o.craft then
+		lines[1] = "|cffffd200Applied by:|r |cffffffff" .. o.craft .. "|r - someone with " .. o.craft
+			.. " casts it on your item (ask in trade chat), or do it yourself."
+	end
+	if o.tag then lines[#lines + 1] = "|cff808080Guide note: " .. o.tag .. "|r" end
+	return lines
+end
+
+--- The same in one short line, for under the row.
+local function OptionSourceShort(o)
+	if o.kind == "item" then
+		return (ns.Items[o.id] and ns:SourceSummary(o.id)) or "|cff808080source unknown - Auction House|r"
+	elseif o.skill then
+		return "|cffffd200Profession perk:|r " .. o.skill .. " only"
+	elseif o.craft then
+		return "|cffffd200Applied by:|r someone with " .. o.craft
+	end
+	return ""
+end
+
+--- An icon for one enchant or gem: hover shows the game's own tooltip (its
+--- real stats) and where it comes from; shift-click links it.
+local function OptionButton(parent)
+	local b = CreateFrame("Button", nil, parent)
+	b:SetWidth(18)
+	b:SetHeight(18)
+	b.icon = b:CreateTexture(nil, "ARTWORK")
+	b.icon:SetAllPoints(b)
+	b.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+	b:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+	b:SetScript("OnEnter", function(self)
+		local o = self.opt
+		if not o then return end
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetHyperlink((o.kind == "item" and "item:" or "spell:") .. o.id)
+		GameTooltip:AddLine(" ")
+		for _, line in ipairs(OptionSourceLines(o)) do GameTooltip:AddLine(line, 1, 1, 1, true) end
+		GameTooltip:Show()
+	end)
+	b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+	b:SetScript("OnClick", function(self)
+		local o = self.opt
+		if not o then return end
+		local link = o.kind == "item" and UI.ItemLink(o.id) or (GetSpellLink and GetSpellLink(o.id))
+		if link then HandleModifiedItemClick(link) end
+	end)
+	function b:SetOption(o)
+		self.opt = o
+		if o.kind == "item" then
+			self.icon:SetTexture(UI.ItemIcon(o.id))
+		else
+			self.icon:SetTexture((select(3, GetSpellInfo(o.id))) or "Interface\\Icons\\INV_Misc_QuestionMark")
+		end
+		self:Show()
+	end
+	return b
+end
+
 local function Row(i)
 	if rows[i] then return rows[i] end
 	local r = CreateFrame("Button", nil, pane.child)
-	r:SetHeight(20)
 	r:SetWidth(600)
 	r.slot = r:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-	r.slot:SetPoint("LEFT", 2, 0)
+	r.slot:SetPoint("TOPLEFT", 2, -3)
 	r.slot:SetWidth(70)
 	r.slot:SetJustifyH("LEFT")
+	r.opts = {}
+	for k = 1, 3 do
+		r.opts[k] = OptionButton(r)
+		r.opts[k]:SetPoint("TOPLEFT", 76 + (k - 1) * 22, 0)
+		r.opts[k]:Hide()
+	end
 	r.want = r:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	r.want:SetPoint("LEFT", 76, 0)
-	r.want:SetWidth(250)
-	r.want:SetHeight(20)
+	r.want:SetHeight(18)
 	r.want:SetJustifyH("LEFT")
 	r.have = r:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	r.have:SetPoint("LEFT", 332, 0)
-	r.have:SetWidth(150)
-	r.have:SetHeight(20)
+	r.have:SetPoint("TOPLEFT", 342, -3)
+	r.have:SetWidth(140)
 	r.have:SetJustifyH("LEFT")
 	r.status = r:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	r.status:SetPoint("LEFT", 486, 0)
+	r.status:SetPoint("TOPLEFT", 486, -3)
+	r.source = r:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall")
+	r.source:SetPoint("TOPLEFT", 98, -18)
+	r.source:SetWidth(490)
+	r.source:SetJustifyH("LEFT")
+	-- hovering the rest of the row lists every option and the guide's reasons
 	r:SetScript("OnEnter", function(self)
 		if not self.tip then return end
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -172,40 +249,53 @@ local function Refresh()
 	local profs = ns:PlayerProfessions()
 	local n, y = 0, -2
 
-	local function Line(slot, want, have, status, tip)
+	--- One row. `opts` are the option icons to show (none for headings);
+	--- `source` is the grey where-to-get-it line under it.
+	local function Line(slot, want, have, status, tip, opts, source)
 		n = n + 1
 		local r = Row(n)
 		r.slot:SetText(slot)
+		opts = opts or {}
+		for k = 1, 3 do
+			if opts[k] then r.opts[k]:SetOption(opts[k]) else r.opts[k]:Hide() end
+		end
+		r.want:ClearAllPoints()
+		r.want:SetPoint("TOPLEFT", 76 + #opts * 22, -3)
+		r.want:SetWidth(262 - #opts * 22)
 		r.want:SetText(want)
 		r.have:SetText(have or "")
 		r.status:SetText(status or "")
+		r.source:SetText(source or "")
 		r.tip = tip
+		local h = (source and source ~= "") and 34 or 20
+		r:SetHeight(h)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", 0, y)
 		r:Show()
-		y = y - 20
+		y = y - h
 	end
 
 	Line("|cffffd200Slot|r", "|cffffd200Guide's best for you|r", "|cffffd200On your gear|r", "")
 	for _, r in ipairs(ns:AuditEnchants(guide)) do
 		local haveText = r.have == 0 and "|cff808080none|r" or (ns.EnchantNames[r.have] or ("enchant " .. r.have))
 		Line(r.slot, OptionName(r.best) .. (r.best.skill and (" |cff808080(" .. r.best.skill .. ")|r") or ""),
-			haveText, STATUS[r.status], OptionsTip(r.entry, profs))
+			haveText, STATUS[r.status], OptionsTip(r.entry, profs), { r.best }, OptionSourceShort(r.best))
 	end
 
 	y = y - 10
-	Line("|cffffd200Gems|r", "|cffffd200Guide's picks|r", "", "")
+	Line("|cffffd200Gems|r", "|cffffd200Guide's picks - hover each for its stats|r", "", "")
 	if #(guide.gems or {}) == 0 then
 		Line("", "|cff808080The guide names no specific gems.|r", "", "")
 	end
 	for _, g in ipairs(guide.gems or {}) do
-		local names = {}
+		local top, names = {}, {}
 		for i = 1, math.min(3, #g.options) do
 			local o = g.options[i]
+			top[#top + 1] = o
 			names[#names + 1] = OptionName(o) .. (o.tag and (" |cff808080" .. o.tag .. "|r") or "")
-				.. (o.skill and (" |cff808080(" .. o.skill .. ")|r") or "")
 		end
-		Line(g.slot, table.concat(names, " > "), "", "", OptionsTip(g, profs))
+		Line(g.slot, names[1] .. (#names > 1 and " |cff808080> ...|r" or ""), "", "", OptionsTip(g, profs), top,
+			OptionSourceShort(g.options[1]))
 	end
 
 	y = y - 10

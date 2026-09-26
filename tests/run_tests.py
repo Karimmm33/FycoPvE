@@ -969,6 +969,39 @@ def enchants_and_sockets_audit():
 
 
 @test
+def enchant_and_gem_sources():
+    c = Client(talents=(55, 0, 16))
+    c.run("MOCK.inventory[1] = 40001; MOCK.inventory[15] = 40015")
+    c.run('ns:OpenWindow("enchants")')
+    # every option icon on the page carries its option; collect them
+    opts = c.eval(r'''(function() local out = {} for _, f in ipairs(MOCK.frames) do
+        if f.opt and f._shown then out[#out + 1] = f end end return out end)()''')
+    n = len(opts)
+    assert n >= 4, n
+    kinds = {c.eval("(function() local o = 0 for _, f in ipairs(MOCK.frames) do if f.opt and f._shown then "
+                    "o = o + 1 if o == %d then return f.opt.kind end end end end)()" % i) for i in range(1, n + 1)}
+    assert kinds == {"item", "spell"} or "item" in kinds, kinds
+    # hover each: the game's tooltip for it, plus where to get it
+    texts = []
+    for i in range(1, n + 1):
+        c.run("(function() local o = 0 for _, f in ipairs(MOCK.frames) do if f.opt and f._shown then o = o + 1 "
+              "if o == %d then MOCK.run(f, 'OnEnter') end end end end)()" % i)
+        link = c.eval("GameTooltip._link")
+        lines = strip_colors(" ".join(c.eval("GameTooltip._lines").values()))
+        assert link and (link.startswith("item:") or link.startswith("spell:")), link
+        texts.append(lines)
+    joined = " ".join(texts)
+    assert "Crafted: Jewelcrafting" in joined, joined[:400]      # the Runed Dragon's Eye
+    assert "Vendor:" in joined or "Requires" in joined, joined[:400]   # an arcanum from a reputation vendor
+    # the grey source line under each enchant row
+    src = c.eval(r'''(function() local out = {} for _, f in ipairs(MOCK.frames) do
+        if f._kind == "FontString" and f._shown and f._text and f._text:find("Crafted") then out[#out + 1] = f._text end
+        end return #out end)()''')
+    assert src >= 1, src
+    no_errors(c)
+
+
+@test
 def stats_caps():
     c = Client(talents=(55, 0, 16))
     load_tree(c, "WARLOCK")

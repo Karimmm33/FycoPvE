@@ -494,6 +494,28 @@ def main():
     if dropped:
         print("dropped %d misfiled items; %d distinct items remain" % (dropped, len(wanted)))
 
+    # enchant scrolls, arcanums and gems the guides recommend (build_guides.py
+    # lists them), so the Gems & Enchants page can say where each comes from
+    extra_path = os.path.join(SCRIPTS, "ref", "extra_items.json")
+    if os.path.exists(extra_path):
+        extra = {i for i in json.load(open(extra_path)) if i in items}
+        print("plus %d enchant and gem items from the guides" % len(extra - wanted))
+        wanted |= extra
+
+    # which profession makes what (extract_talents.py, from the realm client)
+    crafts = json.load(open(os.path.join(SCRIPTS, "ref", "crafts.json"), encoding="utf-8"))
+    spell_skill = {int(k): v[0] for k, v in crafts["spell_skill"].items()}
+    crafted_by = {int(k): v for k, v in crafts["crafted_by"].items()}
+
+    def craft_skills(item):
+        """Professions that make an item: its recipe creates it, or (enchant
+        scrolls) its use-spell is itself an enchanting spell."""
+        skills = [spell_skill[s] for s in crafted_by.get(item, []) if s in spell_skill]
+        use = items[item]["spellid_1"]
+        if use in spell_skill and spell_skill[use] in ("Enchanting", "Inscription"):
+            skills.append(spell_skill[use])
+        return sorted(set(skills))
+
     ctpl = {}
     diff_parent = {}   # heroic / raid-size entry -> (base entry, difficulty index)
     for r in read_table("creature_template"):
@@ -717,6 +739,10 @@ def main():
             zone = areas.get(q["QuestSortID"], {}).get("name") if q["QuestSortID"] > 0 else None
             src.append({"t": "quest", "who": q["LogTitle"], "zone": zone, "lvl": q["QuestLevel"],
                         "side": side, "choice": choice or None})
+
+        # crafted: made by a profession (bind-on-pickup ones only by the crafter)
+        for skill in craft_skills(item):
+            src.append({"t": "craft", "who": skill, "bop": (row["bonding"] == 1) or None})
         return src
 
     def guide_note(markup):
@@ -764,7 +790,7 @@ def main():
         print("WARNING: not in item_template, skipped:", missing)
 
     out_items = {}
-    stats = {"drop": 0, "chest": 0, "vendor": 0, "quest": 0, "world": 0, "none": 0}
+    stats = {"drop": 0, "chest": 0, "vendor": 0, "quest": 0, "world": 0, "craft": 0, "none": 0}
     for item in sorted(wanted):
         if item not in items:
             continue
@@ -833,9 +859,9 @@ def main():
         if seen:
             print("UNMAPPED %s (extend ARMOR/WEAPONISH or tier_of if they hold gear): %d kinds, e.g. %s"
                   % (what, len(seen), sorted(seen)[:12]))
-    print("items: %d | with drop %d, chest %d, vendor %d, quest %d, world %d, NO source %d"
+    print("items: %d | with drop %d, chest %d, vendor %d, quest %d, world %d, crafted %d, NO source %d"
           % (len(out_items), stats["drop"], stats["chest"], stats["vendor"], stats["quest"],
-             stats["world"], stats["none"]))
+             stats["world"], stats["craft"], stats["none"]))
     nosrc = [i for i, r in out_items.items() if not r["src"]]
     for i in nosrc:
         print("  no DB source: %d %s | guide: %s" % (i, out_items[i]["n"], out_items[i]["g"]))
