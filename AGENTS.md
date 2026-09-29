@@ -22,6 +22,20 @@ A PvE companion addon for WoW 3.3.5a (Interface 30300), the sister of FycoPvP
 and an item source search, and is built to grow into more modules (threat,
 meters, boss timers) that plug into the same core, window and settings.
 
+**It depends on FycoUI** (`D:\Projects\FycoUI`, `## Dependencies: FycoUI`),
+the shared screen layer whose `/fui lock` moves every frame in all three
+addons.
+
+- `Core.lua` registers the four on-screen frames (threat, meter, boss timers,
+  rotation helper) with `FycoUI:RegisterUnlock` after the modules load,
+  guarded by `if FycoUI` so the test suite can load FycoPvE alone.
+- An unlock function must SET the state it is given (`ns:ThreatUnlock(on,
+  quiet)`) — FycoUI may call it with the state it is already in. `nil` still
+  flips, for the slash commands and buttons. A new movable frame registers the
+  same way.
+- Deploy FycoUI too when testing: `D:\Projects\FycoUI\scripts\deploy.ps1`.
+- `package.ps1` puts `..\FycoUI` in the release zip beside `FycoPvE\`.
+
 ## The development loop
 
 **This project is the source of truth. The copy inside the WoW client is

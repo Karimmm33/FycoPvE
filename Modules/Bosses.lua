@@ -291,10 +291,23 @@ end
 -- controls
 ----------------------------------------------------------------------
 
-function ns:BossUnlock()
-	unlocked = not unlocked
+--- on: true/false to set, nil to flip. It used to flip only, which FycoUI's
+--- /fui lock cannot use: it has to be able to say "locked" to a frame that
+--- may already be locked. quiet: FycoUI announces once for every frame.
+function ns:BossUnlock(on, quiet)
+	if on == nil then on = not unlocked end
+	unlocked = on
 	frame:EnableMouse(unlocked)
-	ns:Print("boss timer bars " .. (unlocked and "|cff40ff40unlocked|r - drag them, then lock again" or "locked"))
+	if not quiet then
+		ns:Print("boss timer bars " .. (unlocked and "|cff40ff40unlocked|r - drag them, then lock again" or "locked"))
+	end
+end
+
+--- Back to where the bars start, the same way the other modules reset.
+function ns:BossResetPosition()
+	ns:Set("bosses", "pos", nil)
+	frame:ClearAllPoints()
+	frame:SetPoint("TOP", UIParent, "TOP", 0, -180)
 end
 
 function ns:BossTest()

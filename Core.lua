@@ -470,6 +470,23 @@ ns:On("PLAYER_LOGIN", function()
 		end
 	end
 
+	-- The on-screen frames unlock through FycoUI's one /fui lock, together
+	-- with FycoPvP's and FycoUI's own. `quiet` stops each one announcing
+	-- itself: FycoUI prints once for all of them. /fpve <thing> unlock still
+	-- works on its own. Guarded because the test suite loads FycoPvE alone.
+	if FycoUI then
+		local function Register(label, unlock, reset)
+			if not ns[unlock] then return end   -- that module failed to load
+			FycoUI:RegisterUnlock(label,
+				function(on) ns[unlock](ns, on, true) end,
+				ns[reset] and function() ns[reset](ns) end or nil)
+		end
+		Register("FycoPvE threat meter",    "ThreatUnlock",   "ThreatReset")
+		Register("FycoPvE damage meter",    "MeterUnlock",    "MeterResetPosition")
+		Register("FycoPvE boss timers",     "BossUnlock",     "BossResetPosition")
+		Register("FycoPvE rotation helper", "RotationUnlock", "RotationResetPosition")
+	end
+
 	if ns:Get("general", "loginMessage") then
 		ns:Print("v" .. (GetAddOnMetadata(ADDON, "Version") or "?") .. " - " .. ns:ProfileText()
 		      .. ". |cffffff00/fpve|r to open.")

@@ -529,10 +529,14 @@ end
 -- controls
 ----------------------------------------------------------------------
 
-function ns:MeterUnlock(on)
+--- on: true/false to set, nil to flip. quiet: FycoUI's /fui lock announces
+--- once for every frame, so it asks each one not to.
+function ns:MeterUnlock(on, quiet)
 	if on == nil then on = not unlocked end
 	unlocked = on
-	ns:Print("meter " .. (on and "|cff40ff40unlocked|r - drag it, then lock it again" or "locked"))
+	if not quiet then
+		ns:Print("meter " .. (on and "|cff40ff40unlocked|r - drag it, then lock it again" or "locked"))
+	end
 end
 
 function ns:MeterTest(on)

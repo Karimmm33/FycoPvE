@@ -298,11 +298,17 @@ local function Update()
 	end
 end
 
-function ns:RotationUnlock()
-	unlocked = not unlocked
+--- on: true/false to set, nil to flip. It used to flip only, which FycoUI's
+--- /fui lock cannot use: it has to be able to say "locked" to a frame that
+--- may already be locked. quiet: FycoUI announces once for every frame.
+function ns:RotationUnlock(on, quiet)
+	if on == nil then on = not unlocked end
+	unlocked = on
 	frame:EnableMouse(unlocked)
 	if unlocked then frame.bg:Show() else frame.bg:Hide() end
-	ns:Print("rotation helper " .. (unlocked and "|cff40ff40unlocked|r - drag it, then lock it again" or "locked"))
+	if not quiet then
+		ns:Print("rotation helper " .. (unlocked and "|cff40ff40unlocked|r - drag it, then lock it again" or "locked"))
+	end
 end
 
 function ns:RotationResetPosition()

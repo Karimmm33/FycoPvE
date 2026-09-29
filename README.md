@@ -73,6 +73,11 @@ Everything below is also in the settings UI.
 | `/fpve boss forget [name]` | forget one boss's timers, or all of them |
 | `/fpve boss test`, `unlock` | preview or move the boss alerts and bars |
 | `/fpve minimap` | show or hide the minimap button |
+| `/fui lock` | move **every** frame at once — the threat meter, damage meter, boss timers and rotation helper, together with FycoPvP's and FycoUI's |
+
+The single-frame `unlock` commands above still work on their own. `/fui lock`
+is the one to reach for: it unlocks everything from FycoPvE, FycoPvP and
+FycoUI together, and `/fui reset` puts them all back.
 
 ## Install
 
@@ -81,7 +86,9 @@ Everything below is also in the settings UI.
    the green *Code → Download ZIP* button: its folder name is wrong and WoW
    won't see the addon.
 2. Extract it into `World of Warcraft\Interface\AddOns\`, so you end up with
-   `Interface\AddOns\FycoPvE\FycoPvE.toc`.
+   `Interface\AddOns\FycoPvE\FycoPvE.toc` and `Interface\AddOns\FycoUI\FycoUI.toc`.
+   **FycoPvE needs FycoUI**, the shared screen layer that moves every frame; the
+   zip includes it, and the client will not load FycoPvE without it.
 3. Restart the game or `/reload`.
 
 ## Where the data comes from

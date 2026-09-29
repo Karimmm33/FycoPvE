@@ -1,8 +1,9 @@
 ## Interface: 30300
 ## Title: FycoPvE
-## Notes: PvE guide and companion - BiS, talents, glyphs, enchants, caps, rotation helper, professions, threat, meter, boss alerts
+## Notes: PvE guide and companion - BiS, talents, glyphs, enchants, caps, rotation helper, professions, threat, meter, boss alerts. Needs FycoUI.
 ## Author: Karim
-## Version: 0.12.3
+## Version: 0.13.0
+## Dependencies: FycoUI
 ## SavedVariables: FycoPvEDB
 ## SavedVariablesPerCharacter: FycoPvECharDB
 ## X-Modules: Core, Window, Overview, Gear, Talents, Glyphs, Enchants, Stats, Rotation, Professions, Tooltip, Search, Threat, Meter, Bosses, Options
